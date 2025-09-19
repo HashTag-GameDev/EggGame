@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2a1s6ehm0rdh"]
+
+[ext_resource type="Texture2D" uid="uid://cbmilyq5m8v1y" path="res://Assets/Sprites/ketchup.png" id="1_vifvp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rxwt5"]
+radius = 7.0
+height = 60.0
+
+[node name="KetchupBottle" type="StaticBody2D"]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vifvp")
+offset = Vector2(0, -81)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rxwt5")

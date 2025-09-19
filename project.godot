@@ -19,6 +19,18 @@ config/icon="res://icon.svg"
 window/size/viewport_width=640
 window/size/viewport_height=360
 
+[file_customization]
+
+folder_colors={
+"res://Assets/": "yellow",
+"res://Scenes/": "blue",
+"res://Scripts/": "green"
+}
+
+[global_group]
+
+spawn_area=""
+
 [input]
 
 move_up={
