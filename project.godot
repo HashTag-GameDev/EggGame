@@ -30,6 +30,7 @@ folder_colors={
 [global_group]
 
 spawn_area=""
+player=""
 
 [input]
 

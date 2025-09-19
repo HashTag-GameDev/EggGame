@@ -1,8 +1,12 @@
 extends CharacterBody2D
+class_name Player
 
 @export var speed: float = 150.0
 @export var animated_sprite: AnimatedSprite2D
 @export var player_ui: CanvasLayer
+
+func _ready():
+	AI.Blackboard.player = self
 
 func _physics_process(_delta: float) -> void:
 	handle_movement()

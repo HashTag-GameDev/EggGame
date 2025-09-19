@@ -1,9 +1,73 @@
 [gd_scene load_steps=19 format=4 uid="uid://cswc0pnqv2k8j"]
 
-[ext_resource type="Script" uid="uid://b0gbx8io1v52k" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="SpriteFrames" uid="uid://dgyemphnumibx" path="res://Assets/Spritesheets/egg_frames.tres" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://rtoe8vgghpfn" path="res://Assets/Spritesheets/ui_sheet.png" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://dkmrgjux4x0jk" path="res://Scripts/player_ui.gd" id="3_gy20a"]
+
+[sub_resource type="GDScript" id="GDScript_al8ar"]
+script/source = "extends CharacterBody2D
+class_name Player
+
+@export var speed: float = 150.0
+@export var animated_sprite: AnimatedSprite2D
+@export var player_ui: CanvasLayer
+
+func _ready():
+	AI.Blackboard.player = self
+
+func _physics_process(_delta: float) -> void:
+	handle_movement()
+	handle_animation()
+
+func handle_movement() -> void:
+	var input_vector: Vector2 = Vector2.ZERO
+	
+	input_vector.x = Input.get_axis(\"move_left\", \"move_right\")
+	input_vector.y = Input.get_axis(\"move_up\", \"move_down\")
+	
+	input_vector = input_vector.normalized()
+	
+	velocity = input_vector * speed
+	
+	move_and_slide()
+
+func handle_animation() -> void:
+	var input_vector: Vector2 = Vector2.ZERO
+	
+	input_vector.x = Input.get_axis(\"move_left\", \"move_right\")
+	input_vector.y = Input.get_axis(\"move_up\", \"move_down\")
+	
+	input_vector = input_vector.normalized()
+	
+	if input_vector.is_zero_approx():
+		match animated_sprite.animation:
+			\"walking_front\":
+				animated_sprite.animation = \"idle_front\"
+			\"walking_back\":
+				animated_sprite.animation = \"idle_back\"
+			\"walking_side\":
+				animated_sprite.animation = \"idle_side\"
+	elif input_vector.y > 0:
+		animated_sprite.play(\"walking_front\")
+	elif input_vector.y < 0:
+		animated_sprite.play(\"walking_back\")
+	elif input_vector.x > 0:
+		animated_sprite.play(\"walking_side\")
+		animated_sprite.flip_h = false
+	elif input_vector.x < 0:
+		animated_sprite.play(\"walking_side\")
+		animated_sprite.flip_h = true
+
+func _on_detection_area_entered(area: Area2D) -> void:
+	if area.is_in_group(\"spawn_area\"):
+		var hint_ui = player_ui.hint_ui
+		player_ui.fade_in_window(hint_ui)
+
+func _on_detection_area_exited(area: Area2D) -> void:
+	if area.is_in_group(\"spawn_area\"):
+		var hint_ui = player_ui.hint_ui
+		player_ui.fade_out_window(hint_ui)
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e3vx"]
 size = Vector2(22, 8)
@@ -813,9 +877,10 @@ load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e
 atlas = SubResource("CompressedTexture2D_pu2lt")
 region = Rect2(290, 137, 14, 14)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite", "player_ui")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite", "player_ui") groups=["player"]]
 y_sort_enabled = true
-script = ExtResource("1_cvnsp")
+script = SubResource("GDScript_al8ar")
+speed = null
 animated_sprite = NodePath("AnimatedSprite2D")
 player_ui = NodePath("UILayer")
 
