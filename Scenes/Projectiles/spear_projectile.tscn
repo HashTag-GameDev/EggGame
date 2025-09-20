@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn056375l4ghq"]
+
+[ext_resource type="Texture2D" uid="uid://u7dyq0qfo2v4" path="res://Assets/Spritesheets/pea_spear.png" id="1_kfyij"]
+[ext_resource type="Script" uid="uid://bjthx5ggn7l20" path="res://Scripts/hit_box_2d.gd" id="2_ugmnd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ugmnd"]
+size = Vector2(1, 15)
+
+[node name="SpearProjectile" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kfyij")
+region_enabled = true
+region_rect = Rect2(79, 37, 3, 20)
+
+[node name="HitBox2D" type="Area2D" parent="."]
+position = Vector2(0, -8)
+script = ExtResource("2_ugmnd")
+metadata/_custom_type_script = "uid://bjthx5ggn7l20"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox2D"]
+polygon = PackedVector2Array(0, -2, 1, -2, 2, 0, 2, 2, -1, 2, -1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_ugmnd")
+disabled = true

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://od6farvwd8lr" path="res://Assets/Spritesheets/egg_sprites.png" id="1_p2ue6"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ef1rh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2ue6"]
 atlas = ExtResource("1_p2ue6")
 region = Rect2(64, 128, 32, 64)
 
@@ -10,7 +10,7 @@ region = Rect2(64, 128, 32, 64)
 atlas = ExtResource("1_p2ue6")
 region = Rect2(0, 128, 32, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_28tx1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ef1rh"]
 atlas = ExtResource("1_p2ue6")
 region = Rect2(32, 128, 32, 64)
 
@@ -66,7 +66,7 @@ region = Rect2(160, 64, 32, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ef1rh")
+"texture": SubResource("AtlasTexture_p2ue6")
 }],
 "loop": true,
 "name": &"idle_back",
@@ -82,7 +82,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_28tx1")
+"texture": SubResource("AtlasTexture_ef1rh")
 }],
 "loop": true,
 "name": &"idle_side",

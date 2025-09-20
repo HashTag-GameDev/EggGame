@@ -2,7 +2,7 @@ extends RefCounted
 class_name AI
 
 class Blackboard extends RefCounted:
-	static var player: Player = null
+	static var player_actor: Actor2D = null
 
 enum Event {
 	NONE,
@@ -52,6 +52,7 @@ class StateMachine extends Node:
 		)
 		current_state.finished.connect(_on_state_finished.bind(current_state))
 		current_state.enter()
+		print("State machine activated, entering state: ", current_state.name)
 		set_physics_process(true)
 	
 	func _physics_process(delta: float) -> void:
@@ -76,6 +77,7 @@ class StateMachine extends Node:
 	func _transition(new_state: State) -> void:
 		current_state.exit()
 		current_state.finished.disconnect(_on_state_finished)
+		print("Transitioning from state: ", current_state.name, " to: ", new_state.name)
 		current_state = new_state
 		current_state.finished.connect(_on_state_finished.bind(current_state))
 		current_state.enter()
@@ -99,6 +101,14 @@ class State extends RefCounted:
 		name = init_name
 		actor = init_actor
 	
+	func is_player_in_vision_range() -> bool:
+		var player_distance := actor.global_position.distance_to(AI.Blackboard.player_actor.global_position)
+		return player_distance < actor.vision_range
+	
+	func is_player_in_attack_range() -> bool:
+		var player_distance := actor.global_position.distance_to(AI.Blackboard.player_actor.global_position)
+		return player_distance < actor.attack_range
+	
 	func update(_delta: float) -> Event:
 		return Event.NONE
 	
@@ -116,8 +126,7 @@ class StateIdle extends State:
 		actor.sprite.play(&"idle")
 	
 	func update(_delta: float) -> Event:
-		var player_distance := actor.global_position.distance_to(AI.Blackboard.player.global_position)
-		if player_distance < actor.vision_range:
+		if is_player_in_vision_range():
 			return Event.PLAYER_ENTERED_VISION_RANGE
 		
 		return Event.NONE
@@ -129,16 +138,52 @@ class StateMoveToPlayer extends State:
 	func _init(init_actor: Actor2D) -> void:
 		super("Move To Player", init_actor)
 	
-	func update(delta: float) -> Event:
-		_time += delta
-		if _time >= duration:
-			return Event.FINISHED
-		var player_distance := actor.global_position.distance_to(AI.Blackboard.player.global_position)
-		if player_distance > actor.vision_range:
+	func enter() -> void:
+		_time = 0.0
+	
+	func update(_delta: float) -> Event:
+		var direction := AI.Blackboard.player_actor.global_position - actor.global_position
+		actor.move_actor(direction)
+		
+		if !is_player_in_vision_range():
 			return Event.PLAYER_EXITED_VISION_RANGE
+		if is_player_in_attack_range():
+			return Event.PLAYER_ENTERED_ATTACK_RANGE
 		
 		return Event.NONE
 
 class StateCirclePlayer extends State:
 	func _init(init_actor: Actor2D) -> void:
 		super("Circle Player", init_actor)
+
+class StateAttackPlayer extends State:
+	var attack_id: int
+	func _init(init_actor: Actor2D, init_attack_id: int) -> void:
+		super("Attack Player", init_actor)
+		attack_id = init_attack_id
+	
+	func update(_delta: float) -> Event:
+		actor.attack(attack_id)
+		return Event.FINISHED
+
+class StateCooldown extends State:
+	var cooldown: float
+	var _time := 0.0
+	
+	func _init(init_actor: Actor2D, init_cooldown: float) -> void:
+		super("Cooldown", init_actor)
+		cooldown = init_cooldown
+	
+	func enter() -> void:
+		_time = 0.0
+	
+	func update(delta: float) -> Event:
+		_time += delta
+		if _time >= cooldown:
+			if is_player_in_vision_range():
+				if is_player_in_attack_range():
+					return Event.PLAYER_ENTERED_ATTACK_RANGE
+				else:
+					return Event.PLAYER_EXITED_ATTACK_RANGE
+			return Event.PLAYER_EXITED_VISION_RANGE
+		return Event.NONE

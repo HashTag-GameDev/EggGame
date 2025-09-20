@@ -1,14 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://cswc0pnqv2k8j"]
+[gd_scene load_steps=17 format=4 uid="uid://cswc0pnqv2k8j"]
 
-[ext_resource type="Script" uid="uid://b0gbx8io1v52k" path="res://Scripts/player.gd" id="1_gy20a"]
-[ext_resource type="SpriteFrames" uid="uid://dgyemphnumibx" path="res://Assets/Spritesheets/egg_frames.tres" id="2_6t5aa"]
+[ext_resource type="Script" uid="uid://b0gbx8io1v52k" path="res://Scripts/player_controller.gd" id="1_gy20a"]
 [ext_resource type="Texture2D" uid="uid://rtoe8vgghpfn" path="res://Assets/Spritesheets/ui_sheet.png" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://dkmrgjux4x0jk" path="res://Scripts/player_ui.gd" id="3_gy20a"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e3vx"]
-size = Vector2(22, 8)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgqql"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_syu87"]
 texture = ExtResource("3_6t5aa")
 separation = Vector2i(2, 2)
 0:0/0 = 0
@@ -773,65 +769,50 @@ separation = Vector2i(2, 2)
 6:18/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_fkybt"]
-sources/0 = SubResource("TileSetAtlasSource_vgqql")
+sources/0 = SubResource("TileSetAtlasSource_syu87")
 
 [sub_resource type="LabelSettings" id="LabelSettings_6t5aa"]
 font_size = 13
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vgqql"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w2kbn"]
 load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
-atlas = SubResource("CompressedTexture2D_vgqql")
+atlas = SubResource("CompressedTexture2D_w2kbn")
 region = Rect2(307, 171, 13, 14)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x3wgy"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5hlyf"]
 load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
-atlas = SubResource("CompressedTexture2D_x3wgy")
+atlas = SubResource("CompressedTexture2D_5hlyf")
 region = Rect2(307, 188, 13, 14)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8erm5"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_no3rq"]
 load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1ek2"]
-atlas = SubResource("CompressedTexture2D_8erm5")
+atlas = SubResource("CompressedTexture2D_no3rq")
 region = Rect2(324, 188, 13, 14)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tx1dd"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f3ywk"]
 load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
-atlas = SubResource("CompressedTexture2D_tx1dd")
+atlas = SubResource("CompressedTexture2D_f3ywk")
 region = Rect2(341, 188, 13, 14)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pu2lt"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1teac"]
 load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ukyrk"]
-atlas = SubResource("CompressedTexture2D_pu2lt")
+atlas = SubResource("CompressedTexture2D_1teac")
 region = Rect2(290, 137, 14, 14)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite", "player_ui") groups=["player"]]
+[node name="PlayerController" type="Node2D" node_paths=PackedStringArray("player_ui")]
 y_sort_enabled = true
 script = ExtResource("1_gy20a")
-animated_sprite = NodePath("AnimatedSprite2D")
 player_ui = NodePath("UILayer")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_0e3vx")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -29)
-position_smoothing_enabled = true
-position_smoothing_speed = 3.0
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("2_6t5aa")
-animation = &"idle_front"
-frame_progress = 0.57694966
-offset = Vector2(0, -29)
 
 [node name="UILayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("hint_ui")]
 script = ExtResource("3_gy20a")
@@ -934,11 +915,3 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_ukyrk")
-
-[node name="DetectionArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource("RectangleShape2D_0e3vx")
-
-[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_entered"]
-[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_exited"]

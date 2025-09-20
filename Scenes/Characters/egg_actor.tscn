@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3uvrs50p06cx"]
+
+[ext_resource type="SpriteFrames" uid="uid://dgyemphnumibx" path="res://Assets/Spritesheets/egg_frames.tres" id="1_77jag"]
+[ext_resource type="Script" uid="uid://c2jq6w4ugh8fu" path="res://Scripts/actor_2d.gd" id="1_j2i6s"]
+[ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/hurt_box_2d.gd" id="3_dpku4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2i6s"]
+size = Vector2(22, 8)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6wq2t"]
+radius = 15.0
+height = 42.0
+
+[node name="EggActor" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera")]
+script = ExtResource("1_j2i6s")
+sprite = NodePath("AnimatedSprite2D")
+hurt_box = NodePath("HurtBox2D")
+camera = NodePath("Camera2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_j2i6s")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -29)
+enabled = false
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_77jag")
+animation = &"idle_front"
+frame_progress = 0.57694966
+offset = Vector2(0, -29)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_j2i6s")
+
+[node name="HurtBox2D" type="Area2D" parent="."]
+position = Vector2(0, -41)
+script = ExtResource("3_dpku4")
+metadata/_custom_type_script = "uid://birj0rp18k4pc"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox2D"]
+shape = SubResource("CapsuleShape2D_6wq2t")
