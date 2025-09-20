@@ -1,0 +1,49 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cnabounne8tc5"]
+
+[ext_resource type="Texture2D" uid="uid://btrbkhmg4eghj" path="res://Assets/Spritesheets/dot_slider_02.png" id="1_damfx"]
+[ext_resource type="Texture2D" uid="uid://dfkianptl02ha" path="res://Assets/Spritesheets/check_box_checked.png" id="1_flias"]
+[ext_resource type="Texture2D" uid="uid://b33l1pogcihvn" path="res://Assets/Spritesheets/dot_slider.png" id="2_flias"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhxw7"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.5137255, 0.5294118, 0.5882353, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trj04"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.44705883, 0.4627451, 0.52156866, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cp0ys"]
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 0.44705883)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 6
+
+[resource]
+CheckBox/colors/checkbox_checked_color = Color(1, 1, 1, 1)
+CheckBox/colors/checkbox_unchecked_color = Color(1, 1, 1, 0)
+CheckBox/icons/checked = ExtResource("1_flias")
+HSlider/icons/grabber = ExtResource("1_damfx")
+HSlider/icons/grabber_highlight = ExtResource("2_flias")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_yhxw7")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_trj04")
+HSlider/styles/slider = SubResource("StyleBoxFlat_cp0ys")

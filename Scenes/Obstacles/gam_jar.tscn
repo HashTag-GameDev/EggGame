@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1384ajdvj88b"]
+
+[ext_resource type="Texture2D" uid="uid://bng1ohx3me3xu" path="res://Assets/Sprites/gam_jam.png" id="1_5kcvd"]
+
+[node name="GamJar" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -23)
+texture = ExtResource("1_5kcvd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -23)
+polygon = PackedVector2Array(-20, 23, -14, 16, 0, 13, 14, 16, 18, 23, 14, 29, 7, 31, -8, 31, -16, 28)

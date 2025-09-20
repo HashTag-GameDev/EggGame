@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqxmfm0t5sjd3"]
+
+[ext_resource type="Texture2D" uid="uid://g1pujx5a1ght" path="res://Assets/Sprites/cup_water.png" id="1_g6c2i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0mdn"]
+atlas = ExtResource("1_g6c2i")
+region = Rect2(0, 0, 58, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xqxu"]
+atlas = ExtResource("1_g6c2i")
+region = Rect2(58, 0, 58, 105)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tpqse"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0mdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xqxu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="CupWater" type="StaticBody2D"]
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -39)
+sprite_frames = SubResource("SpriteFrames_tpqse")
+autoplay = "default"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -22)
+polygon = PackedVector2Array(-20, 14, -22, 22, -19.5, 30.900002, -6.9000015, 35.5, 7, 35.5, 17, 32, 24, 22, 22, 14, 14, 9, 4, 6, -7, 7, -14, 9)
