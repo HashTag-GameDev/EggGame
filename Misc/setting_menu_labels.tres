@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c6khkl77s08pi"]
+
+[ext_resource type="FontFile" uid="uid://cckfyl7vworv6" path="res://Assets/Fonts/Bangers/Bangers-Regular.ttf" id="1_pniw7"]
+
+[resource]
+Label/colors/font_color = Color(0.8980392, 0.8980392, 0.8980392, 1)
+Label/colors/font_outline_color = Color(0.44705883, 0.4627451, 0.52156866, 1)
+Label/constants/outline_size = 6
+Label/fonts/font = ExtResource("1_pniw7")

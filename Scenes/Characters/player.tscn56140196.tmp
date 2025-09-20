@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dkmrgjux4x0jk" path="res://Scripts/player_ui.gd" id="3_gy20a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e3vx"]
-size = Vector2(13, 8)
+size = Vector2(22, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgqql"]
 texture = ExtResource("3_6t5aa")
@@ -813,25 +813,23 @@ load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e
 atlas = SubResource("CompressedTexture2D_pu2lt")
 region = Rect2(290, 137, 14, 14)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite", "player_ui") groups=["player"]]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+y_sort_enabled = true
 script = ExtResource("1_gy20a")
-animated_sprite = NodePath("AnimatedSprite2D")
-player_ui = NodePath("UILayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_0e3vx")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -29)
-zoom = Vector2(1.5, 1.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -31)
 sprite_frames = ExtResource("2_6t5aa")
-animation = &"walking_front"
+animation = &"idle_front"
+frame_progress = 0.57694966
+offset = Vector2(0, -29)
 
 [node name="UILayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("hint_ui")]
 script = ExtResource("3_gy20a")

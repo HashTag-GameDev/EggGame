@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0bukfssrka4y"]
+
+[ext_resource type="Texture2D" uid="uid://b7qfp402jucrn" path="res://Assets/Sprites/small_baguette.png" id="1_nt0pb"]
+
+[node name="SmallBaguette" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(262.38593, 138.60521)
+texture = ExtResource("1_nt0pb")
+region_enabled = true
+region_rect = Rect2(0, 0, 530.5, 290)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(262.38596, 138.60522)
+rotation = 0.0014065035
+polygon = PackedVector2Array(-264.18823, -133.62857, -265.17276, -122.62717, -260.1587, -112.63421, -249.14603, -103.64969, -130.06458, -45.817116, 53.064697, 45.925446, 67.067444, 47.90576, 75.05902, 41.8945)

@@ -11,18 +11,30 @@ config_version=5
 [application]
 
 config/name="GameJam1"
+run/main_scene="uid://udfh2tbngavk"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://2asc2vgqt81r"
+
+[autoload]
+
+MusicManager="*res://Scripts/Globals/music_manager.gd"
+SceneSwitcher="*res://Scripts/Globals/scene_switcher.gd"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/stretch/mode="canvas_items"
 
 [file_customization]
 
 folder_colors={
 "res://Assets/": "yellow",
+"res://Misc/": "purple",
 "res://Scenes/": "blue",
 "res://Scripts/": "green"
 }
@@ -31,6 +43,10 @@ folder_colors={
 
 spawn_area=""
 player=""
+
+[gui]
+
+theme/custom="uid://cnabounne8tc5"
 
 [input]
 
@@ -55,8 +71,15 @@ move_right={
 ]
 }
 
+[physics]
+
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
