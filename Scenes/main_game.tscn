@@ -49,8 +49,6 @@ pattern_0 = SubResource("TileMapPattern_0e3vx")
 pattern_1 = SubResource("TileMapPattern_6j5ir")
 pattern_2 = SubResource("TileMapPattern_mgc0q")
 pattern_3 = SubResource("TileMapPattern_bb2iq")
-pattern_4 = SubResource("TileMapPattern_18r40")
-pattern_5 = SubResource("TileMapPattern_6y7pd")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_18r40"]
 
