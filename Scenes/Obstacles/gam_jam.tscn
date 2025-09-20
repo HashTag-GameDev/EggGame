@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://j44lvyemf8wf"]
+
+[ext_resource type="Texture2D" uid="uid://bng1ohx3me3xu" path="res://Assets/Sprites/gam_jam.png" id="1_ggwsv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rxwt5"]
+radius = 7.0
+height = 39.0
+
+[node name="GamJam" type="StaticBody2D"]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 56)
+texture = ExtResource("1_ggwsv")
+offset = Vector2(0, -81)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rxwt5")
