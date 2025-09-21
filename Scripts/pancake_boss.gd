@@ -309,5 +309,7 @@ func took_damage(colliding_hit_box: HitBox2D) -> void:
 	health -= damage
 	redraw_health_bar()
 	if health <= 0.0:
-		# TODO: Make die method and animation.
-		queue_free()
+		game_over()
+
+func game_over() -> void:
+	SceneSwitcher.slide_to("uid://udfh2tbngavk")

@@ -10,16 +10,20 @@ script = ExtResource("1_lpx36")
 damage = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.6000004, -8.6)
 texture = ExtResource("1_sgjf0")
 region_enabled = true
 region_rect = Rect2(0, 114, 32, 13)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0.6000004, -8.6)
 polygon = PackedVector2Array(-8, -5.5, -15, -1.5, -16, -1.5, -16, 2.5, -11, 4.5, -11, 5.5, -4, 6.5, 11, 6.5, 15, 2.5, 16, 2.5, 12, -4.5, 12, -5.5, -8, -6.5)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0.6000004, -8.6)
 stream = ExtResource("3_ohokt")
 volume_db = -13.0
+pitch_scale = 1.0085703
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

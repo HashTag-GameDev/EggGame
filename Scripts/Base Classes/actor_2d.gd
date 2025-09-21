@@ -174,6 +174,7 @@ func took_damage(colliding_hit_box: HitBox2D) -> void:
 	
 	health -= damage - defense
 	redraw_health()
+
 	if health <= 0.0:
 		# TODO: Make die method and animation.
 		die()

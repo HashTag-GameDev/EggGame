@@ -1,9 +1,10 @@
-[gd_scene load_steps=36 format=4 uid="uid://cswc0pnqv2k8j"]
+[gd_scene load_steps=35 format=4 uid="uid://cswc0pnqv2k8j"]
 
 [ext_resource type="Script" uid="uid://b0gbx8io1v52k" path="res://Scripts/Controllers/player_controller.gd" id="1_gy20a"]
 [ext_resource type="Texture2D" uid="uid://rtoe8vgghpfn" path="res://Assets/Spritesheets/ui_sheet.png" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://dkmrgjux4x0jk" path="res://Scripts/player_ui.gd" id="3_gy20a"]
 [ext_resource type="Texture2D" uid="uid://bahpni7oskfv2" path="res://Assets/Masks/hatch_ui_mask.png" id="4_5hlyf"]
+[ext_resource type="Texture2D" uid="uid://cxr5nihujnjrm" path="res://Assets/Spritesheets/icon_map.png" id="4_g48ij"]
 [ext_resource type="SpriteFrames" uid="uid://dgyemphnumibx" path="res://Assets/Spritesheets/egg_frames.tres" id="5_7idn0"]
 [ext_resource type="SpriteFrames" uid="uid://r2txq6mjrbc1" path="res://Assets/Spritesheets/pea_frames.tres" id="5_no3rq"]
 [ext_resource type="Texture2D" uid="uid://u7dyq0qfo2v4" path="res://Assets/Spritesheets/pea_spear.png" id="6_g48ij"]
@@ -832,13 +833,6 @@ load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e
 atlas = SubResource("CompressedTexture2D_f3ywk")
 region = Rect2(341, 188, 13, 14)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1teac"]
-load_path = "res://.godot/imported/icon_map.png-0a82b1fd84dc1593f7c27d5b16ae0c6e.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ukyrk"]
-atlas = SubResource("CompressedTexture2D_1teac")
-region = Rect2(290, 137, 14, 14)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syu87"]
 bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 100
@@ -931,8 +925,9 @@ player_ui = NodePath("UILayer")
 health_bar = NodePath("UILayer/UI/PlayerHealth")
 
 [node name="UILayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("hint_ui", "hatch_ui", "hatch_enemy_1", "hatch_enemy_2", "hatch_enemy_3", "hatch_enemy_4", "hatch_cancel")]
-visible = false
 script = ExtResource("3_gy20a")
+fade_in_speed = 1.0
+fade_out_speed = 1.0
 hint_ui = NodePath("UI/HintUI")
 hatch_ui = NodePath("UI/HatchUI")
 hatch_enemy_1 = NodePath("UI/HatchUI/TextureRect/Quads/Top Left Quad")
@@ -969,7 +964,6 @@ value = 50.0
 show_percentage = false
 
 [node name="HintUI" type="Control" parent="UILayer/UI"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -985,7 +979,7 @@ grow_vertical = 2
 
 [node name="TileMapLayer" type="TileMapLayer" parent="UILayer/UI/HintUI"]
 modulate = Color(1, 1, 1, 0.7607843)
-tile_map_data = PackedByteArray("AAACAAAAAAAHAB0AAAACAAEAAAAHAB4AAAACAAIAAAAHAB4AAAACAAMAAAAHAB4AAAACAAQAAAAHAB4AAAACAAUAAAAHAB4AAAABAAUAAAAHAB4AAAAAAAUAAAAGAB4AAAAAAAAAAAAGAB0AAAAAAAEAAAAGAB4AAAAAAAIAAAAGAB4AAAAAAAMAAAAGAB4AAAAAAAQAAAAGAB4AAAABAAAAAAAHAB0AAAABAAEAAAAHAB4AAAABAAIAAAAHAB4AAAABAAMAAAAHAB4AAAABAAQAAAAHAB4AAAADAAAAAAAHAB0AAAAEAAAAAAAHAB0AAAAFAAAAAAAIAB0AAAAAAAYAAAAGAB4AAAAAAAcAAAAGAB4AAAAAAAgAAAAGAB4AAAAAAAkAAAAGAB4AAAAAAAoAAAAGAB8AAAABAAoAAAAHAB8AAAACAAoAAAAHAB8AAAADAAoAAAAHAB8AAAAEAAoAAAAHAB8AAAAFAAoAAAAIAB8AAAAFAAkAAAAIAB4AAAAFAAgAAAAIAB4AAAAFAAcAAAAIAB4AAAAFAAYAAAAIAB4AAAAFAAUAAAAIAB4AAAAFAAQAAAAIAB4AAAAFAAMAAAAIAB4AAAAFAAIAAAAIAB4AAAAFAAEAAAAIAB4AAAABAAYAAAAHAB4AAAABAAcAAAAHAB4AAAABAAgAAAAHAB4AAAABAAkAAAAHAB4AAAACAAYAAAAHAB4AAAACAAcAAAAHAB4AAAACAAgAAAAHAB4AAAACAAkAAAAHAB4AAAADAAEAAAAHAB4AAAADAAIAAAAHAB4AAAADAAMAAAAHAB4AAAADAAQAAAAHAB4AAAADAAUAAAAHAB4AAAADAAYAAAAHAB4AAAADAAcAAAAHAB4AAAADAAgAAAAHAB4AAAADAAkAAAAHAB4AAAAEAAEAAAAHAB4AAAAEAAIAAAAHAB4AAAAEAAMAAAAHAB4AAAAEAAQAAAAHAB4AAAAEAAUAAAAHAB4AAAAEAAYAAAAHAB4AAAAEAAcAAAAHAB4AAAAEAAgAAAAHAB4AAAAEAAkAAAAHAB4AAAA=")
+tile_map_data = PackedByteArray("AAACAAAAAAAHAB4AAAACAAEAAAAHAB4AAAACAAIAAAAHAB4AAAACAAMAAAAHAB4AAAACAAQAAAAHAB4AAAACAAUAAAAHAB4AAAABAAUAAAAHAB4AAAAAAAUAAAAGAB4AAAAAAAAAAAAGAB4AAAAAAAEAAAAGAB4AAAAAAAIAAAAGAB4AAAAAAAMAAAAGAB4AAAAAAAQAAAAGAB4AAAABAAAAAAAHAB4AAAABAAEAAAAHAB4AAAABAAIAAAAHAB4AAAABAAMAAAAHAB4AAAABAAQAAAAHAB4AAAADAAAAAAAHAB4AAAAEAAAAAAAHAB4AAAAFAAAAAAAIAB4AAAAAAAYAAAAGAB4AAAAAAAcAAAAGAB4AAAAAAAgAAAAGAB4AAAAAAAkAAAAGAB4AAAAAAAoAAAAGAB8AAAABAAoAAAAHAB8AAAACAAoAAAAHAB8AAAADAAoAAAAHAB8AAAAEAAoAAAAHAB8AAAAFAAoAAAAIAB8AAAAFAAkAAAAIAB4AAAAFAAgAAAAIAB4AAAAFAAcAAAAIAB4AAAAFAAYAAAAIAB4AAAAFAAUAAAAIAB4AAAAFAAQAAAAIAB4AAAAFAAMAAAAIAB4AAAAFAAIAAAAIAB4AAAAFAAEAAAAIAB4AAAABAAYAAAAHAB4AAAABAAcAAAAHAB4AAAABAAgAAAAHAB4AAAABAAkAAAAHAB4AAAACAAYAAAAHAB4AAAACAAcAAAAHAB4AAAACAAgAAAAHAB4AAAACAAkAAAAHAB4AAAADAAEAAAAHAB4AAAADAAIAAAAHAB4AAAADAAMAAAAHAB4AAAADAAQAAAAHAB4AAAADAAUAAAAHAB4AAAADAAYAAAAHAB4AAAADAAcAAAAHAB4AAAADAAgAAAAHAB4AAAADAAkAAAAHAB4AAAAEAAEAAAAHAB4AAAAEAAIAAAAHAB4AAAAEAAMAAAAHAB4AAAAEAAQAAAAHAB4AAAAEAAUAAAAHAB4AAAAEAAYAAAAHAB4AAAAEAAcAAAAHAB4AAAAEAAgAAAAHAB4AAAAEAAkAAAAHAB4AAAAAAP7/AAAGAB0AAAAAAP//AAAGAB4AAAAFAP//AAAIAB4AAAAFAP7/AAAIAB0AAAAEAP7/AAAHAB0AAAADAP7/AAAHAB0AAAACAP7/AAAHAB0AAAABAP7/AAAHAB0AAAABAP//AAAHAB4AAAACAP//AAAHAB4AAAADAP//AAAHAB4AAAAEAP//AAAHAB4AAAA=")
 tile_set = SubResource("TileSet_fkybt")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/UI/HintUI"]
@@ -996,10 +990,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
-
-[node name="Top Margin" type="Control" parent="UILayer/UI/HintUI/VBoxContainer"]
-custom_minimum_size = Vector2(0, 8)
-layout_mode = 2
 
 [node name="LabelMove" type="Label" parent="UILayer/UI/HintUI/VBoxContainer"]
 layout_mode = 2
@@ -1042,21 +1032,34 @@ offset_right = 44.0
 offset_bottom = 29.0
 texture = SubResource("AtlasTexture_gymyn")
 
-[node name="Separator" type="Control" parent="UILayer/UI/HintUI/VBoxContainer"]
-custom_minimum_size = Vector2(0, 8)
+[node name="LabelMenu2" type="Label" parent="UILayer/UI/HintUI/VBoxContainer"]
 layout_mode = 2
-
-[node name="LabelMenu" type="Label" parent="UILayer/UI/HintUI/VBoxContainer"]
-layout_mode = 2
-text = "Menu"
+text = "Attack"
 label_settings = SubResource("LabelSettings_6t5aa")
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="UILayer/UI/HintUI/VBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="LabelMenu4" type="Label" parent="UILayer/UI/HintUI/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-texture = SubResource("AtlasTexture_ukyrk")
+text = "Left Mouse"
+label_settings = SubResource("LabelSettings_6t5aa")
+horizontal_alignment = 1
+
+[node name="LabelMenu3" type="Label" parent="UILayer/UI/HintUI/VBoxContainer"]
+layout_mode = 2
+text = "Hatch"
+label_settings = SubResource("LabelSettings_6t5aa")
+horizontal_alignment = 1
+
+[node name="Sprite2D2" type="Sprite2D" parent="UILayer/UI/HintUI/VBoxContainer"]
+position = Vector2(47, 144)
+scale = Vector2(1.6000195, 1.3999903)
+texture = ExtResource("4_g48ij")
+region_enabled = true
+region_rect = Rect2(358, 205, 13, 14)
+
+[node name="Control" type="Control" parent="UILayer/UI/HintUI/VBoxContainer"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
 
 [node name="HatchUI" type="Control" parent="UILayer/UI"]
 layout_mode = 1

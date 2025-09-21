@@ -109,8 +109,7 @@ func handle_movement() -> void:
 func took_damage(damage: float) -> void:
 	player_health -= damage - player_defense
 	if player_health <= 0.0:
-		# TODO: Make game_over() function
-		pass
+		game_over()
 	redraw_health_bar()
 
 func obtained_soul(enemy_name: StringName) -> void:
@@ -169,16 +168,6 @@ func close_hatch_menu() -> void:
 			if !current_actor.is_in_group(possible_actors[hatch_id][&"group"]):
 				create_new_actor(hatch_id, current_actor.global_position)
 
-func _on_detection_area_entered(area: Area2D) -> void:
-	if area.is_in_group("spawn_area"):
-		var hint_ui = player_ui.hint_ui
-		player_ui.fade_in_window(hint_ui)
-
-func _on_detection_area_exited(area: Area2D) -> void:
-	if area.is_in_group("spawn_area"):
-		var hint_ui = player_ui.hint_ui
-		player_ui.fade_out_window(hint_ui)
-
 func disconnect_signals() -> void:
 	current_actor.player_took_damage.disconnect(took_damage)
 	current_actor.soul_obtained.disconnect(obtained_soul)
@@ -186,3 +175,6 @@ func disconnect_signals() -> void:
 func connect_signals() -> void:
 	current_actor.player_took_damage.connect(took_damage)
 	current_actor.soul_obtained.connect(obtained_soul)
+
+func game_over() -> void:
+	SceneSwitcher.slide_to("uid://udfh2tbngavk")

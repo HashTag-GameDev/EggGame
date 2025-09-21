@@ -38,7 +38,7 @@ sprite_frames = ExtResource("1_77jag")
 animation = &"idle_left"
 offset = Vector2(0, -29)
 
-[node name="DetectionArea" type="Area2D" parent="."]
+[node name="DetectionArea" type="Area2D" parent="." groups=["player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("RectangleShape2D_j2i6s")

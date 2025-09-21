@@ -16,6 +16,7 @@ sprite_angle_up_deg = 80.0
 sprite_angle_down_deg = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -14)
 texture = ExtResource("1_wsemx")
 region_enabled = true
 region_rect = Rect2(0, 0, 31, 31)
@@ -33,11 +34,12 @@ region_enabled = true
 region_rect = Rect2(0, 73, 20, 22)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, -14)
 polygon = PackedVector2Array(7, -9, -9, 2, -10, 2, -9, 8, -9, 10, -2, 10, 0, 10, 9, -8, 10, -8, 7, -10)
 disabled = true
 
 [node name="HitBox2D" type="Area2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(1, -22)
 collision_layer = 2
 script = ExtResource("4_gimjp")
 metadata/_custom_type_script = "uid://bjthx5ggn7l20"
