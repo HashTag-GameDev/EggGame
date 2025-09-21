@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dffbb3aa0j1fk"
+path="res://.godot/imported/Pea Moving.mp3-47a5219bd348d2fbe7257de86a6b8460.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/Pea/Pea Moving.mp3"
+dest_files=["res://.godot/imported/Pea Moving.mp3-47a5219bd348d2fbe7257de86a6b8460.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

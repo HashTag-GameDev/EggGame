@@ -1,8 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://dbbo5n44yys5g"]
+[gd_scene load_steps=25 format=3 uid="uid://dbbo5n44yys5g"]
 
 [ext_resource type="Script" uid="uid://bh8pspu4qwq7" path="res://Scripts/Actors/muffin_enemy.gd" id="1_be5vf"]
 [ext_resource type="Texture2D" uid="uid://bpwch21bigrcx" path="res://Assets/Spritesheets/muffin.png" id="2_be5vf"]
+[ext_resource type="AudioStream" uid="uid://bd1vw4ej5iqe0" path="res://Assets/Audio/SFX/Muffin/Muffin Walk.mp3" id="2_fajeb"]
 [ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/hurt_box_2d.gd" id="3_fajeb"]
+[ext_resource type="AudioStream" uid="uid://bmsgga158ete2" path="res://Assets/Audio/SFX/Muffin/Muffin Stomp.mp3" id="3_xtosf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2i6s"]
 size = Vector2(41, 10.5)
@@ -126,7 +128,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walking_back",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -137,7 +139,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walking_front",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -165,18 +167,23 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5r0i6"]
 radius = 29.017237
 
-[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera")]
+[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera", "audio_player", "attack_audio_player_1")]
 script = ExtResource("1_be5vf")
 dash_duration = 0.4
-patrol_radius = 20.0
+patrol_radius = 50.0
 is_ai_controlled = true
 sprite = NodePath("AnimatedSprite2D")
 hurt_box = NodePath("HurtBox2D")
 camera = NodePath("Camera2D")
-movement_speed = 100.0
+movement_speed = 35.0
 attack_type = 1
 vision_range = 175.0
 attack_range = 175.0
+audio_player = NodePath("AudioStreamPlayer2D")
+walking_audio = Array[AudioStream]([ExtResource("2_fajeb")])
+walking_audio_cooldown = 0.575
+attack_audio_player_1 = NodePath("AudioStreamPlayer2D2")
+attack_audio_1 = ExtResource("3_xtosf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 14.25)
@@ -191,7 +198,7 @@ position_smoothing_speed = 3.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 19)
 sprite_frames = SubResource("SpriteFrames_83sv0")
-animation = &"idle_right"
+animation = &"idle_back"
 offset = Vector2(0, -29)
 
 [node name="DetectionArea" type="Area2D" parent="."]
@@ -213,3 +220,13 @@ shape = SubResource("CircleShape2D_5r0i6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2D"]
 position = Vector2(1, -12)
 shape = SubResource("CircleShape2D_5r0i6")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
+max_distance = 500.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
+max_distance = 500.0
+bus = &"SFX"

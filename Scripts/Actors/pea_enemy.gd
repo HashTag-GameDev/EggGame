@@ -20,6 +20,7 @@ func spear_attack():
 	spear_instance.linear_velocity = spear_direction.normalized() * spear_speed
 	spear_instance.rotate(spear_direction.angle() + PI * 0.5)
 	add_sibling(spear_instance)
+	play_attack_1()
 	sprite.play(&"throw_spear_cooldown")
 
 func add_transitions(state_machine: AI.StateMachine) -> void:

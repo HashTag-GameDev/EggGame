@@ -26,6 +26,9 @@ const CFG_SECTION := "audio"
 @onready var pressed_settings_bg: TileMapLayer = $ButtonContainer/PressedSettingsBG
 @onready var settings_menu: VBoxContainer = $SettingsMenu
 @onready var button_container: VBoxContainer = $ButtonContainer
+@onready var credit_control: Control = $CreditControl
+@onready var credits: RichTextLabel = $CreditControl/MarginContainer/Credits
+@onready var titles: Control = $Titles
 
 var _idx_master: int
 var _idx_music: int
@@ -43,15 +46,40 @@ func _ready() -> void:
 	_load_settings()
 	_loading = false
 	
-	MusicManager.fade_to("Music_0", 1.0)
+	MusicManager.fade_to("Menu_Music", 1.0)
+	
+	var text := ""
+	text += "[center][b]Sunny Side Showdown[/b]\n"
+	text += "Mini Jame Gam #47 [url=https://itch.io/jam/mini-jame-gam-47]Game Jam Itch[/url]\n\n"
+	text += "[b]Programming[/b]\n"
+	text += "HashTagDev — [url=https://hashtaggamedev.itch.io/][i]Itch[/i][/url]\n\n"
+	text += "[b]Art[/b]\n"
+	text += "fighting the foo — [url=https://fighting-the-foo.itch.io//][i]Itch[/i][/url]\n\n"
+	text += "[b]Audio[/b]\n"
+	text += "Ry McArthur — [url=https://rmmusic.myportfolio.com/songwriting-instrumental/][i]Portfolio[/i][/url]\n\n"
+	text += "[b]Special Thanks[/b]\n"
+	text += "[url=https://godotengine.org][i]Godot Engine[/i][/url]\n"
+	text += "[/center]"
+
+	var r = credits
+	r.bbcode_text = text
+	r.meta_clicked.connect(_on_meta_clicked)
 
 func _on_play_button_pressed() -> void:
 	MusicManager.fade_to("Music_1", 1.0)
 	SceneSwitcher.slide_to(main_game)
 
 func _on_settings_button_pressed() -> void:
+	titles.visible = false
 	settings_menu.visible = true
 	button_container.visible = false
+	credit_control.visible = false
+
+func _on_credit_button_pressed() -> void:
+	titles.visible = false
+	settings_menu.visible = false
+	button_container.visible = false
+	credit_control.visible = true
 
 func _on_play_button_button_down() -> void:
 	pressed_play_bg.visible = true
@@ -65,9 +93,17 @@ func _on_settings_button_button_down() -> void:
 func _on_settings_button_button_up() -> void:
 	pressed_settings_bg.visible = false
 
+func _on_credit_button_button_up() -> void:
+	credit_control.visible = true
+
+func _on_credit_button_button_down() -> void:
+	credit_control.visible = false
+
 func _on_back_button_pressed() -> void:
+	titles.visible = true
 	settings_menu.visible = false
 	button_container.visible = true
+	credit_control.visible = false
 
 func _on_master_slider_value_changed(value: float) -> void:
 	_set_bus_db(_idx_master, _db_from_slider(value))
@@ -152,3 +188,7 @@ func _slider_from_db(db: float) -> float:
 func _set_bus_db(idx: int, db: float) -> void:
 	if idx == -1: return
 	AudioServer.set_bus_volume_db(idx, db)
+
+func _on_meta_clicked(meta: Variant) -> void:
+	var url := str(meta)
+	OS.shell_open(url)
