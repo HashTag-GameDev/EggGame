@@ -20,11 +20,6 @@ class_name PlayerController
 		&"scene": preload("res://Scenes/Actors/muffin_enemy.tscn"),
 		&"group": "muffin"
 	},
-	{
-		&"name": &"Muffin",
-		&"unlocked": false,
-		&"scene": preload("res://Scenes/Actors/muffin_enemy.tscn")
-	},
 ]
 @export_category("Health")
 @export var max_health: float

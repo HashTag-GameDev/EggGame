@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://olyjk7r75qf0"]
+
+[ext_resource type="Texture2D" uid="uid://c13w85mmqmnt" path="res://Assets/Sprites/cheese.png" id="1_v3dyo"]
+
+[node name="CheeseRampRight" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_v3dyo")
+flip_h = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(31, -1)
+polygon = PackedVector2Array(-39, 36, 9, -18, 9, 12)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+position = Vector2(-26.999998, -23.999996)
+rotation = 1.4704301
+polygon = PackedVector2Array(-8, -35, 40, 19, 42, 18, -7, -36)

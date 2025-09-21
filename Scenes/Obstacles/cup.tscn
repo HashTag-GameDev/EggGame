@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bexnlhtjqvb2j"]
+
+[ext_resource type="Texture2D" uid="uid://c6cua5xrt2hah" path="res://Assets/Sprites/mug.png" id="1_mykk8"]
+
+[node name="Cup" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4, -22)
+texture = ExtResource("1_mykk8")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-21, -1, -14, -5, 0, -8, 15, -5, 22, 0, 17, 4, 9, 8, -8, 8, -16, 4)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdi7vk0vfgb5m"]
+
+[ext_resource type="Texture2D" uid="uid://cyy80xwk7lrh2" path="res://Assets/Sprites/cup-oj.png" id="1_conpd"]
+
+[node name="CupOJ" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -39)
+texture = ExtResource("1_conpd")
+region_enabled = true
+region_rect = Rect2(0, 0, 58, 105)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -22)
+polygon = PackedVector2Array(-20, 14, -22, 22, -19.5, 30.900002, -6.9000015, 35.5, 7, 35.5, 17, 32, 24, 22, 22, 14, 14, 9, 4, 6, -7, 7, -14, 9)

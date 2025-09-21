@@ -1,27 +1,25 @@
-[gd_scene load_steps=32 format=4 uid="uid://dni63nesdnroc"]
+[gd_scene load_steps=30 format=4 uid="uid://dni63nesdnroc"]
 
 [ext_resource type="Texture2D" uid="uid://b53i7ml3wonte" path="res://Assets/Tilesets/jame_gam_iso_tiles.png" id="1_0e3vx"]
 [ext_resource type="Texture2D" uid="uid://hom4ti57yxjl" path="res://Assets/Sprites/tablecloth_corner.png" id="2_6j5ir"]
 [ext_resource type="Texture2D" uid="uid://c1ru2uwt8wb3g" path="res://Assets/Placeholder/window_mask.png" id="2_6y7pd"]
 [ext_resource type="PackedScene" uid="uid://cswc0pnqv2k8j" path="res://Scenes/Controllers/player_controller.tscn" id="2_pu3va"]
 [ext_resource type="PackedScene" uid="uid://b2a1s6ehm0rdh" path="res://Scenes/Obstacles/ketchup_bottle.tscn" id="3_0e3vx"]
-[ext_resource type="Texture2D" uid="uid://cwggor4klqnk0" path="res://Assets/Sprites/plate.png" id="5_18r40"]
-[ext_resource type="PackedScene" uid="uid://c0jc6ac4f7tvg" path="res://Scenes/Obstacles/large_baguette.tscn" id="6_tpqse"]
+[ext_resource type="PackedScene" uid="uid://bvym73wmqia7b" path="res://Scenes/Obstacles/plate.tscn" id="6_gpk8t"]
+[ext_resource type="PackedScene" uid="uid://0yge8mb5u5sb" path="res://Scenes/Obstacles/bowl.tscn" id="6_hm1wn"]
 [ext_resource type="PackedScene" uid="uid://cooppptaad606" path="res://Scenes/Obstacles/medium_baguette.tscn" id="7_c78sm"]
-[ext_resource type="Texture2D" uid="uid://b7qfp402jucrn" path="res://Assets/Sprites/small_baguette.png" id="8_i47ox"]
 [ext_resource type="PackedScene" uid="uid://d0bukfssrka4y" path="res://Scenes/Obstacles/small_baguette.tscn" id="8_tpqse"]
-[ext_resource type="Texture2D" uid="uid://c6cua5xrt2hah" path="res://Assets/Sprites/mug.png" id="9_qnvbm"]
-[ext_resource type="PackedScene" uid="uid://iti45myepprp" path="res://Scenes/medium_baguette_ru.tscn" id="11_c78sm"]
+[ext_resource type="PackedScene" uid="uid://bexnlhtjqvb2j" path="res://Scenes/Obstacles/cup.tscn" id="10_erobn"]
 [ext_resource type="PackedScene" uid="uid://c1384ajdvj88b" path="res://Scenes/Obstacles/gam_jar.tscn" id="11_sftma"]
+[ext_resource type="PackedScene" uid="uid://cdi7vk0vfgb5m" path="res://Scenes/Obstacles/cup_oj.tscn" id="11_vc13p"]
 [ext_resource type="PackedScene" uid="uid://cqxmfm0t5sjd3" path="res://Scenes/Obstacles/cup_water.tscn" id="12_erobn"]
+[ext_resource type="PackedScene" uid="uid://olyjk7r75qf0" path="res://Scenes/Obstacles/cheese_ramp_right.tscn" id="12_gpk8t"]
+[ext_resource type="PackedScene" uid="uid://bh2rm7g4lqhpm" path="res://Scenes/Obstacles/cup_cran.tscn" id="13_hm1wn"]
 [ext_resource type="PackedScene" uid="uid://d0qhilkdhyy3w" path="res://Scenes/Obstacles/small_baguette_ru.tscn" id="14_i47ox"]
-[ext_resource type="Script" uid="uid://dkoityjk8p0pp" path="res://Scripts/fight_area.gd" id="16_erobn"]
-[ext_resource type="PackedScene" uid="uid://dbbo5n44yys5g" path="res://Scenes/Actors/muffin_enemy.tscn" id="16_ry2jr"]
+[ext_resource type="PackedScene" uid="uid://iti45myepprp" path="res://Scenes/Obstacles/medium_baguette_ru.tscn" id="14_ry2jr"]
 [ext_resource type="PackedScene" uid="uid://bdayisw6vtf04" path="res://Scenes/pancake_boss.tscn" id="17_hm1wn"]
-[ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="18_gpk8t"]
-[ext_resource type="Texture2D" uid="uid://cmekl2jkdwe04" path="res://Assets/Spritesheets/pancake.png" id="18_hm1wn"]
-[ext_resource type="PackedScene" uid="uid://cm17q46b7lpcc" path="res://Scenes/dead_body.tscn" id="21_qnvbm"]
-[ext_resource type="Texture2D" uid="uid://sy2ckws5snso" path="res://Assets/Sprites/pea.tres" id="21_vvhy6"]
+[ext_resource type="PackedScene" uid="uid://dlqrmf5nmfoxq" path="res://Scenes/Obstacles/large_baguette_ru.tscn" id="18_ry2jr"]
+[ext_resource type="PackedScene" uid="uid://dvbd1bhc1w5h3" path="res://Scenes/Obstacles/barrier_fork_flip.tscn" id="20_ry2jr"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_0e3vx"]
 tile_data = PackedInt32Array(196608, 65536, 0, 65537, 65536, 0, 131073, 0, 0, 196609, 65536, 0, 262145, 0, 0, 327681, 65536, 0, 2, 0, 0, 65538, 65536, 0, 131074, 0, 0, 196610, 65536, 0, 262146, 0, 0, 327682, 65536, 0, 393218, 0, 0, 131075, 0, 0, 196611, 65536, 0, 262147, 0, 0)
@@ -59,11 +57,11 @@ pattern_3 = SubResource("TileMapPattern_bb2iq")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_18r40"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sftma"]
-size = Vector2(350, 307.92484)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qnvbm"]
+size = Vector2(202, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_erobn"]
-size = Vector2(340, 277.01297)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvhy6"]
+size = Vector2(11.565491, 37.45468)
 
 [node name="MainGame" type="Node2D"]
 
@@ -115,30 +113,14 @@ texture = ExtResource("2_6y7pd")
 [node name="PlateArena" type="Node2D" parent="YSortBackground"]
 position = Vector2(-194, -417)
 
-[node name="Plate" type="StaticBody2D" parent="YSortBackground/PlateArena"]
+[node name="Plate" parent="YSortBackground/PlateArena" instance=ExtResource("6_gpk8t")]
 position = Vector2(956, 216)
 
-[node name="Sprite2D" type="Sprite2D" parent="YSortBackground/PlateArena/Plate"]
-texture = ExtResource("5_18r40")
+[node name="Bowl" parent="YSortBackground" instance=ExtResource("6_hm1wn")]
+position = Vector2(1144, 4)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortBackground/PlateArena/Plate"]
-position = Vector2(-956, -240)
-polygon = PackedVector2Array(766, 332, 814, 347, 880, 359, 914, 362, 1002, 362, 1055, 356, 1112, 343, 1158, 329, 1197, 308, 1227, 283, 1244, 250, 1244, 227, 1230, 199, 1196, 171, 1163, 153, 1129, 142, 1112, 136, 1072, 127, 1033, 120, 1000, 117, 912, 117, 879, 121, 825, 128, 793, 138, 751, 153, 726, 165, 700, 183, 676, 215, 670, 232, 670, 250, 685, 281, 710, 304, 732, 316, 731, 317, 710, 307, 681, 282, 667, 250, 667, 232, 674, 212, 698, 181, 724, 162, 749, 149, 793, 133, 825, 124, 879, 117, 913, 114, 1000, 113, 1034, 116, 1074, 123, 1114, 132, 1132, 140, 1165, 150, 1199, 169, 1234, 198, 1248, 226, 1248, 251, 1229, 286, 1199, 312, 1158, 333, 1111, 347, 1053, 361, 1001, 365, 912, 366, 878, 363, 812, 350, 764, 334)
-
-[node name="CheeseRamp" type="StaticBody2D" parent="YSortBackground/PlateArena"]
-position = Vector2(700, 371)
-
-[node name="Cheese" type="Sprite2D" parent="YSortBackground/PlateArena/CheeseRamp"]
-position = Vector2(24, -44)
-flip_h = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortBackground/PlateArena/CheeseRamp"]
-position = Vector2(24, 6)
-polygon = PackedVector2Array(-39, -31, 8, -83, 7, -84, -40, -32)
-
-[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="YSortBackground/PlateArena/CheeseRamp"]
-position = Vector2(-13.099976, 33.5)
-polygon = PackedVector2Array(29.099976, -43.5, 77.099976, -96.5, 78.099976, -67.5)
+[node name="MediumBaguetteLU" parent="YSortBackground" instance=ExtResource("7_c78sm")]
+position = Vector2(1660, 235)
 
 [node name="SpawnArea" type="Area2D" parent="." groups=["spawn_area"]]
 position = Vector2(832, 601)
@@ -149,193 +131,167 @@ polygon = PackedVector2Array(-176, -6, 0, -100, 176, -6, 0, 87)
 [node name="YSortObjects" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="KetchupBottle2" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
-position = Vector2(249, 100)
-
-[node name="CupWater3" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(284, 117)
-
-[node name="CupWater4" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(306, 144)
-
-[node name="KetchupBottle4" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
-position = Vector2(694, 372)
-
-[node name="CupWater6" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(729, 389)
-
-[node name="CupWater7" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(751, 416)
-
-[node name="KetchupBottle" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
-position = Vector2(551, 553)
-
-[node name="GamJar" parent="YSortObjects" instance=ExtResource("11_sftma")]
-position = Vector2(590, 535)
-
-[node name="CupWater" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(623, 522)
-
-[node name="Mug" type="StaticBody2D" parent="YSortObjects"]
-position = Vector2(653, 489)
-
-[node name="Sprite2D" type="Sprite2D" parent="YSortObjects/Mug"]
-texture = ExtResource("9_qnvbm")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortObjects/Mug"]
-polygon = PackedVector2Array(21, 19, 12, 16, -4, 16, -14, 19, -17, 22, -15, 24.900002, -6, 29.5, 13.5, 29.5, 25, 24, 25, 21)
-
-[node name="KetchupBottle3" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
-position = Vector2(678, 487)
-
-[node name="GamJar2" parent="YSortObjects" instance=ExtResource("11_sftma")]
-position = Vector2(717, 469)
-
-[node name="CupWater5" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(750, 456)
-
-[node name="Mug2" type="StaticBody2D" parent="YSortObjects"]
-position = Vector2(780, 423)
-
-[node name="Sprite2D" type="Sprite2D" parent="YSortObjects/Mug2"]
-texture = ExtResource("9_qnvbm")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortObjects/Mug2"]
-polygon = PackedVector2Array(21, 19, 12, 16, -4, 16, -14, 19, -17, 22, -15, 24.900002, -6, 29.5, 13.5, 29.5, 25, 24, 25, 21)
-
-[node name="CupWater2" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(771, 206)
-
-[node name="LargeBaguette" parent="YSortObjects" instance=ExtResource("6_tpqse")]
-position = Vector2(771, 213)
-
-[node name="MediumBaguette" parent="YSortObjects" instance=ExtResource("11_c78sm")]
-position = Vector2(854.0001, 706.00006)
-
-[node name="MediumBaguette2" parent="YSortObjects" instance=ExtResource("7_c78sm")]
-position = Vector2(694.00006, 374)
-rotation = 0.0418879
-
-[node name="SmallBaguette" type="StaticBody2D" parent="YSortObjects"]
-position = Vector2(858, 705)
-
-[node name="Sprite2D" type="Sprite2D" parent="YSortObjects/SmallBaguette"]
-position = Vector2(-68.614136, -34.39479)
-texture = ExtResource("8_i47ox")
-region_enabled = true
-region_rect = Rect2(0, 0, 530.5, 290)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortObjects/SmallBaguette"]
-position = Vector2(-68.614136, -34.39479)
-rotation = 0.0014065035
-polygon = PackedVector2Array(-264.18823, -133.62857, -265.17276, -122.62717, -260.1587, -112.63421, -249.14603, -103.64969, -130.06458, -45.817116, 53.064697, 45.925446, 67.067444, 47.90576, 75.05902, 41.8945)
-
-[node name="SmallBaguette3" parent="YSortObjects" instance=ExtResource("14_i47ox")]
-position = Vector2(524, -121.00004)
-
-[node name="SmallBaguette2" parent="YSortObjects" instance=ExtResource("8_tpqse")]
-position = Vector2(528.00006, -67)
-rotation = 0.26703537
-
 [node name="PlayerSpawn" type="Marker2D" parent="YSortObjects"]
 position = Vector2(833, 601)
 
-[node name="MuffinEnemy" parent="YSortObjects" instance=ExtResource("16_ry2jr")]
-position = Vector2(459, 64)
-windup_time = 0.5
-dash_speed = 350.0
-dash_duration = 0.35
-recover_time = 0.5
-movement_speed = 80.0
-vision_range = 150.0
-attack_range = 150.0
+[node name="GamJar" parent="YSortObjects" instance=ExtResource("11_sftma")]
+position = Vector2(867, 685)
 
-[node name="PancakeBoss" parent="YSortObjects" instance=ExtResource("17_hm1wn")]
-position = Vector2(1075, 488)
-script = ExtResource("17_gpk8t")
-pancake_nodes = Array[NodePath]([NodePath("Sprite2D5"), NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Sprite2D4")])
-jump_cooldown = 2.5
-recoil_time = 0.1
-spring_time = 0.2
+[node name="KetchupBottle7" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(1095, 99)
 
-[node name="Sprite2D5" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(2, 69)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(15, 439, 165, 76)
+[node name="Cup3" parent="YSortObjects" instance=ExtResource("10_erobn")]
+position = Vector2(643, 140)
 
-[node name="Sprite2D4" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(6, 59)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(15, 319, 165, 76)
+[node name="Cup4" parent="YSortObjects" instance=ExtResource("10_erobn")]
+position = Vector2(1450, 44)
 
-[node name="Sprite2D3" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(-1, 52)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(15, 200, 165, 76)
+[node name="CupCran5" parent="YSortObjects" instance=ExtResource("13_hm1wn")]
+position = Vector2(1489, 70)
 
-[node name="Sprite2D2" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(2, 40)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(15, 81, 165, 76)
+[node name="KetchupBottle" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(1203, 478)
 
-[node name="Sprite2D" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(-2, 29)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(13, 0, 165, 76)
+[node name="CupWater" parent="YSortObjects" instance=ExtResource("12_erobn")]
+position = Vector2(654, 600)
 
-[node name="HurtBox2D" type="Area2D" parent="YSortObjects/PancakeBoss/Sprite2D"]
-script = ExtResource("18_gpk8t")
-metadata/_custom_type_script = "uid://birj0rp18k4pc"
+[node name="KetchupBottle2" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(677, 580)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="YSortObjects/PancakeBoss/Sprite2D/HurtBox2D"]
-position = Vector2(4, 40)
-polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
+[node name="SmallBaguette" parent="YSortObjects" instance=ExtResource("8_tpqse")]
+position = Vector2(278.00003, -183.00002)
+rotation = -0.8751371
+scale = Vector2(0.99999994, 0.99999994)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(2, 69)
-polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
+[node name="CupWater3" parent="YSortObjects" instance=ExtResource("12_erobn")]
+position = Vector2(362, -13)
 
-[node name="Dead Body" parent="YSortObjects" instance=ExtResource("21_qnvbm")]
-position = Vector2(1035, 456)
-enemy_name = &"Pea"
-sprite = ExtResource("21_vvhy6")
-speed = 40.0
+[node name="CupOJ6" parent="YSortObjects" instance=ExtResource("11_vc13p")]
+position = Vector2(398, 5)
 
-[node name="FightArea" type="Area2D" parent="."]
-position = Vector2(436, 65)
-script = ExtResource("16_erobn")
+[node name="Cup" parent="YSortObjects" instance=ExtResource("10_erobn")]
+position = Vector2(812, 500)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FightArea"]
-position = Vector2(16, 13)
-rotation = -0.6457718
-shape = SubResource("RectangleShape2D_sftma")
+[node name="GamJar2" parent="YSortObjects" instance=ExtResource("11_sftma")]
+position = Vector2(781, 517)
 
-[node name="PlayerDetector" type="Area2D" parent="FightArea"]
+[node name="SmallBaguette4" parent="YSortObjects" instance=ExtResource("14_i47ox")]
+position = Vector2(1140, 292)
+scale = Vector2(0.99999994, 0.99999994)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FightArea/PlayerDetector"]
-position = Vector2(17.88269, 11.190308)
-rotation = -0.6457718
-shape = SubResource("RectangleShape2D_erobn")
+[node name="CupOJ" parent="YSortObjects" instance=ExtResource("11_vc13p")]
+position = Vector2(1020, 472)
 
-[node name="FightArea2" type="Area2D" parent="."]
-position = Vector2(733, -210)
-script = ExtResource("16_erobn")
-is_boss_battle = true
+[node name="CheeseRampRight" parent="YSortObjects" instance=ExtResource("12_gpk8t")]
+position = Vector2(740, 518)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="FightArea2"]
-position = Vector2(29, 9)
-polygon = PackedVector2Array(-38.5, -118.5, -38.5, -117.4, -62.699997, -115.5, -72.7, -115.5, -112.8, -108.5, -118.8, -108.5, -177.8, -91.5, -181, -91.5, -231, -66.5, -233.2, -66.5, -251.2, -51.5, -253.4, -51.5, -266.4, -36.5, -267.7, -36.5, -276.7, -19.5, -278.2, -19.5, -279.2, -12.5, -280.5, -12.5, -280.5, 10.899994, -273.5, 25.800003, -273.5, 28.300003, -254.5, 49.199997, -254.5, 50.5, -240.5, 60.5, -240.5, 61.699997, -195.5, 84.7, -195.5, 86, -154.5, 98.899994, -154.5, 100.100006, -125.5, 106.100006, -125.5, 107.3, -64.5, 115.2, -64.5, 116.399994, -36.600006, 118.5, 36.600006, 118.5, 88.70001, 112.5, 95.70001, 112.5, 158.6, 97.5, 162.9, 97.5, 197.9, 83.5, 201, 83.5, 221.1, 72.5, 223.20001, 72.5, 245.20001, 56.5, 247.29999, 56.5, 262.3, 41.5, 263.59998, 41.5, 271.59998, 29.5, 272.90002, 29.5, 278.90002, 12.5, 280.59998, 12.5, 279.5, -10.599998, 279.5, -15, 273.5, -26.199997, 273.5, -28.300003, 264.5, -38.300003, 264.5, -40.5, 234.5, -64.5, 234.5, -65.8, 195.5, -84.8, 195.5, -86, 134.5, -104, 134.5, -105.2, 90.5, -112.3, 90.5, -113.4, 38.5, -117.4, 38.5, -118.5)
+[node name="CupCran" parent="YSortObjects" instance=ExtResource("13_hm1wn")]
+position = Vector2(724, 563)
 
-[node name="PlayerDetector" type="Area2D" parent="FightArea2"]
+[node name="MediumBaguette" parent="YSortObjects" instance=ExtResource("14_ry2jr")]
+position = Vector2(1230, 459.00006)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="FightArea2/PlayerDetector"]
-position = Vector2(29, 9)
-polygon = PackedVector2Array(-38.5, -118.5, -38.5, -117.4, -62.699997, -115.5, -72.7, -115.5, -112.8, -108.5, -118.8, -108.5, -177.8, -91.5, -181, -91.5, -231, -66.5, -233.2, -66.5, -251.2, -51.5, -253.4, -51.5, -266.4, -36.5, -267.7, -36.5, -276.7, -19.5, -278.2, -19.5, -279.2, -12.5, -280.5, -12.5, -280.5, 10.899994, -273.5, 25.800003, -273.5, 28.300003, -254.5, 49.199997, -254.5, 50.5, -240.5, 60.5, -240.5, 61.699997, -195.5, 84.7, -195.5, 86, -154.5, 98.899994, -154.5, 100.100006, -125.5, 106.100006, -125.5, 107.3, -64.5, 115.2, -64.5, 116.399994, -36.600006, 118.5, 36.600006, 118.5, 88.70001, 112.5, 95.70001, 112.5, 158.6, 97.5, 162.9, 97.5, 197.9, 83.5, 201, 83.5, 221.1, 72.5, 223.20001, 72.5, 245.20001, 56.5, 247.29999, 56.5, 262.3, 41.5, 263.59998, 41.5, 271.59998, 29.5, 272.90002, 29.5, 278.90002, 12.5, 280.59998, 12.5, 279.5, -10.599998, 279.5, -15, 273.5, -26.199997, 273.5, -28.300003, 264.5, -38.300003, 264.5, -40.5, 234.5, -64.5, 234.5, -65.8, 195.5, -84.8, 195.5, -86, 134.5, -104, 134.5, -105.2, 90.5, -112.3, 90.5, -113.4, 38.5, -117.4, 38.5, -118.5)
+[node name="SmallBaguette2" parent="YSortObjects" instance=ExtResource("8_tpqse")]
+position = Vector2(876, 676)
+rotation = -1.0355666
+
+[node name="InvisibleWall" type="StaticBody2D" parent="YSortObjects"]
+position = Vector2(761, 654)
+rotation = 0.46706128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortObjects/InvisibleWall"]
+shape = SubResource("RectangleShape2D_qnvbm")
+
+[node name="InvisibleWall2" type="StaticBody2D" parent="YSortObjects"]
+position = Vector2(800, 509)
+rotation = 0.9750175
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortObjects/InvisibleWall2"]
+position = Vector2(3.6334968, -3.5774245)
+rotation = 0.08608698
+shape = SubResource("RectangleShape2D_vvhy6")
+
+[node name="CupCran2" parent="YSortObjects" instance=ExtResource("13_hm1wn")]
+position = Vector2(1058, 486)
+
+[node name="LargeBaguette" parent="YSortObjects" instance=ExtResource("18_ry2jr")]
+position = Vector2(1052, 27)
+rotation = 0.2419184
+
+[node name="CupOJ2" parent="YSortObjects" instance=ExtResource("11_vc13p")]
+position = Vector2(876, 126)
+
+[node name="GamJar3" parent="YSortObjects" instance=ExtResource("11_sftma")]
+position = Vector2(1221, 59)
+
+[node name="KetchupBottle3" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(1556, 234)
+
+[node name="KetchupBottle4" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(608, 579)
+
+[node name="Plate" parent="YSortObjects" instance=ExtResource("6_gpk8t")]
+position = Vector2(1168.0001, 263.00003)
+scale = Vector2(0.2675187, 0.26117265)
+
+[node name="CheeseRampRight2" parent="YSortObjects/Plate" instance=ExtResource("12_gpk8t")]
+position = Vector2(-14.952795, -34.459957)
+scale = Vector2(2.6611023, 3.1206195)
+
+[node name="GamJar4" parent="YSortObjects" instance=ExtResource("11_sftma")]
+position = Vector2(536, 270)
+
+[node name="KetchupBottle5" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(486, 267)
+
+[node name="Plate2" parent="YSortObjects" instance=ExtResource("6_gpk8t")]
+position = Vector2(382.00003, 209)
+scale = Vector2(0.39990982, 0.39990982)
+
+[node name="MediumBaguette2" parent="YSortObjects" instance=ExtResource("14_ry2jr")]
+position = Vector2(502.00003, 164)
+rotation = -1.0425367
+
+[node name="CupOJ3" parent="YSortObjects" instance=ExtResource("11_vc13p")]
+position = Vector2(501, 185)
+
+[node name="KetchupBottle6" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(166, 357)
+
+[node name="Bowl" parent="YSortObjects" instance=ExtResource("6_hm1wn")]
+position = Vector2(62, 311)
+scale = Vector2(0.55507374, 0.55507374)
+
+[node name="MediumBaguetteLU2" parent="YSortObjects" instance=ExtResource("7_c78sm")]
+position = Vector2(212, -146)
+rotation = -1.4412544
+
+[node name="CupCran3" parent="YSortObjects" instance=ExtResource("13_hm1wn")]
+position = Vector2(121, 335)
+
+[node name="CupCran4" parent="YSortObjects" instance=ExtResource("13_hm1wn")]
+position = Vector2(-82, 188)
+
+[node name="Cup2" parent="YSortObjects" instance=ExtResource("10_erobn")]
+position = Vector2(0, 58)
+
+[node name="Bowl2" parent="YSortObjects" instance=ExtResource("6_hm1wn")]
+position = Vector2(-204, 144)
+
+[node name="CheeseRampRight2" parent="YSortObjects" instance=ExtResource("12_gpk8t")]
+position = Vector2(530, -91)
+
+[node name="CupWater2" parent="YSortObjects" instance=ExtResource("12_erobn")]
+position = Vector2(320, -1)
+
+[node name="GamJar5" parent="YSortObjects" instance=ExtResource("11_sftma")]
+position = Vector2(239, -133)
+
+[node name="CupOJ5" parent="YSortObjects" instance=ExtResource("11_vc13p")]
+position = Vector2(269, -146)
+
+[node name="CupOJ4" parent="YSortObjects" instance=ExtResource("11_vc13p")]
+position = Vector2(574, 5)
 
 [node name="AmbientPlayers" type="Node2D" parent="."]
 
@@ -378,11 +334,16 @@ max_distance = 550.0
 position = Vector2(1082, -150)
 max_distance = 550.0
 
-[connection signal="body_entered" from="FightArea" to="FightArea" method="_on_body_entered"]
-[connection signal="body_exited" from="FightArea" to="FightArea" method="_on_body_exited"]
-[connection signal="body_entered" from="FightArea/PlayerDetector" to="FightArea" method="_on_player_detector_body_entered"]
-[connection signal="body_exited" from="FightArea/PlayerDetector" to="FightArea" method="_on_player_detector_body_exited"]
-[connection signal="body_entered" from="FightArea2" to="FightArea2" method="_on_body_entered"]
-[connection signal="body_exited" from="FightArea2" to="FightArea2" method="_on_body_exited"]
-[connection signal="body_entered" from="FightArea2/PlayerDetector" to="FightArea2" method="_on_player_detector_body_entered"]
-[connection signal="body_exited" from="FightArea2/PlayerDetector" to="FightArea2" method="_on_player_detector_body_exited"]
+[node name="PancakeBoss" parent="." instance=ExtResource("17_hm1wn")]
+position = Vector2(825, -208)
+
+[node name="MediumBaguetteLU" parent="." instance=ExtResource("7_c78sm")]
+position = Vector2(586, 591.0001)
+rotation = 0.036507927
+
+[node name="SmallBaguette" parent="." instance=ExtResource("8_tpqse")]
+position = Vector2(569, 586)
+rotation = -0.061187133
+
+[node name="BarrierForkFlip" parent="." instance=ExtResource("20_ry2jr")]
+position = Vector2(900, 142)

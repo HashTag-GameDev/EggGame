@@ -20,6 +20,7 @@ var doing_animation := false
 var hatch_panels := []
 
 func _ready() -> void:
+	show()
 	hatch_ui.modulate.a = 0.0
 	hatch_enemy_1.mouse_entered.connect(hovered_panel.bind(hatch_enemy_1))
 	hatch_enemy_2.mouse_entered.connect(hovered_panel.bind(hatch_enemy_2))

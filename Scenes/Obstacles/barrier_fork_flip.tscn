@@ -1,0 +1,101 @@
+[gd_scene load_steps=13 format=3 uid="uid://dvbd1bhc1w5h3"]
+
+[ext_resource type="Script" uid="uid://2mwnqqq6ehbv" path="res://Scripts/barrier_fork.gd" id="1_8y7v2"]
+[ext_resource type="Texture2D" uid="uid://b6nqr8i3xo1ny" path="res://Assets/Spritesheets/stabby_fork_side.png" id="2_bqn4x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvhy6"]
+atlas = ExtResource("2_bqn4x")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ns551"]
+atlas = ExtResource("2_bqn4x")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bxlt"]
+atlas = ExtResource("2_bqn4x")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58qbg"]
+atlas = ExtResource("2_bqn4x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnsnf"]
+atlas = ExtResource("2_bqn4x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06qyo"]
+atlas = ExtResource("2_bqn4x")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bgrf"]
+atlas = ExtResource("2_bqn4x")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt8ts"]
+atlas = ExtResource("2_bqn4x")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bbjgr"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvhy6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ns551")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bxlt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58qbg")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"lower",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnsnf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06qyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bgrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vt8ts")
+}],
+"loop": false,
+"name": &"raise",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jbexl"]
+radius = 3.1293335
+height = 22.360474
+
+[node name="BarrierForkFlip" type="StaticBody2D" node_paths=PackedStringArray("collider", "sprite")]
+script = ExtResource("1_8y7v2")
+collider = NodePath("CollisionShape2D")
+sprite = NodePath("ForkSprite")
+
+[node name="ForkSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_bbjgr")
+animation = &"lower"
+autoplay = "default"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.9725106
+shape = SubResource("CapsuleShape2D_jbexl")
