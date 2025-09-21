@@ -1,11 +1,10 @@
-[gd_scene load_steps=25 format=4 uid="uid://cswc0pnqv2k8j"]
+[gd_scene load_steps=24 format=4 uid="uid://cswc0pnqv2k8j"]
 
 [ext_resource type="Script" uid="uid://b0gbx8io1v52k" path="res://Scripts/player_controller.gd" id="1_gy20a"]
 [ext_resource type="Texture2D" uid="uid://rtoe8vgghpfn" path="res://Assets/Spritesheets/ui_sheet.png" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://dkmrgjux4x0jk" path="res://Scripts/player_ui.gd" id="3_gy20a"]
 [ext_resource type="Texture2D" uid="uid://bahpni7oskfv2" path="res://Assets/Masks/hatch_ui_mask.png" id="4_5hlyf"]
 [ext_resource type="SpriteFrames" uid="uid://r2txq6mjrbc1" path="res://Assets/Spritesheets/pea_frames.tres" id="5_no3rq"]
-[ext_resource type="Texture2D" uid="uid://dfkianptl02ha" path="res://Assets/Spritesheets/check_box_checked.png" id="6_no3rq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_syu87"]
 texture = ExtResource("3_6t5aa")
@@ -813,7 +812,7 @@ atlas = SubResource("CompressedTexture2D_1teac")
 region = Rect2(290, 137, 14, 14)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syu87"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0.39215687)
 corner_radius_top_left = 100
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -821,7 +820,7 @@ corner_radius_bottom_left = 10
 corner_detail = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3ywk"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0.39215687)
 corner_radius_top_left = 10
 corner_radius_top_right = 100
 corner_radius_bottom_right = 10
@@ -829,7 +828,7 @@ corner_radius_bottom_left = 10
 corner_detail = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1teac"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0.39215687)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -837,7 +836,7 @@ corner_radius_bottom_left = 100
 corner_detail = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7idn0"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0.39215687)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 100
@@ -845,26 +844,21 @@ corner_radius_bottom_left = 10
 corner_detail = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g48ij"]
-bg_color = Color(0.04, 0.04, 0.04, 1)
+bg_color = Color(0, 0, 0, 0.39215687)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 corner_detail = 16
 
-[node name="PlayerController" type="Node" node_paths=PackedStringArray("player_ui")]
+[node name="PlayerController" type="Node2D" node_paths=PackedStringArray("player_ui")]
+y_sort_enabled = true
 script = ExtResource("1_gy20a")
 player_ui = NodePath("UILayer")
 
-[node name="UILayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("hint_ui", "hatch_ui", "hatch_enemy_1", "hatch_enemy_2", "hatch_enemy_3", "hatch_enemy_4", "hatch_cancel")]
+[node name="UILayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("hint_ui")]
 script = ExtResource("3_gy20a")
 hint_ui = NodePath("UI/HintUI")
-hatch_ui = NodePath("UI/HatchUI")
-hatch_enemy_1 = NodePath("UI/HatchUI/TextureRect/Quads/Top Left Quad")
-hatch_enemy_2 = NodePath("UI/HatchUI/TextureRect/Quads/Top Right Quad")
-hatch_enemy_3 = NodePath("UI/HatchUI/TextureRect/Quads/Bottom Left Quad")
-hatch_enemy_4 = NodePath("UI/HatchUI/TextureRect/Quads/Bottom Right Quad")
-hatch_cancel = NodePath("UI/HatchUI/Cancel Button/Panel")
 
 [node name="UI" type="Control" parent="UILayer"]
 layout_mode = 3
@@ -873,7 +867,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="HintUI" type="Control" parent="UILayer/UI"]
 modulate = Color(1, 1, 1, 0)
@@ -966,7 +959,6 @@ size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_ukyrk")
 
 [node name="HatchUI" type="Control" parent="UILayer/UI"]
-modulate = Color(1, 1, 1, 0.8039216)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -981,7 +973,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.7254902)
+color = Color(0, 0, 0, 0.102)
 
 [node name="TextureRect" type="TextureRect" parent="UILayer/UI/HatchUI"]
 clip_children = 1
@@ -1014,63 +1006,103 @@ offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Top Left Quad" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
-modulate = Color(1, 1, 1, 0.52156866)
+[node name="Top Left Quad" type="Control" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
+clip_children = 1
+clip_contents = true
 custom_minimum_size = Vector2(98, 98)
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads/Top Left Quad"]
+custom_minimum_size = Vector2(98, 98)
+layout_mode = 1
+offset_right = 98.0
+offset_bottom = 98.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_syu87")
 
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="UILayer/UI/HatchUI/TextureRect/Quads/Top Left Quad"]
-position = Vector2(59, 54)
+position = Vector2(58, 58)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("5_no3rq")
 animation = &"idle_front"
-frame_progress = 0.3521172
+frame_progress = 0.53092426
 speed_scale = 0.25
 
-[node name="Top Right Quad" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
-modulate = Color(1, 1, 1, 0.52156866)
+[node name="Top Right Quad" type="Control" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
+clip_children = 1
+clip_contents = true
 custom_minimum_size = Vector2(98, 98)
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads/Top Right Quad"]
+custom_minimum_size = Vector2(98, 98)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -98.0
+offset_bottom = 98.0
+grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_f3ywk")
 
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="UILayer/UI/HatchUI/TextureRect/Quads/Top Right Quad"]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(41, 54)
+position = Vector2(42, 58)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("5_no3rq")
 animation = &"idle_front"
-frame_progress = 0.07659996
+frame_progress = 0.18745027
 speed_scale = 0.25
 
-[node name="Bottom Left Quad" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
-modulate = Color(1, 1, 1, 0.52156866)
+[node name="Bottom Left Quad" type="Control" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
+clip_children = 1
+clip_contents = true
 custom_minimum_size = Vector2(98, 98)
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads/Bottom Left Quad"]
+custom_minimum_size = Vector2(98, 98)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -98.0
+offset_right = 98.0
+grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1teac")
 
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="UILayer/UI/HatchUI/TextureRect/Quads/Bottom Left Quad"]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(59, 44)
+position = Vector2(58, 38)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("5_no3rq")
 animation = &"idle_front"
-frame_progress = 0.7982578
+frame_progress = 0.18745027
 speed_scale = 0.25
 
-[node name="Bottom Right Quad" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
-modulate = Color(1, 1, 1, 0.52156866)
+[node name="Bottom Right Quad" type="Control" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
+clip_children = 1
+clip_contents = true
 custom_minimum_size = Vector2(98, 98)
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads/Bottom Right Quad"]
+custom_minimum_size = Vector2(98, 98)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -98.0
+offset_top = -98.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7idn0")
 
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="UILayer/UI/HatchUI/TextureRect/Quads/Bottom Right Quad"]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(41, 44)
+position = Vector2(42, 38)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("5_no3rq")
 animation = &"idle_front"
-frame_progress = 0.3900735
+frame_progress = 0.18745027
 speed_scale = 0.25
 
 [node name="Cancel Button" type="Control" parent="UILayer/UI/HatchUI"]
@@ -1089,16 +1121,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="UILayer/UI/HatchUI/Cancel Button"]
-modulate = Color(1, 1, 1, 0.52156866)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g48ij")
-
-[node name="Sprite2D" type="Sprite2D" parent="UILayer/UI/HatchUI/Cancel Button/Panel"]
-modulate = Color(1, 0.09133339, 0.060000002, 1)
-position = Vector2(20, 20)
-scale = Vector2(1.33, 1.33)
-texture = ExtResource("6_no3rq")
-region_rect = Rect2(379, 109, 14, 14)

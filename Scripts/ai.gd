@@ -122,6 +122,12 @@ class StateIdle extends State:
 	func _init(init_actor: Actor2D) -> void:
 		super("Idle", init_actor)
 	
+<<<<<<< HEAD
+=======
+	func enter() -> void:
+		actor.sprite.play(&"idle_front")
+	
+>>>>>>> player_hatch
 	func update(_delta: float) -> Event:
 		if actor.idle_logic.is_valid():
 			actor.idle_logic.call()

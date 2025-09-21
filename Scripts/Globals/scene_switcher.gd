@@ -17,6 +17,7 @@ func _ready() -> void:
 	_tex_rect.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tex_rect.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_tex_rect.visible = false
+	_tex_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_layer.add_child(_tex_rect)
 
 func slide_to(scene_path: String, direction: String = "left", duration: float = -1.0, speed_pps: float = 1600.0) -> void:
