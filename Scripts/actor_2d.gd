@@ -19,6 +19,7 @@ var attacks: Array[Callable] = []
 var override_attack_anim = false
 
 func _ready() -> void:
+	sprite.play(&"idle_front")
 	setup()
 	
 	if is_ai_controlled:
@@ -67,5 +68,5 @@ func attack(id: int) -> void:
 func activate_camera() -> void:
 	camera.enabled = true
 
-func add_transitions(state_machine: AI.StateMachine) -> void:
+func add_transitions(_state_machine: AI.StateMachine) -> void:
 	pass

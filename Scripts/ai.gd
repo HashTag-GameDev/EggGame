@@ -123,7 +123,7 @@ class StateIdle extends State:
 		super("Idle", init_actor)
 	
 	func enter() -> void:
-		actor.sprite.play(&"idle")
+		actor.sprite.play(&"idle_front")
 	
 	func update(_delta: float) -> Event:
 		if is_player_in_vision_range():
