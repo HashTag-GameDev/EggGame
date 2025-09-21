@@ -196,11 +196,15 @@ func hatch() -> void:
 
 func die() -> void:
 	is_dying = true
+	drop_soul()
 	# TODO: Make better dying logic and play animation.
 	if hit_particle != null:
 		if hit_particle.emitting:
 			await hit_particle.finished
 	queue_free()
+
+func drop_soul() -> void:
+	pass
 
 func obtain_soul(enemy_name: StringName) -> void:
 	if is_ai_controlled:

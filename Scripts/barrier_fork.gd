@@ -14,4 +14,4 @@ func raise() -> void:
 func lower() -> void:
 	sprite.play(&"lower")
 	await sprite.animation_finished
-	collider.set_deferred(&"disabled", false)
+	collider.set_deferred(&"disabled", true)
