@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3e32u2wtm0xl"]
+[gd_scene load_steps=11 format=3 uid="uid://c3e32u2wtm0xl"]
 
 [ext_resource type="Script" uid="uid://btclksioi4vsb" path="res://Scripts/Actors/pea_enemy.gd" id="1_qi7hr"]
 [ext_resource type="AudioStream" uid="uid://dffbb3aa0j1fk" path="res://Assets/Audio/SFX/Pea/Pea Moving.mp3" id="2_nrxdk"]
@@ -35,7 +35,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="PeaEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera", "audio_player", "attack_audio_player_1", "health_bar", "hit_particle")]
+[node name="PeaEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "audio_player", "attack_audio_player_1") groups=["pea"]]
 script = ExtResource("1_qi7hr")
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
@@ -93,6 +93,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_mn6j8")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ufm4p")
 value = 50.0
 show_percentage = false
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 volume_db = -10.0
 max_distance = 500.0

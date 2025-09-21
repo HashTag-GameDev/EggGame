@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://dni63nesdnroc"]
+[gd_scene load_steps=31 format=4 uid="uid://dni63nesdnroc"]
 
 [ext_resource type="Texture2D" uid="uid://b53i7ml3wonte" path="res://Assets/Tilesets/jame_gam_iso_tiles.png" id="1_0e3vx"]
 [ext_resource type="Texture2D" uid="uid://hom4ti57yxjl" path="res://Assets/Sprites/tablecloth_corner.png" id="2_6j5ir"]
@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="18_gpk8t"]
 [ext_resource type="Texture2D" uid="uid://cmekl2jkdwe04" path="res://Assets/Spritesheets/pancake.png" id="18_hm1wn"]
 [ext_resource type="PackedScene" uid="uid://cm17q46b7lpcc" path="res://Scenes/dead_body.tscn" id="21_qnvbm"]
-[ext_resource type="Texture2D" uid="uid://sy2ckws5snso" path="res://Assets/Sprites/pea.tres" id="21_vvhy6"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_0e3vx"]
 tile_data = PackedInt32Array(196608, 65536, 0, 65537, 65536, 0, 131073, 0, 0, 196609, 65536, 0, 262145, 0, 0, 327681, 65536, 0, 2, 0, 0, 65538, 65536, 0, 131074, 0, 0, 196610, 65536, 0, 262146, 0, 0, 327682, 65536, 0, 393218, 0, 0, 131075, 0, 0, 196611, 65536, 0, 262147, 0, 0)
@@ -302,8 +301,6 @@ polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57
 
 [node name="Dead Body" parent="YSortObjects" instance=ExtResource("21_qnvbm")]
 position = Vector2(1035, 456)
-enemy_name = &"Pea"
-sprite = ExtResource("21_vvhy6")
 speed = 40.0
 
 [node name="FightArea" type="Area2D" parent="."]

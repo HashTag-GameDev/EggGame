@@ -45,6 +45,9 @@ folder_colors={
 spawn_area=""
 player=""
 ambient_player=""
+egg=""
+muffin=""
+pea=""
 
 [gui]
 

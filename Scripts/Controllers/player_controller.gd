@@ -5,12 +5,20 @@ class_name PlayerController
 	{
 		&"name": &"Egg",
 		&"unlocked": true,
-		&"scene": preload("res://Scenes/Actors/egg_actor.tscn")
+		&"scene": preload("res://Scenes/Actors/egg_actor.tscn"),
+		&"group": "egg"
 	},
 	{
 		&"name": &"Pea",
 		&"unlocked": false,
-		&"scene": preload("res://Scenes/Actors/pea_enemy.tscn")
+		&"scene": preload("res://Scenes/Actors/pea_enemy.tscn"),
+		&"group": "pea"
+	},
+	{
+		&"name": &"Muffin",
+		&"unlocked": false,
+		&"scene": preload("res://Scenes/Actors/muffin_enemy.tscn"),
+		&"group": "muffin"
 	},
 ]
 @export_category("Health")
@@ -28,6 +36,7 @@ var changing_actor := false
 var attack_cooldown := 0.0
 var attack_counter := 0
 var started_attacks := []
+var player_locked = false
 
 var player_health: float
 
@@ -66,7 +75,7 @@ func create_new_actor(id: int, spawn_pos: Vector2) -> void:
 	changing_actor = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if attack_cooldown != 0.0:
+	if attack_cooldown != 0.0 or player_locked:
 		return
 	if event.is_action_pressed(&"hatch_menu"):
 		open_hatch_menu()
@@ -85,6 +94,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			started_attacks.pop_at(idx)
 
 func handle_movement() -> void:
+	if player_locked:
+		return
 	var input_vector: Vector2 = Vector2.ZERO
 	
 	input_vector.x = Input.get_axis("move_left", "move_right")
@@ -106,18 +117,31 @@ func obtained_soul(enemy_name: StringName) -> void:
 	var could_unlock = false
 	for actor: Dictionary in possible_actors:
 		if actor[&"name"] == enemy_name:
+			print(actor)
 			actor[&"unlocked"] = true
 			could_unlock = true
 	if could_unlock:
 		do_unlock_animation(enemy_name)
 
 func do_unlock_animation(enemy_name: StringName) -> void:
+	player_locked = true
 	player_ui.start_animation()
-	for actor: Dictionary in possible_actors:
-		player_ui.
+	player_ui.reset_panels_alpha()
 	await player_ui.fade_in_window(player_ui.hatch_ui, 0.9)
-	
+	var panel_id = find_actor_id_by_name(enemy_name)
+	await player_ui.do_panel_animation(panel_id)
+	await player_ui.fade_out_window(player_ui.hatch_ui)
 	player_ui.finish_animation()
+	player_locked = false
+	print("unlock animation finished")
+
+func find_actor_id_by_name(enemy_name: StringName) -> int:
+	var i = 0
+	for actor: Dictionary in possible_actors:
+		if actor[&"name"] == enemy_name:
+			return i
+		i += 1
+	return -1
 
 func redraw_health_bar() -> void:
 	var tween = create_tween()
@@ -137,10 +161,13 @@ func close_hatch_menu() -> void:
 	var selected_panel: Panel = player_ui.selected_panel as Panel
 	if !selected_panel:
 		return
-	var hatch_id = selected_panel.get_meta(&"id")
+	var hatch_id := selected_panel.get_meta(&"id") as int
 	if hatch_id == -1:
 		return
-	create_new_actor(hatch_id, current_actor.global_position)
+	if hatch_id < possible_actors.size():
+		if possible_actors[hatch_id][&"unlocked"]:
+			if !current_actor.is_in_group(possible_actors[hatch_id][&"group"]):
+				create_new_actor(hatch_id, current_actor.global_position)
 
 func _on_detection_area_entered(area: Area2D) -> void:
 	if area.is_in_group("spawn_area"):

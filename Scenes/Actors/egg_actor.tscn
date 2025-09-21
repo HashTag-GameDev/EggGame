@@ -1,8 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b3uvrs50p06cx"]
 
 [ext_resource type="SpriteFrames" uid="uid://dgyemphnumibx" path="res://Assets/Spritesheets/egg_frames.tres" id="1_77jag"]
-
-[ext_resource type="Script" uid="uid://c2jq6w4ugh8fu" path="res://Scripts/Base Classes/actor_2d.gd" id="1_j2i6s"]
+[ext_resource type="Script" uid="uid://bybuj1w1ahx3p" path="res://Scripts/Actors/egg_actor.gd" id="1_je0bx"]
 [ext_resource type="AudioStream" uid="uid://uq51vu1pj410" path="res://Assets/Audio/SFX/EggWalking/egg_walking-01.mp3" id="2_3620u"]
 [ext_resource type="AudioStream" uid="uid://df0jxih77y0l6" path="res://Assets/Audio/SFX/EggWalking/egg_walking-02.mp3" id="3_cmov6"]
 [ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="3_dpku4"]
@@ -17,8 +16,8 @@ size = Vector2(22, 8)
 radius = 15.0
 height = 42.0
 
-[node name="EggActor" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera", "audio_player")]
-script = ExtResource("1_j2i6s")
+[node name="EggActor" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "audio_player") groups=["egg"]]
+script = ExtResource("1_je0bx")
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
 hurt_box = NodePath("HurtBox2D")
@@ -54,5 +53,6 @@ metadata/_custom_type_script = "uid://birj0rp18k4pc"
 shape = SubResource("CapsuleShape2D_6wq2t")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"

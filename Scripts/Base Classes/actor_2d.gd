@@ -144,7 +144,7 @@ func play_attack_2() -> void:
 		attack_audio_player_2.stream = attack_audio_2
 		attack_audio_player_2.play()
 
-func attack(id: int) -> void:
+func attack(id: int) -> float:
 	if is_dying:
 		return 0.0
 	if id < attacks.size():

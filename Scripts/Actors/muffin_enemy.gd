@@ -1,4 +1,5 @@
 extends Actor2D
+class_name MuffinEnemy
 
 @export_category("Rush Cycle")
 @export var long_idle_cooldown: float = 2.5

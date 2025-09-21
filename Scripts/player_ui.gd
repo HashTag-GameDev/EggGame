@@ -12,10 +12,12 @@ class_name PlayerUI
 @export var hatch_enemy_3: Panel
 @export var hatch_enemy_4: Panel
 @export var hatch_cancel: Panel
+@export var panel_base_alpha := 0.5
 
 var line: Line2D
 var selected_panel: Panel
 var doing_animation := false
+var hatch_panels := []
 
 func _ready() -> void:
 	hatch_ui.modulate.a = 0.0
@@ -30,6 +32,12 @@ func _ready() -> void:
 	hatch_enemy_3.set_meta(&"id", 2)
 	hatch_enemy_4.set_meta(&"id", 3)
 	hatch_cancel.set_meta(&"id", -1)
+	
+	hatch_panels.append(hatch_enemy_1)
+	hatch_panels.append(hatch_enemy_2)
+	hatch_panels.append(hatch_enemy_3)
+	hatch_panels.append(hatch_enemy_4)
+	hatch_panels.append(hatch_cancel)
 
 func fade_in_window(window: Control, fade_in_amount: float = 0.0) -> void:
 	window.show()
@@ -56,14 +64,29 @@ func finish_animation() -> void:
 	doing_animation = false
 
 func do_panel_animation(id: int) -> void:
-	var panel: Panel = null
-	panel = get_panel_by_id(id)
+	var panel :=  get_panel_by_id(id)
+	var panel_sprite := panel.get_node_or_null("Enemy Sprite") as AnimatedSprite2D
+	
+	await get_tree().create_timer(0.5).timeout
 	
 	var original_alpha := panel.modulate.a
+	
+	var tween_panel = create_tween()
+	tween_panel.tween_property(panel, "modulate:a", 0.9, 0.5)
+	await tween_panel.finished
+	tween_panel.stop()
+	await get_tree().create_timer(0.25).timeout
+	var tween_sprite = create_tween()
+	tween_sprite.tween_property(panel_sprite, "modulate:v", 1.0, 0.5)
+	await tween_sprite.finished
+	await get_tree().create_timer(0.25).timeout
+	tween_panel.tween_property(panel, "modulate:a", original_alpha, 0.5)
+	tween_panel.play()
+	await tween_panel.finished
 
-func set_panel_alpha(id: int, alpha: float) -> void:
-	var panel := get_panel_by_id(id)
-	panel.modulate.a = alpha
+func reset_panels_alpha() -> void:
+	for panel in hatch_panels:
+		panel.modulate.a = panel_base_alpha
 
 func get_panel_by_id(id: int) -> Panel:
 	match id:
