@@ -15,6 +15,8 @@ func spear_attack():
 	var spear_direction: Vector2
 	if is_ai_controlled:
 		spear_direction = (AI.Blackboard.player_actor.hurt_box.global_position) - global_position
+	else:
+		spear_direction = get_global_mouse_position() - AI.Blackboard.player_actor.global_position
 	var spear_instance := spear_scene.instantiate() as RigidBody2D
 	spear_instance.global_position = global_position
 	spear_instance.linear_velocity = spear_direction.normalized() * spear_speed
@@ -22,6 +24,7 @@ func spear_attack():
 	add_sibling(spear_instance)
 	play_attack_1()
 	sprite.play(&"throw_spear_cooldown")
+	return true
 
 func add_transitions(state_machine: AI.StateMachine) -> void:
 	var idle := AI.StateIdle.new(self)
