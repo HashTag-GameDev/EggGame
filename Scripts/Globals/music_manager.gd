@@ -6,7 +6,7 @@ var max_db: float = -15.0
 var default_fade: float = 1.5
 
 var tracks: Array[AudioStream] = [preload("uid://d1fsi3oylph5h"), preload("uid://cwe1y1mswr23j"), preload("uid://difsq3croeug2"), preload("uid://bl85xvsfdaa8s")]
-var track_names: Array[StringName] = [&"Music_0", &"Music_1", &"Music_2", &"Music_2"]
+var track_names: Array[StringName] = [&"Music_0", &"Music_1", &"Music_2", &"Music_3"]
 
 var _players: Array[AudioStreamPlayer] = []
 var _name_to_index: Dictionary = {}	# StringName -> int

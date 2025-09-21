@@ -23,14 +23,12 @@ shape = SubResource("RectangleShape2D_j2i6s")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -29)
 enabled = false
-zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_77jag")
-animation = &"idle_front"
-frame_progress = 0.57694966
+animation = &"idle_left"
 offset = Vector2(0, -29)
 
 [node name="DetectionArea" type="Area2D" parent="."]

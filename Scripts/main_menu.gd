@@ -43,9 +43,10 @@ func _ready() -> void:
 	_load_settings()
 	_loading = false
 	
-	MusicManager.fade_to("Music_0", 2.5)
+	MusicManager.fade_to("Music_0", 1.0)
 
 func _on_play_button_pressed() -> void:
+	MusicManager.fade_to("Music_1", 1.0)
 	SceneSwitcher.slide_to(main_game)
 
 func _on_settings_button_pressed() -> void:

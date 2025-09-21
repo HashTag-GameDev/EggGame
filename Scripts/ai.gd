@@ -122,10 +122,9 @@ class StateIdle extends State:
 	func _init(init_actor: Actor2D) -> void:
 		super("Idle", init_actor)
 	
-	func enter() -> void:
-		actor.sprite.play(&"idle")
-	
 	func update(_delta: float) -> Event:
+		if actor.idle_logic != null:
+			actor.idle_logic.call()
 		if is_player_in_vision_range():
 			return Event.PLAYER_ENTERED_VISION_RANGE
 		
