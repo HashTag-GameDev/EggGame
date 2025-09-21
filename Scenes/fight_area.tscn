@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx4do0jcropbd"]
+
+[ext_resource type="Script" uid="uid://dkoityjk8p0pp" path="res://Scripts/fight_area.gd" id="1_4skyd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sftma"]
+size = Vector2(350, 307.92484)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_erobn"]
+size = Vector2(340, 277.01297)
+
+[node name="FightArea" type="Area2D"]
+script = ExtResource("1_4skyd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(18.828674, 14.1996)
+rotation = -0.6457718
+shape = SubResource("RectangleShape2D_sftma")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(20, 14)
+rotation = -0.6457718
+shape = SubResource("RectangleShape2D_erobn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

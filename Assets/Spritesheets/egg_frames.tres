@@ -85,7 +85,15 @@ animations = [{
 "texture": SubResource("AtlasTexture_ef1rh")
 }],
 "loop": true,
-"name": &"idle_side",
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ef1rh")
+}],
+"loop": true,
+"name": &"idle_right",
 "speed": 5.0
 }, {
 "frames": [{
@@ -142,6 +150,29 @@ animations = [{
 "texture": SubResource("AtlasTexture_1cuqb")
 }],
 "loop": true,
-"name": &"walking_side",
+"name": &"walking_left",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7c4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg8d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c35q5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xekfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y78ds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cuqb")
+}],
+"loop": true,
+"name": &"walking_right",
 "speed": 12.0
 }]
