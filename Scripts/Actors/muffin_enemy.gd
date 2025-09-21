@@ -1,6 +1,9 @@
 extends Actor2D
 class_name MuffinEnemy
 
+const DEAD_BODY = preload("uid://cm17q46b7lpcc")
+const MUFFIN_DEAD = preload("uid://ccngw8y7btw4s")
+
 @export_category("Rush Cycle")
 @export var long_idle_cooldown: float = 2.5
 @export var windup_time: float = 0.3
@@ -13,6 +16,7 @@ class_name MuffinEnemy
 @export var patrol_radius: float = 40.0
 @export var patrol_clockwise: bool = false
 @export var patrol_center_offset: Vector2 = Vector2.ZERO
+@export var should_drop_soul = false
 
 var _patrol_center: Vector2
 var _patrol_angle: float = 0.0
@@ -100,3 +104,12 @@ func add_transitions(state_machine: AI.StateMachine) -> void:
 	}
 	
 	state_machine.activate(idle)
+
+func drop_soul() -> void:
+	var dead_body = DEAD_BODY.instantiate()
+	dead_body.global_position = global_position
+	dead_body.sprite = MUFFIN_DEAD
+	dead_body.sprite_transform.rotated(0.25)
+	dead_body.speed = 50.0
+	dead_body.enemy_name = &"Muffin"
+	add_sibling(dead_body)

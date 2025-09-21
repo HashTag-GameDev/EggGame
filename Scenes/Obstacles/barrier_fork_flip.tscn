@@ -92,10 +92,10 @@ sprite = NodePath("ForkSprite")
 [node name="ForkSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_bbjgr")
-animation = &"lower"
 autoplay = "default"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.9725106
 shape = SubResource("CapsuleShape2D_jbexl")
+disabled = true

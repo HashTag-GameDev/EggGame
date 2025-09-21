@@ -931,7 +931,6 @@ player_ui = NodePath("UILayer")
 health_bar = NodePath("UILayer/UI/PlayerHealth")
 
 [node name="UILayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("hint_ui", "hatch_ui", "hatch_enemy_1", "hatch_enemy_2", "hatch_enemy_3", "hatch_enemy_4", "hatch_cancel")]
-visible = false
 script = ExtResource("3_gy20a")
 hint_ui = NodePath("UI/HintUI")
 hatch_ui = NodePath("UI/HatchUI")
