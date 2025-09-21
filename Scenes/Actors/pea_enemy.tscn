@@ -95,7 +95,7 @@ value = 50.0
 show_percentage = false
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = -10.0
+volume_db = -20.0
 max_distance = 500.0
 bus = &"SFX"
 

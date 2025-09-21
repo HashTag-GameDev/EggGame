@@ -1,12 +1,14 @@
-[gd_scene load_steps=25 format=4 uid="uid://udfh2tbngavk"]
+[gd_scene load_steps=27 format=4 uid="uid://udfh2tbngavk"]
 
 [ext_resource type="Script" uid="uid://ck15x4hd3h3wp" path="res://Scripts/main_menu.gd" id="1_1ehe0"]
 [ext_resource type="Texture2D" uid="uid://b53i7ml3wonte" path="res://Assets/Tilesets/jame_gam_iso_tiles.png" id="1_28flt"]
 [ext_resource type="Texture2D" uid="uid://rtoe8vgghpfn" path="res://Assets/Spritesheets/ui_sheet.png" id="2_48xlc"]
 [ext_resource type="Script" uid="uid://b2goblnjri5dx" path="res://Scripts/titles.gd" id="3_16hvj"]
-[ext_resource type="Texture2D" uid="uid://cwx1lrsi420ye" path="res://Assets/Sprites/SUNNY_SIDE_SHOWDOWN2.png" id="3_trj04"]
 [ext_resource type="Texture2D" uid="uid://jd2ang12ne03" path="res://Assets/Spritesheets/check_box.png" id="4_n45e2"]
 [ext_resource type="Theme" uid="uid://c6khkl77s08pi" path="res://Misc/setting_menu_labels.tres" id="4_opfnp"]
+[ext_resource type="Texture2D" uid="uid://cns6dnms3tcev" path="res://Assets/Sprites/Egg.png" id="4_t1dhk"]
+[ext_resource type="Texture2D" uid="uid://bfy82y8el6fie" path="res://Assets/Sprites/Showdown.png" id="4_vr1f0"]
+[ext_resource type="Texture2D" uid="uid://ckul0hirtpunn" path="res://Assets/Sprites/Sunny_Side.png" id="5_t1dhk"]
 [ext_resource type="FontFile" uid="uid://cckfyl7vworv6" path="res://Assets/Fonts/Bangers/Bangers-Regular.ttf" id="6_opfnp"]
 [ext_resource type="FontFile" uid="uid://b4jisrvnesb8y" path="res://Assets/Fonts/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf" id="7_yhxw7"]
 [ext_resource type="FontFile" uid="uid://ngjo4chtah3e" path="res://Assets/Fonts/Roboto_Condensed/RobotoCondensed-Italic-VariableFont_wght.ttf" id="8_trj04"]
@@ -879,23 +881,25 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_16hvj")
-base_scale = 0.25
-amplitude = 0.01
-speed = 0.78
+base_scale = 1.2
+speed = 0.6
 
-[node name="Title" type="Sprite2D" parent="Titles"]
-position = Vector2(328, 86)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_trj04")
-region_enabled = true
-region_rect = Rect2(24, 8, 1097, 306)
+[node name="TitleBG" type="Sprite2D" parent="Titles"]
+position = Vector2(323, 88)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_t1dhk")
 
 [node name="SubTitle" type="Sprite2D" parent="Titles"]
-position = Vector2(399, 142)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("3_trj04")
-region_enabled = true
+position = Vector2(317, 97)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_vr1f0")
 region_rect = Rect2(1, 784, 909, 387)
+
+[node name="Title" type="Sprite2D" parent="Titles"]
+position = Vector2(319, 96)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_t1dhk")
+region_rect = Rect2(24, 8, 1097, 306)
 
 [node name="ButtonContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

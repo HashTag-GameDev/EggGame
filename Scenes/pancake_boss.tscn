@@ -1,18 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdayisw6vtf04"]
+[gd_scene load_steps=9 format=3 uid="uid://bdayisw6vtf04"]
 
 [ext_resource type="Script" uid="uid://c5qqr6ve3y5nm" path="res://Scripts/pancake_boss.gd" id="1_0amgd"]
 [ext_resource type="Texture2D" uid="uid://cmekl2jkdwe04" path="res://Assets/Spritesheets/pancake.png" id="2_dp2v4"]
 [ext_resource type="PackedScene" uid="uid://cohy0w686esur" path="res://Scenes/Projectiles/syrup_projectile.tscn" id="2_nfpak"]
 [ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="3_nfpak"]
+[ext_resource type="Script" uid="uid://bjthx5ggn7l20" path="res://Scripts/Base Classes/hit_box_2d.gd" id="5_nfpak"]
+[ext_resource type="AudioStream" uid="uid://buvajcajl8gbd" path="res://Assets/Audio/SFX/Pancake/Pancake Jump.mp3" id="6_d0dpt"]
 
-[node name="PancakeBoss" type="CharacterBody2D" node_paths=PackedStringArray("spawn_pos")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dp2v4"]
+bg_color = Color(0.14220001, 0.18, 0.15165, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfpak"]
+bg_color = Color(0.47146663, 0.68, 0.3672, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="PancakeBoss" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box", "spawn_pos", "jump_sound")]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_0amgd")
+hurt_box = NodePath("HurtBox2D")
 pancake_nodes = Array[NodePath]([NodePath("Sprite2D5"), NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Sprite2D4")])
 jump_cooldown = 2.5
 recoil_time = 0.1
 spring_time = 0.2
 spawn_pos = NodePath("Marker2D")
 syrup_scene = ExtResource("2_nfpak")
+ranged_attack_chance = 0.33
+jump_sound = NodePath("AudioStreamPlayer2D")
 
 [node name="Sprite2D5" type="Sprite2D" parent="."]
 position = Vector2(-0.80000305, -35)
@@ -44,17 +75,52 @@ texture = ExtResource("2_dp2v4")
 region_enabled = true
 region_rect = Rect2(13, 0, 165, 76)
 
-[node name="HurtBox2D" type="Area2D" parent="Sprite2D"]
-script = ExtResource("3_nfpak")
-metadata/_custom_type_script = "uid://birj0rp18k4pc"
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Sprite2D/HurtBox2D"]
-position = Vector2(4, 40)
-polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(-0.80000305, -35)
 polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(-4, -112)
+position = Vector2(-4, -56)
+
+[node name="PlayerHealth" type="ProgressBar" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = 11.0
+offset_right = 100.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.79999924, 0.76000077)
+theme_override_styles/background = SubResource("StyleBoxFlat_dp2v4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_nfpak")
+value = 50.0
+show_percentage = false
+
+[node name="HurtBox2D" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource("3_nfpak")
+metadata/_custom_type_script = "uid://birj0rp18k4pc"
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HurtBox2D"]
+position = Vector2(-0.80000305, -64)
+polygon = PackedVector2Array(-22.199997, -50, -45.199997, -44, -67.2, -37, -84.2, -16, -83.2, 12, -78.2, 43, -59.199997, 57, -31.199997, 64, 31.800003, 64, 64.8, 54, 81.8, 41, 85.8, 30, 81.8, -8, 79.5, -15, 66.8, -34, 45.800003, -43, 17.800003, -49)
+
+[node name="HitBox2D" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource("5_nfpak")
+damage = 20.0
+metadata/_custom_type_script = "uid://bjthx5ggn7l20"
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="HitBox2D"]
+position = Vector2(-0.80000305, -64)
+polygon = PackedVector2Array(-22.199997, -50, -45.199997, -44, -67.2, -37, -84.2, -16, -83.2, 12, -78.2, 43, -59.199997, 57, -31.199997, 64, 31.800003, 64, 64.8, 54, 81.8, 41, 85.8, 30, 81.8, -8, 79.5, -15, 66.8, -34, 45.800003, -43, 17.800003, -49)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_d0dpt")
+volume_db = -5.0
+max_distance = 500.0
+bus = &"SFX"

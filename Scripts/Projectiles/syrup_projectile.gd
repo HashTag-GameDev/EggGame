@@ -5,6 +5,8 @@ extends RigidBody2D
 @export var next_scene: PackedScene
 @export var pass_velocity_forward: bool = true
 
+@export var hit_box_2d: HitBox2D
+
 # Direction picking — leave start_dir ZERO for random
 @export var start_dir: Vector2 = Vector2.ZERO
 @export var spread_deg: float = 360.0
@@ -27,6 +29,8 @@ var _timer_started: bool = false
 var _angle_tween: Tween
 
 func _ready() -> void:
+	travel_time = randf_range(max(0.2, travel_time - 0.5), travel_time + 0.5)
+	hit_box_2d.hit_hurt_box.connect(_on_hit_box_hit)
 	_rng.randomize()
 	if sprite_path != NodePath():
 		_sprite = get_node_or_null(sprite_path)
@@ -147,3 +151,7 @@ func _is_sprite_flipped() -> bool:
 	if _sprite is AnimatedSprite2D:
 		return (_sprite as AnimatedSprite2D).flip_h
 	return false
+
+func _on_hit_box_hit(_area: HurtBox2D) -> void:
+	
+	queue_free()

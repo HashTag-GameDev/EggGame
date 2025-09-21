@@ -5,11 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://pu3oa1r6iftp" path="res://Scenes/AOE/syrup_aoe.tscn" id="2_oocee"]
 [ext_resource type="Script" uid="uid://bjthx5ggn7l20" path="res://Scripts/Base Classes/hit_box_2d.gd" id="4_gimjp"]
 
-[node name="SyrupProjectile" type="RigidBody2D"]
+[node name="SyrupProjectile" type="RigidBody2D" node_paths=PackedStringArray("hit_box_2d")]
 script = ExtResource("1_tygrs")
 speed = 125.0
-travel_time = 0.8
+travel_time = 1.0
 next_scene = ExtResource("2_oocee")
+hit_box_2d = NodePath("HitBox2D")
 sprite_path = NodePath("Sprite2D")
 sprite_angle_up_deg = 80.0
 sprite_angle_down_deg = 0.0
