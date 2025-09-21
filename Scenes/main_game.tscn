@@ -201,6 +201,7 @@ position = Vector2(833, 601)
 
 [node name="PeaEnemy" parent="YSortObjects" instance=ExtResource("5_mgc0q")]
 position = Vector2(557, 250)
+is_ai_controlled = true
 
 [node name="FightArea" type="Area2D" parent="."]
 position = Vector2(635, 258)

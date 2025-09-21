@@ -123,7 +123,7 @@ class StateIdle extends State:
 		super("Idle", init_actor)
 	
 	func update(_delta: float) -> Event:
-		if actor.idle_logic != null:
+		if actor.idle_logic.is_valid():
 			actor.idle_logic.call()
 		if is_player_in_vision_range():
 			return Event.PLAYER_ENTERED_VISION_RANGE
