@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://dni63nesdnroc"]
+[gd_scene load_steps=31 format=4 uid="uid://dni63nesdnroc"]
 
 [ext_resource type="Texture2D" uid="uid://b53i7ml3wonte" path="res://Assets/Tilesets/jame_gam_iso_tiles.png" id="1_0e3vx"]
 [ext_resource type="Texture2D" uid="uid://hom4ti57yxjl" path="res://Assets/Sprites/tablecloth_corner.png" id="2_6j5ir"]
@@ -11,11 +11,16 @@
 [ext_resource type="PackedScene" uid="uid://cooppptaad606" path="res://Scenes/Obstacles/medium_baguette.tscn" id="7_c78sm"]
 [ext_resource type="Texture2D" uid="uid://b7qfp402jucrn" path="res://Assets/Sprites/small_baguette.png" id="8_i47ox"]
 [ext_resource type="PackedScene" uid="uid://d0bukfssrka4y" path="res://Scenes/Obstacles/small_baguette.tscn" id="8_tpqse"]
+[ext_resource type="Texture2D" uid="uid://c6cua5xrt2hah" path="res://Assets/Sprites/mug.png" id="9_qnvbm"]
 [ext_resource type="PackedScene" uid="uid://iti45myepprp" path="res://Scenes/medium_baguette_ru.tscn" id="11_c78sm"]
 [ext_resource type="PackedScene" uid="uid://c1384ajdvj88b" path="res://Scenes/Obstacles/gam_jar.tscn" id="11_sftma"]
 [ext_resource type="PackedScene" uid="uid://cqxmfm0t5sjd3" path="res://Scenes/Obstacles/cup_water.tscn" id="12_erobn"]
 [ext_resource type="PackedScene" uid="uid://d0qhilkdhyy3w" path="res://Scenes/Obstacles/small_baguette_ru.tscn" id="14_i47ox"]
 [ext_resource type="Script" uid="uid://dkoityjk8p0pp" path="res://Scripts/fight_area.gd" id="16_erobn"]
+[ext_resource type="PackedScene" uid="uid://dbbo5n44yys5g" path="res://Scenes/Characters/muffin_enemy.tscn" id="16_ry2jr"]
+[ext_resource type="Script" uid="uid://c5qqr6ve3y5nm" path="res://Scripts/pancake_boss.gd" id="17_gpk8t"]
+[ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/hurt_box_2d.gd" id="18_gpk8t"]
+[ext_resource type="Texture2D" uid="uid://cmekl2jkdwe04" path="res://Assets/Spritesheets/pancake.png" id="18_hm1wn"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_0e3vx"]
 tile_data = PackedInt32Array(196608, 65536, 0, 65537, 65536, 0, 131073, 0, 0, 196609, 65536, 0, 262145, 0, 0, 327681, 65536, 0, 2, 0, 0, 65538, 65536, 0, 131074, 0, 0, 196610, 65536, 0, 262146, 0, 0, 327682, 65536, 0, 393218, 0, 0, 131075, 0, 0, 196611, 65536, 0, 262147, 0, 0)
@@ -144,11 +149,26 @@ polygon = PackedVector2Array(-176, -6, 0, -100, 176, -6, 0, 87)
 [node name="YSortObjects" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="KetchupBottle" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
-position = Vector2(551, 553)
-
 [node name="KetchupBottle2" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
 position = Vector2(249, 100)
+
+[node name="CupWater3" parent="YSortObjects" instance=ExtResource("12_erobn")]
+position = Vector2(284, 117)
+
+[node name="CupWater4" parent="YSortObjects" instance=ExtResource("12_erobn")]
+position = Vector2(306, 144)
+
+[node name="KetchupBottle4" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(694, 372)
+
+[node name="CupWater6" parent="YSortObjects" instance=ExtResource("12_erobn")]
+position = Vector2(729, 389)
+
+[node name="CupWater7" parent="YSortObjects" instance=ExtResource("12_erobn")]
+position = Vector2(751, 416)
+
+[node name="KetchupBottle" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(551, 553)
 
 [node name="GamJar" parent="YSortObjects" instance=ExtResource("11_sftma")]
 position = Vector2(590, 535)
@@ -156,11 +176,32 @@ position = Vector2(590, 535)
 [node name="CupWater" parent="YSortObjects" instance=ExtResource("12_erobn")]
 position = Vector2(623, 522)
 
-[node name="CupWater3" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(284, 117)
+[node name="Mug" type="StaticBody2D" parent="YSortObjects"]
+position = Vector2(653, 489)
 
-[node name="CupWater4" parent="YSortObjects" instance=ExtResource("12_erobn")]
-position = Vector2(306, 144)
+[node name="Sprite2D" type="Sprite2D" parent="YSortObjects/Mug"]
+texture = ExtResource("9_qnvbm")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortObjects/Mug"]
+polygon = PackedVector2Array(21, 19, 12, 16, -4, 16, -14, 19, -17, 22, -15, 24.900002, -6, 29.5, 13.5, 29.5, 25, 24, 25, 21)
+
+[node name="KetchupBottle3" parent="YSortObjects" instance=ExtResource("3_0e3vx")]
+position = Vector2(678, 487)
+
+[node name="GamJar2" parent="YSortObjects" instance=ExtResource("11_sftma")]
+position = Vector2(717, 469)
+
+[node name="CupWater5" parent="YSortObjects" instance=ExtResource("12_erobn")]
+position = Vector2(750, 456)
+
+[node name="Mug2" type="StaticBody2D" parent="YSortObjects"]
+position = Vector2(780, 423)
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortObjects/Mug2"]
+texture = ExtResource("9_qnvbm")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortObjects/Mug2"]
+polygon = PackedVector2Array(21, 19, 12, 16, -4, 16, -14, 19, -17, 22, -15, 24.900002, -6, 29.5, 13.5, 29.5, 25, 24, 25, 21)
 
 [node name="CupWater2" parent="YSortObjects" instance=ExtResource("12_erobn")]
 position = Vector2(771, 206)
@@ -172,8 +213,8 @@ position = Vector2(771, 213)
 position = Vector2(854.0001, 706.00006)
 
 [node name="MediumBaguette2" parent="YSortObjects" instance=ExtResource("7_c78sm")]
-position = Vector2(641, 505)
-rotation = 0.35953784
+position = Vector2(694.00006, 374)
+rotation = 0.0418879
 
 [node name="SmallBaguette" type="StaticBody2D" parent="YSortObjects"]
 position = Vector2(858, 705)
@@ -200,11 +241,71 @@ rotation = 0.26703537
 position = Vector2(833, 601)
 
 [node name="PeaEnemy" parent="YSortObjects" instance=ExtResource("5_mgc0q")]
-position = Vector2(557, 250)
+position = Vector2(918, 391)
 is_ai_controlled = true
 
+[node name="MuffinEnemy" parent="YSortObjects" instance=ExtResource("16_ry2jr")]
+position = Vector2(459, 64)
+windup_time = 0.5
+dash_speed = 350.0
+dash_duration = 0.35
+recover_time = 0.5
+movement_speed = 80.0
+vision_range = 150.0
+attack_range = 150.0
+
+[node name="PancakeBoss" type="CharacterBody2D" parent="YSortObjects"]
+position = Vector2(874, -304)
+script = ExtResource("17_gpk8t")
+pancake_nodes = Array[NodePath]([NodePath("Sprite2D5"), NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Sprite2D4")])
+jump_cooldown = 2.5
+recoil_time = 0.1
+spring_time = 0.2
+
+[node name="Sprite2D5" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
+position = Vector2(2, 69)
+texture = ExtResource("18_hm1wn")
+region_enabled = true
+region_rect = Rect2(15, 439, 165, 76)
+
+[node name="Sprite2D4" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
+position = Vector2(6, 59)
+texture = ExtResource("18_hm1wn")
+region_enabled = true
+region_rect = Rect2(15, 319, 165, 76)
+
+[node name="Sprite2D3" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
+position = Vector2(-1, 52)
+texture = ExtResource("18_hm1wn")
+region_enabled = true
+region_rect = Rect2(15, 200, 165, 76)
+
+[node name="Sprite2D2" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
+position = Vector2(2, 40)
+texture = ExtResource("18_hm1wn")
+region_enabled = true
+region_rect = Rect2(15, 81, 165, 76)
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
+position = Vector2(-2, 29)
+texture = ExtResource("18_hm1wn")
+region_enabled = true
+region_rect = Rect2(13, 0, 165, 76)
+
+[node name="HurtBox2D" type="Area2D" parent="YSortObjects/PancakeBoss/Sprite2D"]
+script = ExtResource("18_gpk8t")
+metadata/_custom_type_script = "uid://birj0rp18k4pc"
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="YSortObjects/PancakeBoss/Sprite2D/HurtBox2D"]
+position = Vector2(4, 40)
+polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortObjects/PancakeBoss"]
+position = Vector2(2, 69)
+polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
+
 [node name="FightArea" type="Area2D" parent="."]
-position = Vector2(635, 258)
+position = Vector2(436, 65)
 script = ExtResource("16_erobn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FightArea"]
@@ -219,7 +320,26 @@ position = Vector2(17.88269, 11.190308)
 rotation = -0.6457718
 shape = SubResource("RectangleShape2D_erobn")
 
+[node name="FightArea2" type="Area2D" parent="."]
+position = Vector2(733, -210)
+script = ExtResource("16_erobn")
+is_boss_battle = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="FightArea2"]
+position = Vector2(29, 9)
+polygon = PackedVector2Array(-38.5, -118.5, -38.5, -117.4, -62.699997, -115.5, -72.7, -115.5, -112.8, -108.5, -118.8, -108.5, -177.8, -91.5, -181, -91.5, -231, -66.5, -233.2, -66.5, -251.2, -51.5, -253.4, -51.5, -266.4, -36.5, -267.7, -36.5, -276.7, -19.5, -278.2, -19.5, -279.2, -12.5, -280.5, -12.5, -280.5, 10.899994, -273.5, 25.800003, -273.5, 28.300003, -254.5, 49.199997, -254.5, 50.5, -240.5, 60.5, -240.5, 61.699997, -195.5, 84.7, -195.5, 86, -154.5, 98.899994, -154.5, 100.100006, -125.5, 106.100006, -125.5, 107.3, -64.5, 115.2, -64.5, 116.399994, -36.600006, 118.5, 36.600006, 118.5, 88.70001, 112.5, 95.70001, 112.5, 158.6, 97.5, 162.9, 97.5, 197.9, 83.5, 201, 83.5, 221.1, 72.5, 223.20001, 72.5, 245.20001, 56.5, 247.29999, 56.5, 262.3, 41.5, 263.59998, 41.5, 271.59998, 29.5, 272.90002, 29.5, 278.90002, 12.5, 280.59998, 12.5, 279.5, -10.599998, 279.5, -15, 273.5, -26.199997, 273.5, -28.300003, 264.5, -38.300003, 264.5, -40.5, 234.5, -64.5, 234.5, -65.8, 195.5, -84.8, 195.5, -86, 134.5, -104, 134.5, -105.2, 90.5, -112.3, 90.5, -113.4, 38.5, -117.4, 38.5, -118.5)
+
+[node name="PlayerDetector" type="Area2D" parent="FightArea2"]
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="FightArea2/PlayerDetector"]
+position = Vector2(29, 9)
+polygon = PackedVector2Array(-38.5, -118.5, -38.5, -117.4, -62.699997, -115.5, -72.7, -115.5, -112.8, -108.5, -118.8, -108.5, -177.8, -91.5, -181, -91.5, -231, -66.5, -233.2, -66.5, -251.2, -51.5, -253.4, -51.5, -266.4, -36.5, -267.7, -36.5, -276.7, -19.5, -278.2, -19.5, -279.2, -12.5, -280.5, -12.5, -280.5, 10.899994, -273.5, 25.800003, -273.5, 28.300003, -254.5, 49.199997, -254.5, 50.5, -240.5, 60.5, -240.5, 61.699997, -195.5, 84.7, -195.5, 86, -154.5, 98.899994, -154.5, 100.100006, -125.5, 106.100006, -125.5, 107.3, -64.5, 115.2, -64.5, 116.399994, -36.600006, 118.5, 36.600006, 118.5, 88.70001, 112.5, 95.70001, 112.5, 158.6, 97.5, 162.9, 97.5, 197.9, 83.5, 201, 83.5, 221.1, 72.5, 223.20001, 72.5, 245.20001, 56.5, 247.29999, 56.5, 262.3, 41.5, 263.59998, 41.5, 271.59998, 29.5, 272.90002, 29.5, 278.90002, 12.5, 280.59998, 12.5, 279.5, -10.599998, 279.5, -15, 273.5, -26.199997, 273.5, -28.300003, 264.5, -38.300003, 264.5, -40.5, 234.5, -64.5, 234.5, -65.8, 195.5, -84.8, 195.5, -86, 134.5, -104, 134.5, -105.2, 90.5, -112.3, 90.5, -113.4, 38.5, -117.4, 38.5, -118.5)
+
 [connection signal="body_entered" from="FightArea" to="FightArea" method="_on_body_entered"]
 [connection signal="body_exited" from="FightArea" to="FightArea" method="_on_body_exited"]
 [connection signal="body_entered" from="FightArea/PlayerDetector" to="FightArea" method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="FightArea/PlayerDetector" to="FightArea" method="_on_player_detector_body_exited"]
+[connection signal="body_entered" from="FightArea2" to="FightArea2" method="_on_body_entered"]
+[connection signal="body_exited" from="FightArea2" to="FightArea2" method="_on_body_exited"]
+[connection signal="body_entered" from="FightArea2/PlayerDetector" to="FightArea2" method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="FightArea2/PlayerDetector" to="FightArea2" method="_on_player_detector_body_exited"]

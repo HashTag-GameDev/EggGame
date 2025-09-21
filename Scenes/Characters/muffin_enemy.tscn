@@ -167,14 +167,16 @@ radius = 29.017237
 
 [node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera")]
 script = ExtResource("1_be5vf")
+dash_duration = 0.4
 patrol_radius = 20.0
 is_ai_controlled = true
 sprite = NodePath("AnimatedSprite2D")
 hurt_box = NodePath("HurtBox2D")
 camera = NodePath("Camera2D")
+movement_speed = 100.0
 attack_type = 1
-vision_range = 65.0
-attack_range = 1.0
+vision_range = 175.0
+attack_range = 175.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 14.25)
