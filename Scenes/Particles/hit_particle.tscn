@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://tafaqmmch10v"]
+
+[ext_resource type="Texture2D" uid="uid://sy2ckws5snso" path="res://Assets/Sprites/pea.tres" id="1_6ry2r"]
+
+[sub_resource type="Curve" id="Curve_ufm4p"]
+_data = [Vector2(0, 1), 0.0, -1.2393228, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="HitParticle" type="CPUParticles2D"]
+modulate = Color(0.44291076, 0.44291076, 0.44291073, 1)
+emitting = false
+amount = 20
+texture = ExtResource("1_6ry2r")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+lifetime_randomness = 1.0
+direction = Vector2(0, 0)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+damping_min = 11.897
+damping_max = 11.897
+scale_amount_min = 0.2
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_ufm4p")

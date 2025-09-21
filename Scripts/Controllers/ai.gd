@@ -122,12 +122,9 @@ class StateIdle extends State:
 	func _init(init_actor: Actor2D) -> void:
 		super("Idle", init_actor)
 	
-<<<<<<< HEAD
-=======
 	func enter() -> void:
 		actor.sprite.play(&"idle_front")
-	
->>>>>>> player_hatch
+
 	func update(_delta: float) -> Event:
 		if actor.idle_logic.is_valid():
 			actor.idle_logic.call()
@@ -163,6 +160,7 @@ class StateCirclePlayer extends State:
 
 class StateAttackPlayer extends State:
 	var attack_id: int
+	
 	func _init(init_actor: Actor2D, init_attack_id: int) -> void:
 		super("Attack Player", init_actor)
 		attack_id = init_attack_id

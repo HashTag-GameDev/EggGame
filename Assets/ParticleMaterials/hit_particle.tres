@@ -1,0 +1,25 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://bqwn0o15jf6fj"]
+
+[sub_resource type="Curve" id="Curve_t7rds"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.4950626), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jduer"]
+curve = SubResource("Curve_t7rds")
+
+[resource]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = -360.0
+angle_max = 360.00003
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+angular_velocity_min = -180.00002
+angular_velocity_max = 179.99998
+gravity = Vector3(0, 0, 0)
+damping_min = 10.0
+damping_max = 10.0
+scale_min = 0.099999994
+scale_max = 0.29999998
+scale_curve = SubResource("CurveTexture_jduer")

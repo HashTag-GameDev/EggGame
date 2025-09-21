@@ -20,6 +20,7 @@ func setup() -> void:
 	idle_logic = _patrol_circle
 	_patrol_center = global_position + patrol_center_offset
 	_patrol_angle = 0.0
+	enable_hitbox(false)
 
 func _patrol_circle() -> void:
 	# Vector from center to our current position
@@ -51,7 +52,7 @@ func muffin_attack() -> void:
 
 	# Windup
 	await get_tree().create_timer(windup_time).timeout
-
+	enable_hitbox()
 	# Lock dash direction at start
 	var player_pos := AI.Blackboard.player_actor.hurt_box.global_position
 	var dash_dir := (player_pos - global_position).normalized()
@@ -65,6 +66,7 @@ func muffin_attack() -> void:
 
 	# Stop and recover
 	velocity = Vector2.ZERO
+	enable_hitbox(false)
 	await get_tree().create_timer(recover_time).timeout
 
 	override_attack_anim = false

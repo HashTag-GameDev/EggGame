@@ -1,11 +1,38 @@
-[gd_scene load_steps=25 format=4 uid="uid://cswc0pnqv2k8j"]
+[gd_scene load_steps=36 format=4 uid="uid://cswc0pnqv2k8j"]
 
-[ext_resource type="Script" uid="uid://b0gbx8io1v52k" path="res://Scripts/player_controller.gd" id="1_gy20a"]
+[ext_resource type="Script" uid="uid://b0gbx8io1v52k" path="res://Scripts/Controllers/player_controller.gd" id="1_gy20a"]
 [ext_resource type="Texture2D" uid="uid://rtoe8vgghpfn" path="res://Assets/Spritesheets/ui_sheet.png" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://dkmrgjux4x0jk" path="res://Scripts/player_ui.gd" id="3_gy20a"]
 [ext_resource type="Texture2D" uid="uid://bahpni7oskfv2" path="res://Assets/Masks/hatch_ui_mask.png" id="4_5hlyf"]
+[ext_resource type="SpriteFrames" uid="uid://dgyemphnumibx" path="res://Assets/Spritesheets/egg_frames.tres" id="5_7idn0"]
 [ext_resource type="SpriteFrames" uid="uid://r2txq6mjrbc1" path="res://Assets/Spritesheets/pea_frames.tres" id="5_no3rq"]
+[ext_resource type="Texture2D" uid="uid://u7dyq0qfo2v4" path="res://Assets/Spritesheets/pea_spear.png" id="6_g48ij"]
 [ext_resource type="Texture2D" uid="uid://dfkianptl02ha" path="res://Assets/Spritesheets/check_box_checked.png" id="6_no3rq"]
+[ext_resource type="Texture2D" uid="uid://bpwch21bigrcx" path="res://Assets/Spritesheets/muffin.png" id="7_0tsty"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_no3rq"]
+bg_color = Color(0.14220001, 0.18, 0.15165, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tsty"]
+bg_color = Color(0.47146663, 0.68, 0.3672, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_syu87"]
 texture = ExtResource("3_6t5aa")
@@ -828,6 +855,28 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 16
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xi1is"]
+atlas = ExtResource("6_g48ij")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh1r4"]
+atlas = ExtResource("6_g48ij")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xy65l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xi1is")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oh1r4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1teac"]
 bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 10
@@ -835,6 +884,28 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 100
 corner_detail = 16
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_viebb"]
+atlas = ExtResource("7_0tsty")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y486"]
+atlas = ExtResource("7_0tsty")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5esp7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_viebb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y486")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7idn0"]
 bg_color = Color(0, 0, 0, 1)
@@ -852,9 +923,12 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 corner_detail = 16
 
-[node name="PlayerController" type="Node" node_paths=PackedStringArray("player_ui")]
+[node name="PlayerController" type="Node" node_paths=PackedStringArray("player_ui", "health_bar")]
 script = ExtResource("1_gy20a")
+max_health = 100.0
+player_defense = 5.0
 player_ui = NodePath("UILayer")
+health_bar = NodePath("UILayer/UI/PlayerHealth")
 
 [node name="UILayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("hint_ui", "hatch_ui", "hatch_enemy_1", "hatch_enemy_2", "hatch_enemy_3", "hatch_enemy_4", "hatch_cancel")]
 script = ExtResource("3_gy20a")
@@ -874,6 +948,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="PlayerHealth" type="ProgressBar" parent="UILayer/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -40.0
+offset_right = 79.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_no3rq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0tsty")
+value = 50.0
+show_percentage = false
 
 [node name="HintUI" type="Control" parent="UILayer/UI"]
 modulate = Color(1, 1, 1, 0)
@@ -966,7 +1058,6 @@ size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_ukyrk")
 
 [node name="HatchUI" type="Control" parent="UILayer/UI"]
-modulate = Color(1, 1, 1, 0.8039216)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1022,10 +1113,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_syu87")
 
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="UILayer/UI/HatchUI/TextureRect/Quads/Top Left Quad"]
 position = Vector2(59, 54)
-scale = Vector2(2, 2)
-sprite_frames = ExtResource("5_no3rq")
+scale = Vector2(0.64, 0.64)
+sprite_frames = ExtResource("5_7idn0")
 animation = &"idle_front"
-frame_progress = 0.3521172
 speed_scale = 0.25
 
 [node name="Top Right Quad" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
@@ -1036,11 +1126,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_f3ywk")
 
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="UILayer/UI/HatchUI/TextureRect/Quads/Top Right Quad"]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(41, 54)
+position = Vector2(53, 46)
 scale = Vector2(2, 2)
-sprite_frames = ExtResource("5_no3rq")
-animation = &"idle_front"
-frame_progress = 0.07659996
+sprite_frames = SubResource("SpriteFrames_xy65l")
 speed_scale = 0.25
 
 [node name="Bottom Left Quad" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
@@ -1052,10 +1140,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1teac")
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="UILayer/UI/HatchUI/TextureRect/Quads/Bottom Left Quad"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(59, 44)
-scale = Vector2(2, 2)
-sprite_frames = ExtResource("5_no3rq")
-animation = &"idle_front"
-frame_progress = 0.7982578
+scale = Vector2(0.555, 0.555)
+sprite_frames = SubResource("SpriteFrames_5esp7")
 speed_scale = 0.25
 
 [node name="Bottom Right Quad" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads"]

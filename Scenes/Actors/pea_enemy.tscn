@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3e32u2wtm0xl"]
+[gd_scene load_steps=9 format=3 uid="uid://c3e32u2wtm0xl"]
 
 [ext_resource type="Script" uid="uid://btclksioi4vsb" path="res://Scripts/Actors/pea_enemy.gd" id="1_qi7hr"]
 [ext_resource type="SpriteFrames" uid="uid://r2txq6mjrbc1" path="res://Assets/Spritesheets/pea_frames.tres" id="2_qi7hr"]
-[ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/hurt_box_2d.gd" id="3_5r0i6"]
+[ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="3_5r0i6"]
+[ext_resource type="PackedScene" uid="uid://tafaqmmch10v" path="res://Scenes/Particles/hit_particle.tscn" id="4_ufm4p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2i6s"]
 size = Vector2(13, 4)
@@ -10,13 +11,37 @@ size = Vector2(13, 4)
 [sub_resource type="CircleShape2D" id="CircleShape2D_5r0i6"]
 radius = 8.0
 
-[node name="PeaEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mn6j8"]
+bg_color = Color(0.16445297, 0.110300265, 0.106920175, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufm4p"]
+bg_color = Color(0.62858737, 0, 0.11053502, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="PeaEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle")]
 script = ExtResource("1_qi7hr")
 sprite = NodePath("AnimatedSprite2D")
-hurt_box = NodePath("HurtBox2D")
 camera = NodePath("Camera2D")
 vision_range = 200.0
 attack_range = 120.0
+hurt_box = NodePath("HurtBox2D")
+health_bar = NodePath("Health")
+hit_particle = NodePath("HitParticle")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j2i6s")
@@ -39,9 +64,23 @@ offset = Vector2(0, -29)
 shape = SubResource("RectangleShape2D_j2i6s")
 
 [node name="HurtBox2D" type="Area2D" parent="."]
+collision_layer = 2
 script = ExtResource("3_5r0i6")
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox2D"]
 position = Vector2(-1, -6)
 shape = SubResource("CircleShape2D_5r0i6")
+
+[node name="HitParticle" parent="." instance=ExtResource("4_ufm4p")]
+position = Vector2(-1, -6)
+
+[node name="Health" type="ProgressBar" parent="."]
+offset_left = -15.0
+offset_top = 8.0
+offset_right = 15.0
+offset_bottom = 14.0
+theme_override_styles/background = SubResource("StyleBoxFlat_mn6j8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ufm4p")
+value = 50.0
+show_percentage = false

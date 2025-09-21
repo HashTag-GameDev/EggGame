@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bh8pspu4qwq7" path="res://Scripts/Actors/muffin_enemy.gd" id="1_be5vf"]
 [ext_resource type="Texture2D" uid="uid://bpwch21bigrcx" path="res://Assets/Spritesheets/muffin.png" id="2_be5vf"]
-[ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/hurt_box_2d.gd" id="3_fajeb"]
+[ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="3_fajeb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2i6s"]
 size = Vector2(41, 10.5)
@@ -165,18 +165,18 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5r0i6"]
 radius = 29.017237
 
-[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera")]
+[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box")]
 script = ExtResource("1_be5vf")
 dash_duration = 0.4
 patrol_radius = 20.0
 is_ai_controlled = true
 sprite = NodePath("AnimatedSprite2D")
-hurt_box = NodePath("HurtBox2D")
 camera = NodePath("Camera2D")
 movement_speed = 100.0
 attack_type = 1
 vision_range = 175.0
 attack_range = 175.0
+hurt_box = NodePath("HurtBox2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 14.25)

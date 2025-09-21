@@ -5,22 +5,29 @@ class_name HitBox2D
 const DAMAGE_SOURCE_PLAYER := 0b01
 const DAMAGE_SOURCE_MOB := 0b10
 
-var damage: float = 10.0
+@export var damage: float = 10.0
 var damage_source := DAMAGE_SOURCE_MOB: set = set_damage_source
 var detected_hurtboxes := DAMAGE_SOURCE_PLAYER: set = set_detected_hurtboxes
 
+var linear_velocity: Vector2
+
 signal hit_hurt_box(hurt_box: HurtBox2D)
 
-func _init(as_player: bool = false) -> void:
+func _init() -> void:
 	monitoring = true
 	monitorable = true
 	area_entered.connect(func _on_area_entered(area: Area2D) -> void:
 		if area is HurtBox2D:
 			hit_hurt_box.emit(area)
 	)
-	if as_player:
-		set_damage_source(DAMAGE_SOURCE_PLAYER)
-		set_detected_hurtboxes(DAMAGE_SOURCE_MOB)
+
+func _physics_process(delta: float) -> void:
+	var parent: RigidBody2D = get_parent() as RigidBody2D
+	linear_velocity = parent.linear_velocity
+
+func as_player() -> void:
+	set_damage_source(DAMAGE_SOURCE_PLAYER)
+	set_detected_hurtboxes(DAMAGE_SOURCE_MOB)
 
 func set_damage_source(new_value: int) -> void:
 	damage_source = new_value

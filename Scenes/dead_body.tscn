@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm17q46b7lpcc"]
+
+[ext_resource type="Script" uid="uid://dux2y6qmuo7qr" path="res://Scripts/enemy_soul.gd" id="1_fagme"]
+[ext_resource type="Texture2D" uid="uid://sy2ckws5snso" path="res://Assets/Sprites/pea.tres" id="2_ma0eo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fagme"]
+radius = 132.05
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vvhy6"]
+radius = 3.65
+
+[node name="Dead Body" type="Node2D"]
+script = ExtResource("1_fagme")
+amplitude_y = 4.5
+speed_y = 0.4
+amplitude_s = 0.125
+speed_s = 0.75
+
+[node name="Dead Enemy" type="Sprite2D" parent="."]
+texture = ExtResource("2_ma0eo")
+
+[node name="EnemySoul" type="Sprite2D" parent="."]
+self_modulate = Color(0.2844065, 0.0001615268, 0.9342574, 0.6745098)
+position = Vector2(0, -16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ma0eo")
+
+[node name="DetectArea" type="Area2D" parent="EnemySoul"]
+scale = Vector2(2, 2)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySoul/DetectArea"]
+shape = SubResource("CircleShape2D_fagme")
+
+[node name="TouchPlayer" type="Area2D" parent="EnemySoul"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySoul/TouchPlayer"]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_vvhy6")
+
+[connection signal="area_entered" from="EnemySoul/DetectArea" to="." method="_on_detect_area_area_entered"]
+[connection signal="area_entered" from="EnemySoul/TouchPlayer" to="." method="_on_touch_player_area_entered"]
+[connection signal="body_entered" from="EnemySoul/TouchPlayer" to="." method="_on_touch_player_body_entered"]
