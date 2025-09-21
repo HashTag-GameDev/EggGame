@@ -48,11 +48,10 @@ func _patrol_circle() -> void:
 
 # --- Attack (rush/tackle) registered as index 0 ---
 func muffin_attack() -> void:
-	override_attack_anim = true
-
-	# Windup
+	# Windupdd
 	await get_tree().create_timer(windup_time).timeout
 	enable_hitbox()
+	play_attack_1()
 	# Lock dash direction at start
 	var player_pos := AI.Blackboard.player_actor.hurt_box.global_position
 	var dash_dir := (player_pos - global_position).normalized()

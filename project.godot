@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://2asc2vgqt81r"
 
 MusicManager="*res://Scripts/Globals/music_manager.gd"
 SceneSwitcher="*res://Scripts/Globals/scene_switcher.gd"
+AmbientNoise="*res://Scripts/Globals/ambient_noise.gd"
 
 [display]
 
@@ -43,6 +44,7 @@ folder_colors={
 
 spawn_area=""
 player=""
+ambient_player=""
 
 [gui]
 

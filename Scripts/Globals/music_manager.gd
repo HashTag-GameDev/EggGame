@@ -5,8 +5,20 @@ var mute_db: float = -60.0
 var max_db: float = -15.0
 var default_fade: float = 1.5
 
-var tracks: Array[AudioStream] = [preload("uid://d1fsi3oylph5h"), preload("uid://cwe1y1mswr23j"), preload("uid://difsq3croeug2"), preload("uid://bl85xvsfdaa8s")]
-var track_names: Array[StringName] = [&"Music_0", &"Music_1", &"Music_2", &"Music_3"]
+var tracks: Array[AudioStream] = [
+	preload("uid://fqpg2woe5ey3"),
+	preload("uid://cpbg7nwgug8hc"),
+	preload("uid://beiknclejlh6g"),
+	preload("uid://bnkr7mpisksgb"),
+	preload("uid://jjp6gkwsb04c")
+	]
+var track_names: Array[StringName] = [
+	&"Music_0",
+	&"Music_1",
+	&"Music_2",
+	&"Music_3",
+	&"Menu_Music"
+	]
 
 var _players: Array[AudioStreamPlayer] = []
 var _name_to_index: Dictionary = {}	# StringName -> int

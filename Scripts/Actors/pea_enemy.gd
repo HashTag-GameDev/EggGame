@@ -24,6 +24,7 @@ func spear_attack() -> float:
 	spear_instance.rotate(spear_direction.angle() + PI * 0.5)
 	add_sibling(spear_instance)
 	spear_instance.set_physics_process(true)
+	play_attack_1()
 	sprite.play(&"throw_spear_cooldown")
 	return spear_cooldown
 

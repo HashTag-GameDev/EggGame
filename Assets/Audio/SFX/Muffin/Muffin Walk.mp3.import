@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bd1vw4ej5iqe0"
+path="res://.godot/imported/Muffin Walk.mp3-0c5b578fa6977217b6eed3d1b5db1f9d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/Muffin/Muffin Walk.mp3"
+dest_files=["res://.godot/imported/Muffin Walk.mp3-0c5b578fa6977217b6eed3d1b5db1f9d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -26,6 +26,18 @@ class_name Actor2D
 var health: float
 var is_dying := false
 
+@export_category("SFX")
+@export var audio_player: AudioStreamPlayer2D
+@export var walking_audio: Array[AudioStream]
+@export var walking_audio_cooldown: float = 0.25
+@export var attack_audio_player_1: AudioStreamPlayer2D
+@export var attack_audio_1: AudioStream
+@export var attack_audio_player_2: AudioStreamPlayer2D
+@export var attack_audio_2: AudioStream
+
+var _audio_cooling_down: bool = false
+var _timer: Timer
+
 var attacks: Array[Callable] = []
 
 var idle_logic: Callable
@@ -38,6 +50,7 @@ func _ready() -> void:
 	hurt_box.took_hit.connect(took_damage)
 	sprite.play(&"idle_front")
 	setup()
+	walking_timer_setup()
 	
 	if is_ai_controlled:
 		health = max_health
@@ -63,6 +76,13 @@ func _ready() -> void:
 func setup() -> void:
 	pass
 
+func walking_timer_setup() -> void:
+	_timer = Timer.new()
+	print(_timer)
+	_timer.one_shot = true
+	add_child(_timer)
+	_timer.timeout.connect(func(): _audio_cooling_down = false)
+
 func move_actor(v: Vector2) -> void:
 	if is_dying:
 		return
@@ -72,6 +92,7 @@ func move_actor(v: Vector2) -> void:
 	
 	if !override_attack_anim:
 		if v.is_zero_approx():
+			play_walking_audio(false)
 			match sprite.animation:
 				"walking_front":
 					sprite.animation = "idle_front"
@@ -83,16 +104,47 @@ func move_actor(v: Vector2) -> void:
 					sprite.animation = "idle_right"
 		elif v.y > 0:
 			sprite.play("walking_front")
+			play_walking_audio(true)
 		elif v.y < 0:
 			sprite.play("walking_back")
+			play_walking_audio(true)
 		elif v.x > 0:
 			sprite.play("walking_right")
+			play_walking_audio(true)
 			sprite.flip_h = false
 		elif v.x < 0:
 			sprite.play("walking_left")
+			play_walking_audio(true)
 			sprite.flip_h = true
 
-func attack(id: int) -> float:
+func play_walking_audio(is_walking: bool) -> void:
+	if not _timer:
+		return
+	if not is_walking:
+		return
+	if _audio_cooling_down:
+		return
+	if walking_audio.is_empty():
+		return
+	
+	
+	audio_player.stream = walking_audio[min(0, randi_range(0, (walking_audio.size() - 1)))]
+	audio_player.pitch_scale = randf_range(0.95, 1.05)
+	audio_player.play(0.0)
+	_audio_cooling_down = true
+	_timer.start(walking_audio_cooldown)
+
+func play_attack_1() -> void:
+	if attack_audio_player_1 and attack_audio_1:
+		attack_audio_player_1.stream = attack_audio_1
+		attack_audio_player_1.play()
+
+func play_attack_2() -> void:
+	if attack_audio_player_2 and attack_audio_2:
+		attack_audio_player_2.stream = attack_audio_2
+		attack_audio_player_2.play()
+
+func attack(id: int) -> void:
 	if is_dying:
 		return 0.0
 	if id < attacks.size():
