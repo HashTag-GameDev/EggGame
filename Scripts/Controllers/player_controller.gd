@@ -12,6 +12,11 @@ class_name PlayerController
 		&"unlocked": false,
 		&"scene": preload("res://Scenes/Actors/pea_enemy.tscn")
 	},
+	{
+		&"name": &"Muffin",
+		&"unlocked": false,
+		&"scene": preload("res://Scenes/Actors/muffin_enemy.tscn")
+	},
 ]
 @export_category("Health")
 @export var max_health: float
@@ -114,7 +119,7 @@ func obtained_soul(enemy_name: StringName) -> void:
 func do_unlock_animation(enemy_name: StringName) -> void:
 	player_ui.start_animation()
 	for actor: Dictionary in possible_actors:
-		player_ui.
+		pass
 	await player_ui.fade_in_window(player_ui.hatch_ui, 0.9)
 	
 	player_ui.finish_animation()

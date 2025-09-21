@@ -1,10 +1,12 @@
-[gd_scene load_steps=25 format=3 uid="uid://dbbo5n44yys5g"]
+[gd_scene load_steps=29 format=3 uid="uid://dbbo5n44yys5g"]
 
 [ext_resource type="Script" uid="uid://bh8pspu4qwq7" path="res://Scripts/Actors/muffin_enemy.gd" id="1_be5vf"]
 [ext_resource type="Texture2D" uid="uid://bpwch21bigrcx" path="res://Assets/Spritesheets/muffin.png" id="2_be5vf"]
-[ext_resource type="AudioStream" uid="uid://bd1vw4ej5iqe0" path="res://Assets/Audio/SFX/Muffin/Muffin Walk.mp3" id="2_fajeb"]
+[ext_resource type="AudioStream" uid="uid://bd1vw4ej5iqe0" path="res://Assets/Audio/SFX/Muffin/Muffin Walk.mp3" id="2_qwhmp"]
+[ext_resource type="AudioStream" uid="uid://bmsgga158ete2" path="res://Assets/Audio/SFX/Muffin/Muffin Stomp.mp3" id="3_212ay"]
 [ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="3_fajeb"]
-[ext_resource type="AudioStream" uid="uid://bmsgga158ete2" path="res://Assets/Audio/SFX/Muffin/Muffin Stomp.mp3" id="3_xtosf"]
+[ext_resource type="PackedScene" uid="uid://tafaqmmch10v" path="res://Scenes/Particles/hit_particle.tscn" id="4_mrxay"]
+[ext_resource type="Script" uid="uid://bjthx5ggn7l20" path="res://Scripts/Base Classes/hit_box_2d.gd" id="6_su36b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2i6s"]
 size = Vector2(41, 10.5)
@@ -167,23 +169,46 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5r0i6"]
 radius = 29.017237
 
-[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hurt_box", "camera", "audio_player", "attack_audio_player_1")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cph0"]
+bg_color = Color(0.16445297, 0.110300265, 0.106920175, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrxay"]
+bg_color = Color(0.62858737, 0, 0.11053502, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "hit_box", "audio_player", "attack_audio_player_1")]
 script = ExtResource("1_be5vf")
 dash_duration = 0.4
-patrol_radius = 50.0
-is_ai_controlled = true
+patrol_radius = 75.0
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
-movement_speed = 35.0
+movement_speed = 40.0
 attack_type = 1
-vision_range = 175.0
-attack_range = 175.0
+vision_range = 140.0
+attack_range = 140.0
 hurt_box = NodePath("HurtBox2D")
+health_bar = NodePath("Health")
+hit_particle = NodePath("HitParticle")
+hit_box = NodePath("HitBox2D")
 audio_player = NodePath("AudioStreamPlayer2D")
-walking_audio = Array[AudioStream]([ExtResource("2_fajeb")])
-walking_audio_cooldown = 0.575
+walking_audio = Array[AudioStream]([ExtResource("2_qwhmp")])
 attack_audio_player_1 = NodePath("AudioStreamPlayer2D2")
-attack_audio_1 = ExtResource("3_xtosf")
+attack_audio_1 = ExtResource("3_212ay")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 14.25)
@@ -198,7 +223,7 @@ position_smoothing_speed = 3.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 19)
 sprite_frames = SubResource("SpriteFrames_83sv0")
-animation = &"idle_back"
+animation = &"idle_front"
 offset = Vector2(0, -29)
 
 [node name="DetectionArea" type="Area2D" parent="."]
@@ -208,6 +233,7 @@ position = Vector2(1, 14)
 shape = SubResource("RectangleShape2D_j2i6s")
 
 [node name="HurtBox2D" type="Area2D" parent="."]
+collision_mask = 2
 script = ExtResource("3_fajeb")
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
@@ -216,10 +242,24 @@ position = Vector2(1, -12)
 shape = SubResource("CircleShape2D_5r0i6")
 
 [node name="HitBox2D" type="Area2D" parent="."]
+script = ExtResource("6_su36b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2D"]
 position = Vector2(1, -12)
 shape = SubResource("CircleShape2D_5r0i6")
+
+[node name="Health" type="ProgressBar" parent="."]
+offset_left = -15.0
+offset_top = 25.0
+offset_right = 15.0
+offset_bottom = 31.0
+theme_override_styles/background = SubResource("StyleBoxFlat_4cph0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mrxay")
+value = 50.0
+show_percentage = false
+
+[node name="HitParticle" parent="." instance=ExtResource("4_mrxay")]
+modulate = Color(0.29803923, 0.1254902, 0.06666667, 1)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 volume_db = -10.0

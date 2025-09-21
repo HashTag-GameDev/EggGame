@@ -102,12 +102,18 @@ class State extends RefCounted:
 		actor = init_actor
 	
 	func is_player_in_vision_range() -> bool:
-		var player_distance := actor.global_position.distance_to(AI.Blackboard.player_actor.global_position)
-		return player_distance < actor.vision_range
+		if AI.Blackboard.player_actor != null:
+			var player_distance := actor.global_position.distance_to(AI.Blackboard.player_actor.global_position)
+			return player_distance < actor.vision_range
+		else:
+			return false
 	
 	func is_player_in_attack_range() -> bool:
-		var player_distance := actor.global_position.distance_to(AI.Blackboard.player_actor.global_position)
-		return player_distance < actor.attack_range
+		if AI.Blackboard.player_actor != null:
+			var player_distance := actor.global_position.distance_to(AI.Blackboard.player_actor.global_position)
+			return player_distance < actor.attack_range
+		else:
+			return false
 	
 	func update(_delta: float) -> Event:
 		return Event.NONE

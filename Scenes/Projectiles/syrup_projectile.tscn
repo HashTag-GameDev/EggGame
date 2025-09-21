@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://cohy0w686esur"]
+
+[ext_resource type="Script" uid="uid://dicxkm14ynbnw" path="res://Scripts/Projectiles/syrup_projectile.gd" id="1_tygrs"]
+[ext_resource type="Texture2D" uid="uid://3gv52oiq1285" path="res://Assets/Spritesheets/syrup_drop.png" id="1_wsemx"]
+[ext_resource type="PackedScene" uid="uid://pu3oa1r6iftp" path="res://Scenes/AOE/syrup_aoe.tscn" id="2_oocee"]
+[ext_resource type="Script" uid="uid://bjthx5ggn7l20" path="res://Scripts/Base Classes/hit_box_2d.gd" id="4_gimjp"]
+
+[node name="SyrupProjectile" type="RigidBody2D"]
+script = ExtResource("1_tygrs")
+speed = 125.0
+travel_time = 0.8
+next_scene = ExtResource("2_oocee")
+sprite_path = NodePath("Sprite2D")
+sprite_angle_up_deg = 80.0
+sprite_angle_down_deg = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wsemx")
+region_enabled = true
+region_rect = Rect2(0, 0, 31, 31)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_wsemx")
+region_enabled = true
+region_rect = Rect2(0, 37, 25, 26)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_wsemx")
+region_enabled = true
+region_rect = Rect2(0, 73, 20, 22)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(7, -9, -9, 2, -10, 2, -9, 8, -9, 10, -2, 10, 0, 10, 9, -8, 10, -8, 7, -10)
+disabled = true
+
+[node name="HitBox2D" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 2
+script = ExtResource("4_gimjp")
+metadata/_custom_type_script = "uid://bjthx5ggn7l20"
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HitBox2D"]
+polygon = PackedVector2Array(7, -9, -9, 2, -10, 2, -9, 8, -9, 10, -2, 10, 0, 10, 9, -8, 10, -8, 7, -10)
