@@ -3,7 +3,7 @@ class_name PeaEnemy
 
 @onready var spear_scene: PackedScene = preload("res://Scenes/Projectiles/spear_projectile.tscn")
 @export var spear_cooldown: float = 3.0
-@export var spear_speed: float = 150.0
+@export var spear_speed: float = 200.0
 
 func setup() -> void:
 	attacks.append(spear_attack)

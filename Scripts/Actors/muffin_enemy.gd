@@ -106,10 +106,11 @@ func add_transitions(state_machine: AI.StateMachine) -> void:
 	state_machine.activate(idle)
 
 func drop_soul() -> void:
-	var dead_body = DEAD_BODY.instantiate()
-	dead_body.global_position = global_position
-	dead_body.sprite = MUFFIN_DEAD
-	dead_body.sprite_transform.rotated(0.25)
-	dead_body.speed = 50.0
-	dead_body.enemy_name = &"Muffin"
-	add_sibling(dead_body)
+	if should_drop_soul:
+		var dead_body = DEAD_BODY.instantiate()
+		dead_body.global_position = global_position
+		dead_body.sprite = MUFFIN_DEAD
+		dead_body.sprite_transform.rotated(0.25)
+		dead_body.speed = 50.0
+		dead_body.enemy_name = &"Muffin"
+		add_sibling(dead_body)

@@ -20,6 +20,7 @@ region_rect = Rect2(79, 37, 3, 20)
 position = Vector2(0, -8)
 collision_layer = 2
 script = ExtResource("2_ugmnd")
+damage = 15.0
 metadata/_custom_type_script = "uid://bjthx5ggn7l20"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox2D"]

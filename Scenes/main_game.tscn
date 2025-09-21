@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://dni63nesdnroc"]
+[gd_scene load_steps=37 format=4 uid="uid://dni63nesdnroc"]
 
 [ext_resource type="Texture2D" uid="uid://b53i7ml3wonte" path="res://Assets/Tilesets/jame_gam_iso_tiles.png" id="1_0e3vx"]
 [ext_resource type="Texture2D" uid="uid://hom4ti57yxjl" path="res://Assets/Sprites/tablecloth_corner.png" id="2_6j5ir"]
@@ -778,3 +778,6 @@ polygon = PackedVector2Array(-249, 61, -265, 48, -198, 44, -154, 65, -143, 106, 
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BossFightArea/EnemyDetection"]
 polygon = PackedVector2Array(-288, -9, -269, 44, -224, 73, -157, 102, -44, 122, 91, 117, 206, 88, 272, 44, 289, -16, 240, -73, 155, -108, 49, -127, -64, -123, -145, -107, -262, -53)
+
+[connection signal="body_entered" from="SpawnArea" to="SpawnArea" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnArea" to="SpawnArea" method="_on_body_exited"]

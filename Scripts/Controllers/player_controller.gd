@@ -16,7 +16,7 @@ class_name PlayerController
 	},
 	{
 		&"name": &"Muffin",
-		&"unlocked": false,
+		&"unlocked": true,
 		&"scene": preload("res://Scenes/Actors/muffin_enemy.tscn"),
 		&"group": "muffin"
 	},

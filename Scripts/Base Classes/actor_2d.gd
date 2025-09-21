@@ -153,7 +153,8 @@ func attack(id: int) -> float:
 		var attack_function: Callable = attacks[id] as Callable
 		var cooldown = await attack_function.call()
 		return cooldown
-	return 0.0
+	else:
+		return 0.0
 
 func activate_camera() -> void:
 	camera.enabled = true

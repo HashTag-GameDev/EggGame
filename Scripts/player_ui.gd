@@ -1,8 +1,8 @@
 extends CanvasLayer
 class_name PlayerUI
 
-@export var fade_in_speed: float = 2
-@export var fade_out_speed: float = 2
+@export var fade_in_speed: float = 0.5
+@export var fade_out_speed: float = 0.5
 @export var opaque: float = 0.75
 @export var transparent: float = 0.0
 @export var hint_ui: Control

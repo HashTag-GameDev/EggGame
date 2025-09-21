@@ -194,6 +194,7 @@ corner_radius_bottom_left = 3
 [node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "hit_box", "audio_player", "attack_audio_player_1")]
 script = ExtResource("1_be5vf")
 dash_duration = 0.4
+attack_cooldown = 4.0
 patrol_radius = 75.0
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
@@ -242,9 +243,9 @@ position = Vector2(1, -12)
 shape = SubResource("CircleShape2D_5r0i6")
 
 [node name="HitBox2D" type="Area2D" parent="."]
-collision_mask = 2
+collision_layer = 2
 script = ExtResource("6_su36b")
-damage = 20.0
+damage = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2D"]
 position = Vector2(1, -12)

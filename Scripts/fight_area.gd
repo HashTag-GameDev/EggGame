@@ -12,7 +12,6 @@ var player_entered: bool = false
 
 func _ready() -> void:
 	player_detector.body_entered.connect(_on_player_detector_body_entered)
-	player_detector.body_exited.connect(_on_player_detector_body_exited)
 	enemy_detector.body_entered.connect(_on_body_entered)
 	enemy_detector.body_exited.connect(_on_body_exited)
 
@@ -35,16 +34,13 @@ func _on_body_exited(body: Node2D) -> void:
 	if !body.is_in_group("player") and body.is_in_group("enemy"):
 		enemies_remaining.erase(body)
 		if check_enemies_remaining() <= 0:
+			MusicManager.fade_to(&"Music_1", 0.25)
 			lower_barriers()
 			area_complete = true
 			pass
 
 func check_enemies_remaining() -> int:
 	return enemies_remaining.size()
-
-func _on_player_detector_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		MusicManager.fade_to(&"Music_1", 0.25)
 
 func raise_barriers() -> void:
 	for barrier in barriers:
