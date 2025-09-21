@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dmf8k54owbbfe"
+path="res://.godot/imported/Pancake Syrup Squirt.mp3-ac7c5d195de37083a0c24e72d9b73a3f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/Pancake/Pancake Syrup Squirt.mp3"
+dest_files=["res://.godot/imported/Pancake Syrup Squirt.mp3-ac7c5d195de37083a0c24e72d9b73a3f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

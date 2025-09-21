@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://dni63nesdnroc"]
+[gd_scene load_steps=30 format=4 uid="uid://dni63nesdnroc"]
 
 [ext_resource type="Texture2D" uid="uid://b53i7ml3wonte" path="res://Assets/Tilesets/jame_gam_iso_tiles.png" id="1_0e3vx"]
 [ext_resource type="Texture2D" uid="uid://hom4ti57yxjl" path="res://Assets/Sprites/tablecloth_corner.png" id="2_6j5ir"]
@@ -18,8 +18,6 @@
 [ext_resource type="Script" uid="uid://dkoityjk8p0pp" path="res://Scripts/fight_area.gd" id="16_erobn"]
 [ext_resource type="PackedScene" uid="uid://dbbo5n44yys5g" path="res://Scenes/Actors/muffin_enemy.tscn" id="16_ry2jr"]
 [ext_resource type="PackedScene" uid="uid://bdayisw6vtf04" path="res://Scenes/pancake_boss.tscn" id="17_hm1wn"]
-[ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="18_gpk8t"]
-[ext_resource type="Texture2D" uid="uid://cmekl2jkdwe04" path="res://Assets/Spritesheets/pancake.png" id="18_hm1wn"]
 [ext_resource type="PackedScene" uid="uid://cm17q46b7lpcc" path="res://Scenes/dead_body.tscn" id="21_qnvbm"]
 [ext_resource type="Texture2D" uid="uid://sy2ckws5snso" path="res://Assets/Sprites/pea.tres" id="21_vvhy6"]
 
@@ -246,65 +244,21 @@ windup_time = 0.5
 dash_speed = 350.0
 dash_duration = 0.35
 recover_time = 0.5
+is_ai_controlled = true
 movement_speed = 80.0
 vision_range = 150.0
 attack_range = 150.0
-
-[node name="PancakeBoss" parent="YSortObjects" instance=ExtResource("17_hm1wn")]
-position = Vector2(1075, 488)
-script = ExtResource("17_gpk8t")
-pancake_nodes = Array[NodePath]([NodePath("Sprite2D5"), NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Sprite2D4")])
-jump_cooldown = 2.5
-recoil_time = 0.1
-spring_time = 0.2
-
-[node name="Sprite2D5" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(2, 69)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(15, 439, 165, 76)
-
-[node name="Sprite2D4" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(6, 59)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(15, 319, 165, 76)
-
-[node name="Sprite2D3" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(-1, 52)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(15, 200, 165, 76)
-
-[node name="Sprite2D2" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(2, 40)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(15, 81, 165, 76)
-
-[node name="Sprite2D" type="Sprite2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(-2, 29)
-texture = ExtResource("18_hm1wn")
-region_enabled = true
-region_rect = Rect2(13, 0, 165, 76)
-
-[node name="HurtBox2D" type="Area2D" parent="YSortObjects/PancakeBoss/Sprite2D"]
-script = ExtResource("18_gpk8t")
-metadata/_custom_type_script = "uid://birj0rp18k4pc"
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="YSortObjects/PancakeBoss/Sprite2D/HurtBox2D"]
-position = Vector2(4, 40)
-polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortObjects/PancakeBoss"]
-position = Vector2(2, 69)
-polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
 
 [node name="Dead Body" parent="YSortObjects" instance=ExtResource("21_qnvbm")]
 position = Vector2(1035, 456)
 enemy_name = &"Pea"
 sprite = ExtResource("21_vvhy6")
 speed = 40.0
+
+[node name="PancakeBoss" parent="YSortObjects" instance=ExtResource("17_hm1wn")]
+position = Vector2(860, -217)
+detect_range = 275.0
+v_move = 100.0
 
 [node name="FightArea" type="Area2D" parent="."]
 position = Vector2(436, 65)

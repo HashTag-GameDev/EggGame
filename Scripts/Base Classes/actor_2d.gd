@@ -42,11 +42,13 @@ var attacks: Array[Callable] = []
 
 var idle_logic: Callable
 var override_attack_anim = false
+var base_movement_speed: float
 
 signal player_took_damage(damage: float)
 signal soul_obtained(enemy_name: StringName)
 
 func _ready() -> void:
+	base_movement_speed = movement_speed
 	hurt_box.took_hit.connect(took_damage)
 	sprite.play(&"idle_front")
 	setup()
@@ -203,3 +205,9 @@ func obtain_soul(enemy_name: StringName) -> void:
 	if is_ai_controlled:
 		return
 	soul_obtained.emit(enemy_name)
+
+func set_slow(is_slow: bool) -> void:
+	if is_slow:
+		movement_speed = movement_speed * 0.66
+	else:
+		movement_speed = base_movement_speed

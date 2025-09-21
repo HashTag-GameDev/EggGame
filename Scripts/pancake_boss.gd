@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+@export var health: float = 1000.0
+@export var max_health: float = 1000.0
+@export var hurt_box: HurtBox2D = null
+
 # --- Scene refs ---
 @export var pancake_nodes: Array[NodePath] = []	# index 0 = base/bottom sprite
 
@@ -30,8 +34,9 @@ extends CharacterBody2D
 @export var syrup_spread_deg: float = 35.0              # total fan spread (centered on straight up)
 @export var syrup_speed: float = 320.0                  # initial speed of each drop
 @export var syrup_spawn_offset: Vector2 = Vector2(0, -8)# small offset from top sprite
-@export var ranged_attack_chance: float = 0.45          # chance to pick ranged over melee when in range
+@export var ranged_attack_chance: float = 0.50          # chance to pick ranged over melee when in range
 
+@export var jump_sound: AudioStreamPlayer2D
 # --- Runtime state ---
 enum State { IDLE, ATTACK, ATTACK2, COOLDOWN }
 var state: State = State.IDLE
@@ -46,9 +51,16 @@ var _orig_positions: Array[Vector2] = []
 
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
+var is_dying: bool = false
+
+@onready var health_bar: ProgressBar = $PlayerHealth
+
+
 signal slammed
 
 func _ready() -> void:
+	hurt_box.took_hit.connect(took_damage)
+	redraw_health_bar()
 	_rng.randomize()
 
 	_player = AI.Blackboard.player_actor
@@ -85,6 +97,8 @@ func set_state(new_state: State) -> void:
 			_cooldown_left = jump_cooldown
 
 func _physics_process(delta: float) -> void:
+	if _player == null:
+		_player = AI.Blackboard.player_actor
 	match state:
 		State.IDLE:
 			velocity = Vector2.ZERO
@@ -133,9 +147,10 @@ func _attack_sequence() -> void:
 	_run_accordion_stack()
 
 	var recoil_gate := _recoil_gate_seconds()
+	jump_sound.play()
 	await get_tree().create_timer(recoil_gate).timeout
 	await get_tree().physics_frame
-
+	
 	# 2) MOVE: glide
 	var timer_move := get_tree().create_timer(t_move)
 	while timer_move.time_left > 0.0:
@@ -172,9 +187,10 @@ func _attack2_sequence() -> void:
 
 	# Wait until recoil completes across all layers so it syncs with the peak "pop"
 	var recoil_gate := _recoil_gate_seconds()
+	jump_sound.play()
 	await get_tree().create_timer(recoil_gate).timeout
 	await get_tree().physics_frame
-
+	
 	# 2) FIRE SYRUP: spawn from the TOP pancake sprite, fanning upward
 	_spawn_syrup_volley()
 
@@ -274,3 +290,24 @@ func _run_accordion_stack() -> void:
 func reset_stack_positions() -> void:
 	for i in _pancakes.size():
 		_pancakes[i].position = _orig_positions[i]
+
+func redraw_health_bar() -> void:
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(health_bar, "value", health / max_health * 100.0, 0.3)
+	var background_stylebox: StyleBoxFlat = health_bar.get_theme_stylebox(&"background", &"ProgressBar") as StyleBoxFlat
+	var fill_stylebox: StyleBoxFlat = health_bar.get_theme_stylebox(&"fill", &"ProgressBar") as StyleBoxFlat
+	
+	background_stylebox.bg_color.h = health_bar.value / 360.0
+	fill_stylebox.bg_color.h = health_bar.value / 360.0
+
+func took_damage(colliding_hit_box: HitBox2D) -> void:
+	if is_dying:
+		return
+	var damage := colliding_hit_box.damage
+	
+	health -= damage
+	redraw_health_bar()
+	if health <= 0.0:
+		# TODO: Make die method and animation.
+		queue_free()

@@ -233,7 +233,7 @@ position = Vector2(1, 14)
 shape = SubResource("RectangleShape2D_j2i6s")
 
 [node name="HurtBox2D" type="Area2D" parent="."]
-collision_mask = 2
+collision_layer = 2
 script = ExtResource("3_fajeb")
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
@@ -243,6 +243,7 @@ shape = SubResource("CircleShape2D_5r0i6")
 
 [node name="HitBox2D" type="Area2D" parent="."]
 script = ExtResource("6_su36b")
+damage = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2D"]
 position = Vector2(1, -12)
