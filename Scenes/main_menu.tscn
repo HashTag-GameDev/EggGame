@@ -969,7 +969,7 @@ step = 0.01
 [node name="Label3" type="Label" parent="SettingsMenu"]
 layout_mode = 2
 theme = ExtResource("4_opfnp")
-text = "SFX Volumne"
+text = "SFX Volume"
 
 [node name="SFXSlider" type="HSlider" parent="SettingsMenu"]
 layout_mode = 2
@@ -979,7 +979,7 @@ step = 0.01
 [node name="Label4" type="Label" parent="SettingsMenu"]
 layout_mode = 2
 theme = ExtResource("4_opfnp")
-text = "Ambiance Volumne"
+text = "Ambiance Volume"
 
 [node name="AmbianceSlider" type="HSlider" parent="SettingsMenu"]
 layout_mode = 2
@@ -1004,7 +1004,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_cp0ys")
 [node name="Label" type="Label" parent="SettingsMenu/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_opfnp")
-text = "Mute"
+text = "Mute Toggle"
 
 [node name="Spacer" type="Control" parent="SettingsMenu"]
 custom_minimum_size = Vector2(0, 10)

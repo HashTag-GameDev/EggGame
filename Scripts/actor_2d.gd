@@ -57,17 +57,17 @@ func move_actor(v: Vector2) -> void:
 				"walking_left":
 					sprite.animation = "idle_left"
 				"walking_right":
-					sprite.animation = "idle_left"
+					sprite.animation = "idle_right"
 		elif v.y > 0:
 			sprite.play("walking_front")
 		elif v.y < 0:
 			sprite.play("walking_back")
 		elif v.x > 0:
-			sprite.play("walking_left")
-			sprite.flip_h = true
+			sprite.play("walking_right")
+			sprite.flip_h = false
 		elif v.x < 0:
 			sprite.play("walking_left")
-			sprite.flip_h = false
+			sprite.flip_h = true
 
 func attack(id: int) -> void:
 	if id < attacks.size():
