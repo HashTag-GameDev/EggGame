@@ -23,7 +23,8 @@ func _init() -> void:
 
 func _physics_process(delta: float) -> void:
 	var parent: RigidBody2D = get_parent() as RigidBody2D
-	linear_velocity = parent.linear_velocity
+	if parent is RigidBody2D:
+		linear_velocity = parent.linear_velocity
 
 func as_player() -> void:
 	set_damage_source(DAMAGE_SOURCE_PLAYER)

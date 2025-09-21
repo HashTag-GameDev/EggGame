@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://d0qhilkdhyy3w" path="res://Scenes/Obstacles/small_baguette_ru.tscn" id="14_i47ox"]
 [ext_resource type="Script" uid="uid://dkoityjk8p0pp" path="res://Scripts/fight_area.gd" id="16_erobn"]
 [ext_resource type="PackedScene" uid="uid://dbbo5n44yys5g" path="res://Scenes/Actors/muffin_enemy.tscn" id="16_ry2jr"]
-[ext_resource type="Script" path="res://Scripts/pancake_boss.gd" id="17_gpk8t"]
+[ext_resource type="PackedScene" uid="uid://bdayisw6vtf04" path="res://Scenes/pancake_boss.tscn" id="17_hm1wn"]
 [ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="18_gpk8t"]
 [ext_resource type="Texture2D" uid="uid://cmekl2jkdwe04" path="res://Assets/Spritesheets/pancake.png" id="18_hm1wn"]
 [ext_resource type="PackedScene" uid="uid://cm17q46b7lpcc" path="res://Scenes/dead_body.tscn" id="21_qnvbm"]
@@ -250,8 +250,8 @@ movement_speed = 80.0
 vision_range = 150.0
 attack_range = 150.0
 
-[node name="PancakeBoss" type="CharacterBody2D" parent="YSortObjects"]
-position = Vector2(874, -304)
+[node name="PancakeBoss" parent="YSortObjects" instance=ExtResource("17_hm1wn")]
+position = Vector2(1075, 488)
 script = ExtResource("17_gpk8t")
 pancake_nodes = Array[NodePath]([NodePath("Sprite2D5"), NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Sprite2D4")])
 jump_cooldown = 2.5

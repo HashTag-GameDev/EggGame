@@ -6,6 +6,7 @@ class_name MuffinEnemy
 @export var windup_time: float = 0.3
 @export var dash_speed: float = 360.0
 @export var dash_duration: float = 0.70
+@export var attack_cooldown: float = 3.0
 @export var recover_time: float = 0.45
 
 @export_category("Patrol (circle when no player in vision)")
@@ -17,6 +18,8 @@ var _patrol_center: Vector2
 var _patrol_angle: float = 0.0
 
 func setup() -> void:
+	if !is_ai_controlled and hit_box:
+		hit_box.as_player()
 	attacks.append(muffin_attack)
 	idle_logic = _patrol_circle
 	_patrol_center = global_position + patrol_center_offset
@@ -48,14 +51,19 @@ func _patrol_circle() -> void:
 	move_actor(v)
 
 # --- Attack (rush/tackle) registered as index 0 ---
-func muffin_attack() -> void:
+func muffin_attack() -> float:
 	# Windupdd
 	await get_tree().create_timer(windup_time).timeout
 	enable_hitbox()
 	play_attack_1()
 	# Lock dash direction at start
-	var player_pos := AI.Blackboard.player_actor.hurt_box.global_position
-	var dash_dir := (player_pos - global_position).normalized()
+	var dir: Vector2
+	if is_ai_controlled:
+		dir = AI.Blackboard.player_actor.hurt_box.global_position
+	else:
+		dir = get_global_mouse_position()
+	
+	var dash_dir := (dir - global_position).normalized()
 
 	# Dash for a fixed number of physics frames
 	var frames := int(ceil(dash_duration * Engine.get_physics_ticks_per_second()))
@@ -70,6 +78,8 @@ func muffin_attack() -> void:
 	await get_tree().create_timer(recover_time).timeout
 
 	override_attack_anim = false
+	
+	return attack_cooldown
 
 func add_transitions(state_machine: AI.StateMachine) -> void:
 	var idle := AI.StateIdle.new(self)
