@@ -54,6 +54,7 @@ func _is_enemy_owner() -> bool:
 	if "is_ai_controlled" in p:
 		return bool(p.is_ai_controlled)
 	if p.is_in_group("enemy"):
+		
 		return true
 	if p.is_in_group("player"):
 		return false

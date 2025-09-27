@@ -8,6 +8,7 @@
 size = Vector2(1, 15)
 
 [node name="SpearProjectile" type="RigidBody2D" node_paths=PackedStringArray("hit_box_2d")]
+z_index = 3
 script = ExtResource("1_v1avy")
 hit_box_2d = NodePath("HitBox2D")
 
@@ -18,8 +19,9 @@ region_rect = Rect2(79, 37, 3, 20)
 
 [node name="HitBox2D" type="Area2D" parent="." node_paths=PackedStringArray("collider")]
 position = Vector2(0, -8)
+collision_layer = 2
 script = ExtResource("2_ugmnd")
-damage = 15.0
+damage = 5.0
 collider = NodePath("CollisionPolygon2D")
 metadata/_custom_type_script = "uid://bjthx5ggn7l20"
 

@@ -16,9 +16,9 @@ class_name PlayerController
 
 # Data
 @onready var possible_actors: Array[Dictionary] = [
-	{ &"name": &"Egg", &"unlocked": true, &"scene": preload("res://Scenes/Actors/egg_actor.tscn"), &"group": "egg", &"atk_cooldown": 0.33},
-	{ &"name": &"Pea", &"unlocked": false, &"scene": preload("res://Scenes/Actors/pea_enemy.tscn"), &"group": "pea", &"atk_cooldown": 0.66},
-	{ &"name": &"Muffin", &"unlocked": false, &"scene": preload("res://Scenes/Actors/muffin_enemy.tscn"), &"group": "muffin", &"atk_cooldown": 1.2},
+	{ &"name": &"Egg", &"unlocked": true, &"scene": preload("res://Scenes/Actors/egg_actor.tscn"), &"group": "egg", &"atk_cooldown": 0.55},
+	{ &"name": &"Pea", &"unlocked": false, &"scene": preload("res://Scenes/Actors/pea_enemy.tscn"), &"group": "pea", &"atk_cooldown": 0.20},
+	{ &"name": &"Muffin", &"unlocked": false, &"scene": preload("res://Scenes/Actors/muffin_enemy.tscn"), &"group": "muffin", &"atk_cooldown": 2.0},
 ]
 
 # State
@@ -33,6 +33,7 @@ var attack_cooldown_sec: float
 var _hatch_open_actual: bool = false
 var _hatch_tween: Tween
 var _paused_by_hatch: bool = false
+var _hovered_panel_id: int = -1
 
 func _ready() -> void:
 	# Keep reading input during pause (UI only).
@@ -45,7 +46,7 @@ func _ready() -> void:
 
 	player_ui.hatch_ui.process_mode = Node.PROCESS_MODE_ALWAYS
 
-	# Connect UI hover -> actor switch.
+	# Connect UI hover -> track selection only (no switching on hover).
 	if not player_ui.hatch_actor_hovered.is_connected(_on_hatch_actor_hovered):
 		player_ui.hatch_actor_hovered.connect(_on_hatch_actor_hovered)
 
@@ -111,17 +112,10 @@ func request_switch_actor_by_index(id: int) -> void:
 
 # Internal — UI callbacks
 func _on_hatch_actor_hovered(id: int) -> void:
-	# Only react while hatch is actually open; ignore cancel (-1).
+	# Only track while hatch is open; we no longer switch on hover.
 	if !_hatch_open_actual:
 		return
-	if id < 0:
-		return
-	if id >= possible_actors.size():
-		return
-	if !bool(possible_actors[id][&"unlocked"]):
-		return
-	var pos: Vector2 = current_actor.global_position if current_actor else initial_player_spawn.global_position
-	_create_new_actor(id, pos)
+	_hovered_panel_id = id
 
 # Internal — Hatch UI
 func _init_hatch_ui_hidden() -> void:
@@ -149,6 +143,7 @@ func _open_hatch_ui() -> void:
 	ui.visible = true
 	ui.mouse_filter = Control.MOUSE_FILTER_STOP
 	_hatch_open_actual = true
+	_hovered_panel_id = -1
 
 	_hatch_tween = create_tween()
 	_hatch_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
@@ -162,6 +157,11 @@ func _close_hatch_ui() -> void:
 	_kill_hatch_tween()
 	var ui: Control = player_ui.hatch_ui
 
+	# Capture the selection at the moment of key release and stop further hover.
+	var selected_id: int = player_ui.get_panel_id_at_mouse()
+	ui.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hatch_open_actual = false
+
 	_hatch_tween = create_tween()
 	_hatch_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	_hatch_tween.tween_property(ui, "modulate:a", player_ui.transparent, player_ui.fade_out_speed)
@@ -169,13 +169,14 @@ func _close_hatch_ui() -> void:
 	_hatch_tween = null
 
 	ui.visible = false
-	ui.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_hatch_open_actual = false
 
 	if _paused_by_hatch:
 		get_tree().paused = false
 		_paused_by_hatch = false
 		_resync_inputs_after_pause()
+
+	# Apply switch once, based on pointer position when released.
+	request_switch_actor_by_index(selected_id)
 
 # Internal — Spawn/Unlock
 func _create_new_actor(id: int, spawn_pos: Vector2) -> void:
@@ -266,17 +267,21 @@ func _try_attack() -> void:
 	await _perform_attack()
 
 func _perform_attack() -> void:
+	"""Run the current actor's attack and enforce cooldown from the moment the attack starts."""
 	if current_actor == null:
 		return
+	_cooling_down = true
 	current_actor.override_attack_anim = true
+
 	var idx: int = 0
 	var actor_cd: float = await current_actor.attack(idx)
-	if current_actor.has_method(&"disable_hitbox"):
-		current_actor.disable_hitbox(false)
+
+	# Let each actor manage its own hitbox; don't force-enable here.
 	var cd: float = attack_cooldown_sec if attack_cooldown_sec > 0.0 else actor_cd
 	cd = maxf(0.0, cd)
-	_cooling_down = true
+
 	await get_tree().create_timer(cd).timeout
 	_cooling_down = false
+
 	if _attack_held:
 		_try_attack()

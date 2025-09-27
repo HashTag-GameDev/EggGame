@@ -35,8 +35,7 @@ class_name Actor2D
 @export_category("Unlock/Soul")
 @export var should_drop_soul: bool = false ## If true, spawn a soul once on death to unlock this enemy type.
 @export var soul_scene: PackedScene ## Optional override for the soul scene.
-@export var soul_sprite: Texture2D ## Optional corpse sprite shown with the soul.
-@export var soul_speed: float = 60.0 ## Homing speed for the soul pickup.
+@export var dead_sprite: Texture2D ## Optional corpse sprite shown with the soul.
 @export var unlock_name: StringName ## Name that must match PlayerController.possible_actors[].name.
 @export var detection_area: Area2D
 
@@ -52,6 +51,7 @@ var override_attack_anim: bool = false
 var base_movement_speed: float
 var health: float
 var is_dying: bool = false
+var _attacking: bool = false ## Internal guard to prevent re-entrant attacks.
 
 # Lifecycle
 func _ready() -> void:
@@ -113,14 +113,19 @@ func move_actor(v: Vector2) -> void:
 		sprite.animation = "walking_front" if v.y > 0.0 else "walking_back"
 
 func attack(id: int) -> float:
-	"""Run a registered attack by id and return its cooldown."""
+	"""Run a registered attack by id and return its cooldown. Ignores if already attacking."""
 	if is_dying:
 		return 0.0
-	if id >= 0 and id < attacks.size():
-		var fn: Callable = attacks[id]
-		var cd: float = await fn.call()
-		return cd
-	return 0.0
+	if _attacking:
+		return 0.0
+	if id < 0 or id >= attacks.size():
+		return 0.0
+
+	_attacking = true
+	var fn: Callable = attacks[id]
+	var cd: float = await fn.call()
+	_attacking = false
+	return cd
 
 func activate_camera() -> void:
 	camera.enabled = true
@@ -187,11 +192,9 @@ func drop_soul() -> void:
 	if name_to_unlock.is_empty():
 		push_warning("unlock_name not set on %s; soul will not unlock anything." % [get_class()])
 	else:
-		if soul.has_method("set"):
-			soul.set("enemy_name", StringName(name_to_unlock))
-			if soul_sprite:
-				soul.set("sprite", soul_sprite)
-			soul.set("speed", soul_speed)
+		if soul:
+			soul.enemy_name = name_to_unlock
+			soul.dead_sprite = dead_sprite
 
 	soul.global_position = global_position
 	call_deferred("add_sibling", soul)
@@ -218,3 +221,9 @@ func play_attack_1() -> void:
 	attack_audio_player_1.pitch_scale = randf_range(0.95, 1.05)
 	attack_audio_player_1.stream = attack_audio_1
 	attack_audio_player_1.play()
+
+func set_slow(speed_mult: bool) -> void:
+	if speed_mult:
+		movement_speed = movement_speed * 0.40
+	else:
+		movement_speed = base_movement_speed

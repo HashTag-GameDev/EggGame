@@ -31,19 +31,22 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="PancakeBoss" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box", "spawn_pos", "jump_sound")]
+[node name="PancakeBoss" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box", "hit_box", "jump_sound", "spawn_pos") groups=["enemy"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_0amgd")
-hurt_box = NodePath("HurtBox2D")
-pancake_nodes = Array[NodePath]([NodePath("Sprite2D5"), NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Sprite2D4")])
+health = 600.0
+max_health = 600.0
 jump_cooldown = 2.5
 recoil_time = 0.1
 spring_time = 0.2
+hurt_box = NodePath("HurtBox2D")
+hit_box = NodePath("HitBox2D")
+pancake_nodes = Array[NodePath]([NodePath("Sprite2D5"), NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Sprite2D4")])
+jump_sound = NodePath("AudioStreamPlayer2D")
 spawn_pos = NodePath("Marker2D")
 syrup_scene = ExtResource("2_nfpak")
 ranged_attack_chance = 0.33
-jump_sound = NodePath("AudioStreamPlayer2D")
 
 [node name="Sprite2D5" type="Sprite2D" parent="."]
 position = Vector2(-0.80000305, -35)
@@ -76,7 +79,6 @@ region_enabled = true
 region_rect = Rect2(13, 0, 165, 76)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
 position = Vector2(-0.80000305, -35)
 polygon = PackedVector2Array(-18.5, -35, -32.5, -33, -37.5, -33, -54.5, -27, -57.5, -27, -65.5, -21, -67.5, -21, -77.5, -9, -78.5, -9, -78.5, 8, -78.5, 11, -68.5, 20, -68.5, 21, -57.5, 26, -57.5, 27, -33.5, 33, -33.5, 34, -18.5, 35, -18.5, 36, 19.5, 35, 28.5, 35, 49.5, 29, 53.5, 29, 64.5, 23, 66.5, 23, 79.5, 9, 80.5, 9, 80.5, -4, 76.5, -13, 76.5, -15, 58.5, -26, 58.5, -27, 28.5, -34, 28.5, -35, -18.5, -36)
 
@@ -102,20 +104,21 @@ value = 50.0
 show_percentage = false
 
 [node name="HurtBox2D" type="Area2D" parent="."]
-visible = false
-collision_layer = 2
+collision_mask = 2
 script = ExtResource("3_nfpak")
+owner_type = 1
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HurtBox2D"]
 position = Vector2(-0.80000305, -64)
 polygon = PackedVector2Array(-22.199997, -50, -45.199997, -44, -67.2, -37, -84.2, -16, -83.2, 12, -78.2, 43, -59.199997, 57, -31.199997, 64, 31.800003, 64, 64.8, 54, 81.8, 41, 85.8, 30, 81.8, -8, 79.5, -15, 66.8, -34, 45.800003, -43, 17.800003, -49)
 
-[node name="HitBox2D" type="Area2D" parent="."]
-visible = false
-collision_layer = 2
+[node name="HitBox2D" type="Area2D" parent="." node_paths=PackedStringArray("collider")]
+collision_mask = 2
 script = ExtResource("5_nfpak")
 damage = 20.0
+collider = NodePath("CollisionPolygon2D3")
+owner_type = 1
 metadata/_custom_type_script = "uid://bjthx5ggn7l20"
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="HitBox2D"]

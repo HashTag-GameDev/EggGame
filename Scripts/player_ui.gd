@@ -108,6 +108,19 @@ func get_panel_by_id(id: int) -> Panel:
 			return hatch_enemy_4
 	return hatch_enemy_1
 
+func get_panel_id_at_mouse() -> int:
+	"""Return the hatch panel id under the mouse, or -1 if none/cancel."""
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	for panel: Panel in hatch_panels:
+		if !panel.visible:
+			continue
+		var id: int = int(panel.get_meta(&"id")) if panel.has_meta(&"id") else -1
+		if id == -1:
+			continue
+		if panel.get_global_rect().has_point(mouse_pos):
+			return id
+	return -1
+
 func _on_panel_hovered(panel: Panel) -> void:
 	# Update visual selection.
 	if selected_panel != null:
@@ -115,6 +128,6 @@ func _on_panel_hovered(panel: Panel) -> void:
 	panel.modulate.a = 0.9
 	selected_panel = panel
 
-	# Emit id outward for controller to react.
+	# Emit id outward for controller to react (controller ignores hover for switching).
 	var id: int = int(panel.get_meta(&"id")) if panel.has_meta(&"id") else -1
 	hatch_actor_hovered.emit(id)

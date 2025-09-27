@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://pu3oa1r6iftp"]
+[gd_scene load_steps=5 format=3 uid="uid://pu3oa1r6iftp"]
 
 [ext_resource type="Script" uid="uid://cu44aot5lr83i" path="res://Scripts/AOE/syrup_aoe.gd" id="1_lpx36"]
 [ext_resource type="Texture2D" uid="uid://3gv52oiq1285" path="res://Assets/Spritesheets/syrup_drop.png" id="1_sgjf0"]
 [ext_resource type="AudioStream" uid="uid://dmf8k54owbbfe" path="res://Assets/Audio/SFX/Pancake/Pancake Syrup Squirt.mp3" id="3_ohokt"]
+[ext_resource type="Script" uid="uid://bjthx5ggn7l20" path="res://Scripts/Base Classes/hit_box_2d.gd" id="4_bvqna"]
 
-[node name="SyrupAOE" type="Area2D"]
+[node name="SyrupAOE" type="Area2D" node_paths=PackedStringArray("hit_box")]
 collision_layer = 2
 script = ExtResource("1_lpx36")
-damage = 5.0
+lifetime = 5.0
+hit_box = NodePath("HitBox2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0.6000004, -8.6)
@@ -23,7 +25,18 @@ polygon = PackedVector2Array(-8, -5.5, -15, -1.5, -16, -1.5, -16, 2.5, -11, 4.5,
 position = Vector2(0.6000004, -8.6)
 stream = ExtResource("3_ohokt")
 volume_db = -13.0
-pitch_scale = 1.0085703
+pitch_scale = 0.9873529
+
+[node name="HitBox2D" type="Area2D" parent="." node_paths=PackedStringArray("collider")]
+collision_layer = 2
+script = ExtResource("4_bvqna")
+damage = 2.0
+collider = NodePath("CollisionPolygon2D")
+metadata/_custom_type_script = "uid://bjthx5ggn7l20"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox2D"]
+position = Vector2(1.2000008, -17.2)
+polygon = PackedVector2Array(-8, -5.5, -15, -1.5, -16, -1.5, -16, 2.5, -11, 4.5, -11, 5.5, -4, 6.5, 11, 6.5, 15, 2.5, 16, 2.5, 12, -4.5, 12, -5.5, -8, -6.5)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

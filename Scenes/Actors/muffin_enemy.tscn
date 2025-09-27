@@ -197,6 +197,7 @@ dash_speed = 250.0
 dash_duration = 0.5
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
+movement_speed = 80.0
 attack_type = 1
 vision_range = 185.0
 attack_range = 75.0
@@ -233,9 +234,8 @@ position = Vector2(1, 14)
 shape = SubResource("RectangleShape2D_j2i6s")
 
 [node name="HurtBox2D" type="Area2D" parent="."]
-collision_layer = 2
+collision_mask = 2
 script = ExtResource("3_fajeb")
-owner_type = null
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox2D"]
@@ -243,11 +243,10 @@ position = Vector2(1, -12)
 shape = SubResource("CircleShape2D_5r0i6")
 
 [node name="HitBox2D" type="Area2D" parent="." node_paths=PackedStringArray("collider")]
-collision_layer = 2
+collision_mask = 2
 script = ExtResource("6_su36b")
-damage = 25.0
+damage = 17.0
 collider = NodePath("CollisionShape2D")
-owner_type = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2D"]
 position = Vector2(1, -12)

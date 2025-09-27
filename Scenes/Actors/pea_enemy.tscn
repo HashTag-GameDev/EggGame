@@ -45,7 +45,7 @@ attack_range = 75.0
 hurt_box = NodePath("HurtBox2D")
 health_bar = NodePath("Health")
 hit_particle = NodePath("HitParticle")
-max_health = 50.0
+max_health = 35.0
 audio_player = NodePath("AudioStreamPlayer2D")
 walking_audio = Array[AudioStream]([ExtResource("2_jduer")])
 attack_audio_player_1 = NodePath("AudioStreamPlayer2D2")
@@ -74,10 +74,9 @@ offset = Vector2(0, -29)
 shape = SubResource("RectangleShape2D_j2i6s")
 
 [node name="HurtBox2D" type="Area2D" parent="."]
-collision_layer = 2
+collision_mask = 2
 monitorable = false
 script = ExtResource("3_5r0i6")
-owner_type = null
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox2D"]
