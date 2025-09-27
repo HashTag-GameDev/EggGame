@@ -191,8 +191,10 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "hit_box", "audio_player", "attack_audio_player_1") groups=["muffin"]]
+[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "hit_box", "audio_player", "attack_audio_player_1", "detection_area") groups=["muffin"]]
 script = ExtResource("1_be5vf")
+dash_speed = 250.0
+dash_duration = 0.5
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
 attack_type = 1
@@ -206,6 +208,7 @@ audio_player = NodePath("AudioStreamPlayer2D")
 walking_audio = Array[AudioStream]([ExtResource("2_qwhmp")])
 attack_audio_player_1 = NodePath("AudioStreamPlayer2D2")
 attack_audio_1 = ExtResource("3_212ay")
+detection_area = NodePath("DetectionArea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 14.25)

@@ -27,15 +27,15 @@ texture = ExtResource("2_ma0eo")
 
 [node name="DetectArea" type="Area2D" parent="EnemySoul"]
 scale = Vector2(2, 2)
-collision_layer = 3
-collision_mask = 3
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySoul/DetectArea"]
 shape = SubResource("CircleShape2D_fagme")
 
 [node name="TouchPlayer" type="Area2D" parent="EnemySoul"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySoul/TouchPlayer"]
 scale = Vector2(2, 2)

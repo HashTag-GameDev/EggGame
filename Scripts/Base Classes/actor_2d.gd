@@ -38,6 +38,7 @@ class_name Actor2D
 @export var soul_sprite: Texture2D ## Optional corpse sprite shown with the soul.
 @export var soul_speed: float = 60.0 ## Homing speed for the soul pickup.
 @export var unlock_name: StringName ## Name that must match PlayerController.possible_actors[].name.
+@export var detection_area: Area2D
 
 # Signals
 signal player_took_damage(damage: float)

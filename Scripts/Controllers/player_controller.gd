@@ -6,9 +6,6 @@ class_name PlayerController
 @export var max_health: float = 100.0 ## Max player health.
 @export var player_defense: float = 0.0 ## Flat damage reduction.
 
-@export_category("Combat")
-@export var attack_cooldown_sec: float = 0.25 ## Fixed attack interval; 0.0 uses actor's own cooldown.
-
 @export_category("Spawn")
 @export var initial_player_spawn: Marker2D ## Spawn marker for the first player actor.
 @export var spawn_parent: Node2D ## Parent node to hold the player actor.
@@ -17,29 +14,29 @@ class_name PlayerController
 @export var player_ui: PlayerUI ## Player HUD/UI controller.
 @export var health_bar: ProgressBar ## Health bar UI.
 
+# Data
+@onready var possible_actors: Array[Dictionary] = [
+	{ &"name": &"Egg", &"unlocked": true, &"scene": preload("res://Scenes/Actors/egg_actor.tscn"), &"group": "egg", &"atk_cooldown": 0.33},
+	{ &"name": &"Pea", &"unlocked": false, &"scene": preload("res://Scenes/Actors/pea_enemy.tscn"), &"group": "pea", &"atk_cooldown": 0.66},
+	{ &"name": &"Muffin", &"unlocked": false, &"scene": preload("res://Scenes/Actors/muffin_enemy.tscn"), &"group": "muffin", &"atk_cooldown": 1.2},
+]
+
 # State
 var current_actor: Actor2D
 var player_health: float = 0.0
 var _changing_actor: bool = false
 var _attack_held: bool = false
 var _cooling_down: bool = false
+var attack_cooldown_sec: float
 
 # Hatch UI state
 var _hatch_open_actual: bool = false
 var _hatch_tween: Tween
 var _paused_by_hatch: bool = false
 
-# Data
-@onready var possible_actors: Array[Dictionary] = [
-	{ &"name": &"Egg", &"unlocked": true, &"scene": preload("res://Scenes/Actors/egg_actor.tscn"), &"group": "egg" },
-	{ &"name": &"Pea", &"unlocked": false, &"scene": preload("res://Scenes/Actors/pea_enemy.tscn"), &"group": "pea" },
-	{ &"name": &"Muffin", &"unlocked": true, &"scene": preload("res://Scenes/Actors/muffin_enemy.tscn"), &"group": "muffin" },
-]
-
-# Lifecycle
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS # read inputs during pause (UI only)
-
+	# Keep reading input during pause (UI only).
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	assert(is_instance_valid(initial_player_spawn))
 	assert(is_instance_valid(spawn_parent))
 	assert(is_instance_valid(player_ui))
@@ -48,20 +45,20 @@ func _ready() -> void:
 
 	player_ui.hatch_ui.process_mode = Node.PROCESS_MODE_ALWAYS
 
+	# Connect UI hover -> actor switch.
+	if not player_ui.hatch_actor_hovered.is_connected(_on_hatch_actor_hovered):
+		player_ui.hatch_actor_hovered.connect(_on_hatch_actor_hovered)
+
 	player_health = max_health
 	health_bar.value = player_health
 	_redraw_health_bar()
-
 	_init_hatch_ui_hidden()
 
 	if current_actor == null:
 		_create_new_actor(0, initial_player_spawn.global_position)
 
+	# Optional external reference (fix typo).
 	AI.Blackboard.player_controller = self
-
-	# Optional: listen to UI hover to switch actor while menu is open
-	if player_ui.has_signal("hatch_actor_hovered"):
-		player_ui.hatch_actor_hovered.connect(_on_hatch_actor_hovered)
 
 func _input(event: InputEvent) -> void:
 	# Hatch menu open/close
@@ -70,7 +67,7 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_released(&"hatch_menu"):
 		_close_hatch_ui()
 
-	# Attack press/release (track while paused too)
+	# Attack press/release
 	if event.is_action_pressed(&"attack_1"):
 		_attack_held = true
 		_try_attack()
@@ -78,6 +75,7 @@ func _input(event: InputEvent) -> void:
 		_attack_held = false
 
 func _physics_process(_delta: float) -> void:
+	# Block gameplay while paused.
 	if get_tree().paused:
 		return
 	_resync_inputs_after_pause()
@@ -96,15 +94,29 @@ func took_damage(damage: float) -> void:
 	_redraw_health_bar()
 
 func obtained_soul(enemy_name: StringName) -> void:
-	"""Unlock an actor by soul name and play its unlock animation."""
+	"""Unlock a playable actor by soul name and play the unlock animation."""
 	if _unlock_actor_by_name(enemy_name):
 		_do_unlock_animation(enemy_name)
 	else:
 		push_warning("Unknown soul name: %s" % [str(enemy_name)])
 
 func request_switch_actor_by_index(id: int) -> void:
-	"""Request switching to an unlocked actor by index (no UI assumptions)."""
+	"""Request switching to an unlocked actor by index."""
 	if id < 0 or id >= possible_actors.size():
+		return
+	if !bool(possible_actors[id][&"unlocked"]):
+		return
+	var pos: Vector2 = current_actor.global_position if current_actor else initial_player_spawn.global_position
+	_create_new_actor(id, pos)
+
+# Internal — UI callbacks
+func _on_hatch_actor_hovered(id: int) -> void:
+	# Only react while hatch is actually open; ignore cancel (-1).
+	if !_hatch_open_actual:
+		return
+	if id < 0:
+		return
+	if id >= possible_actors.size():
 		return
 	if !bool(possible_actors[id][&"unlocked"]):
 		return
@@ -140,7 +152,6 @@ func _open_hatch_ui() -> void:
 
 	_hatch_tween = create_tween()
 	_hatch_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	_hatch_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	_hatch_tween.tween_property(ui, "modulate:a", player_ui.opaque, player_ui.fade_in_speed)
 	await _hatch_tween.finished
 	_hatch_tween = null
@@ -153,7 +164,6 @@ func _close_hatch_ui() -> void:
 
 	_hatch_tween = create_tween()
 	_hatch_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	_hatch_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	_hatch_tween.tween_property(ui, "modulate:a", player_ui.transparent, player_ui.fade_out_speed)
 	await _hatch_tween.finished
 	_hatch_tween = null
@@ -167,18 +177,6 @@ func _close_hatch_ui() -> void:
 		_paused_by_hatch = false
 		_resync_inputs_after_pause()
 
-# Internal — UI callbacks
-func _on_hatch_actor_hovered(id: int) -> void:
-	# Called by UI when hovering a panel; requires UI to be Control-based to work while paused.
-	if !_hatch_open_actual:
-		return
-	if id < 0 or id >= possible_actors.size():
-		return
-	if !bool(possible_actors[id][&"unlocked"]):
-		return
-	var pos: Vector2 = current_actor.global_position if current_actor else initial_player_spawn.global_position
-	_create_new_actor(id, pos)
-
 # Internal — Spawn/Unlock
 func _create_new_actor(id: int, spawn_pos: Vector2) -> void:
 	if _changing_actor:
@@ -190,9 +188,11 @@ func _create_new_actor(id: int, spawn_pos: Vector2) -> void:
 			_disconnect_signals()
 			current_actor.hatch()
 		var new_actor: Node = possible_actors[id][&"scene"].instantiate()
+		attack_cooldown_sec = possible_actors[id][&"atk_cooldown"]
 		if new_actor is Actor2D:
 			current_actor = new_actor
 			current_actor.is_ai_controlled = false
+			current_actor.detection_area.set_collision_layer_value(3, true)
 			current_actor.global_position = spawn_pos
 			current_actor.activate_camera()
 			spawn_parent.add_child(current_actor)

@@ -921,7 +921,6 @@ corner_detail = 16
 process_mode = 3
 script = ExtResource("1_gy20a")
 player_defense = 10.0
-attack_cooldown_sec = 0.33
 player_ui = NodePath("UILayer")
 health_bar = NodePath("UILayer/UI/PlayerHealth")
 

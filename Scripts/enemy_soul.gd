@@ -9,40 +9,15 @@ extends Node2D
 @export var amplitude_s: float = 0.15
 @export var speed_s: float = 1.5
 
-# Onready
 @onready var _soul: Sprite2D = $EnemySoul
-@onready var _dead: Sprite2D = $"Dead Enemy"
-@onready var _detect: Area2D = $EnemySoul/DetectArea
-@onready var _touch: Area2D = $EnemySoul/TouchPlayer
 
-# State
-var _target_hurtbox: Area2D
+var _target: Vector2 = Vector2.ZERO
 var _t_y: float = 0.0
 var _t_s: float = 0.0
 var _base_y: float = 0.0
 var _base_scale: float = 1.0
 var _collected: bool = false
 
-# Lifecycle
-func _ready() -> void:
-	# Be tolerant of missing visuals; do not hard-assert
-	if is_instance_valid(_soul):
-		_base_y = _soul.position.y
-		_base_scale = _soul.scale.x
-	if sprite and is_instance_valid(_dead):
-		_dead.texture = sprite
-
-	# Ensure trigger areas are active and connected
-	if is_instance_valid(_detect) and not _detect.area_entered.is_connected(_on_detect_area_area_entered):
-		_detect.monitoring = true
-		_detect.monitorable = true
-		_detect.area_entered.connect(_on_detect_area_area_entered)
-	if is_instance_valid(_touch) and not _touch.area_entered.is_connected(_on_touch_player_area_entered):
-		_touch.monitoring = true
-		_touch.monitorable = true
-		_touch.area_entered.connect(_on_touch_player_area_entered)
-
-# Process
 func _physics_process(delta: float) -> void:
 	if _collected:
 		return
@@ -57,19 +32,24 @@ func _physics_process(delta: float) -> void:
 		_soul.rotation += delta * 6.0
 
 	# Home toward player
-	if is_instance_valid(_target_hurtbox):
-		var dir: Vector2 = global_position.direction_to(_target_hurtbox.global_position)
+	if _target != Vector2.ZERO:
+		var dir: Vector2 = global_position.direction_to(_target)
 		global_position += dir * speed * delta
 
 # Signals
 func _on_detect_area_area_entered(_area: Area2D) -> void:
 	"""Start homing when the player’s hurtbox is nearby."""
+	if _area.get_parent() == $EnemySoul:
+		return
+	print(_area)
 	var player: Actor2D = AI.Blackboard.player_actor
-	if player and player.hurt_box:
-		_target_hurtbox = player.hurt_box
+	if player:
+		_target = player.detection_area.global_position
 
 func _on_touch_player_area_entered(_area: Area2D) -> void:
 	"""Grant the soul to the player and free this node."""
+	if _area.get_parent() == $EnemySoul:
+		return
 	if _collected:
 		return
 	_collected = true
@@ -77,7 +57,6 @@ func _on_touch_player_area_entered(_area: Area2D) -> void:
 	# Unlock via the authoritative player actor
 	var player: Node = AI.Blackboard.player_controller
 	if player and player.has_method("obtained_soul"):
-		print(player)
 		if str(enemy_name).is_empty():
 			push_warning("EnemySoul missing enemy_name; unlock will be skipped.")
 		else:

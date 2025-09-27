@@ -21,7 +21,8 @@ height = 42.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_okhe8"]
 radius = 29.017237
 
-[node name="EggActor" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "hit_box", "audio_player", "attack_audio_player_1") groups=["egg"]]
+[node name="EggActor" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "hit_box", "audio_player", "attack_audio_player_1", "detection_area") groups=["egg"]]
+collision_layer = 5
 script = ExtResource("1_je0bx")
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
@@ -32,6 +33,7 @@ audio_player = NodePath("AudioStreamPlayer2D")
 walking_audio = Array[AudioStream]([ExtResource("2_3620u"), ExtResource("3_cmov6"), ExtResource("4_eh6ui"), ExtResource("5_qyjuk"), ExtResource("6_0n7oa")])
 attack_audio_player_1 = NodePath("AudioStreamPlayer2D2")
 attack_audio_1 = ExtResource("7_okhe8")
+detection_area = NodePath("DetectionArea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j2i6s")
@@ -49,6 +51,7 @@ autoplay = "idle_front"
 offset = Vector2(0, -29)
 
 [node name="DetectionArea" type="Area2D" parent="." groups=["player"]]
+collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("RectangleShape2D_j2i6s")
@@ -69,6 +72,7 @@ monitoring = false
 script = ExtResource("9_sqpcw")
 damage = 5.0
 collider = NodePath("CollisionShape2D")
+owner_type = null
 metadata/_custom_type_script = "uid://bjthx5ggn7l20"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2D"]

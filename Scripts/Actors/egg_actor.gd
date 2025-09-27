@@ -4,8 +4,6 @@ class_name EggActor
 @export_category("Attack Parms")
 @export var attack_cooldown: float = 1.0
 
-var is_enemy: bool = false
-
 @onready var hit_box_2d: HitBox2D = $HitBox2D
 
 func setup() -> void:

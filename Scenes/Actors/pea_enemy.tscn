@@ -35,31 +35,23 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="PeaEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "audio_player", "attack_audio_player_1") groups=["pea"]]
+[node name="PeaEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "audio_player", "attack_audio_player_1", "detection_area") groups=["pea"]]
 script = ExtResource("1_qi7hr")
-spear_cooldown = null
-spear_speed = null
-is_ai_controlled = null
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
-movement_speed = null
 attack_type = 2
 vision_range = 150.0
 attack_range = 75.0
-always_see_player = null
 hurt_box = NodePath("HurtBox2D")
 health_bar = NodePath("Health")
 hit_particle = NodePath("HitParticle")
 max_health = 50.0
-defense = null
 audio_player = NodePath("AudioStreamPlayer2D")
 walking_audio = Array[AudioStream]([ExtResource("2_jduer")])
-walking_audio_cooldown = null
 attack_audio_player_1 = NodePath("AudioStreamPlayer2D2")
 attack_audio_1 = ExtResource("3_88tgf")
-should_drop_soul = null
-soul_speed = null
-unlock_name = null
+unlock_name = &"Pea"
+detection_area = NodePath("DetectionArea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j2i6s")
@@ -85,6 +77,7 @@ shape = SubResource("RectangleShape2D_j2i6s")
 collision_layer = 2
 monitorable = false
 script = ExtResource("3_5r0i6")
+owner_type = null
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox2D"]
