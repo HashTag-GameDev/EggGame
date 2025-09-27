@@ -10,7 +10,7 @@ flip_h = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(31, -1)
-polygon = PackedVector2Array(-39, 36, 9, -18, 9, 12)
+polygon = PackedVector2Array(-24, 29, 10, -9, 9, 12)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
 position = Vector2(-26.999998, -23.999996)

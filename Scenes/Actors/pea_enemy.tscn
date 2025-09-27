@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3e32u2wtm0xl"]
+[gd_scene load_steps=11 format=3 uid="uid://c3e32u2wtm0xl"]
 
 [ext_resource type="Script" uid="uid://btclksioi4vsb" path="res://Scripts/Actors/pea_enemy.gd" id="1_qi7hr"]
+[ext_resource type="AudioStream" uid="uid://dffbb3aa0j1fk" path="res://Assets/Audio/SFX/Pea/Pea Moving.mp3" id="2_jduer"]
 [ext_resource type="SpriteFrames" uid="uid://r2txq6mjrbc1" path="res://Assets/Spritesheets/pea_frames.tres" id="2_qi7hr"]
 [ext_resource type="Script" uid="uid://birj0rp18k4pc" path="res://Scripts/Base Classes/hurt_box_2d.gd" id="3_5r0i6"]
+[ext_resource type="AudioStream" uid="uid://dppnigrcdwx1y" path="res://Assets/Audio/SFX/Pea/Pea Attack.mp3" id="3_88tgf"]
 [ext_resource type="PackedScene" uid="uid://tafaqmmch10v" path="res://Scenes/Particles/hit_particle.tscn" id="4_ufm4p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2i6s"]
@@ -33,14 +35,22 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="PeaEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle") groups=["pea"]]
+[node name="PeaEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "audio_player", "attack_audio_player_1") groups=["pea"]]
 script = ExtResource("1_qi7hr")
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
+enemy_name = &"Pea"
 attack_type = 2
+vision_range = 150.0
+attack_range = 75.0
 hurt_box = NodePath("HurtBox2D")
 health_bar = NodePath("Health")
 hit_particle = NodePath("HitParticle")
+max_health = 50.0
+audio_player = NodePath("AudioStreamPlayer2D")
+walking_audio = Array[AudioStream]([ExtResource("2_jduer")])
+attack_audio_player_1 = NodePath("AudioStreamPlayer2D2")
+attack_audio_1 = ExtResource("3_88tgf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j2i6s")

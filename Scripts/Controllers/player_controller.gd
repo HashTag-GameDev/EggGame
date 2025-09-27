@@ -33,7 +33,7 @@ class_name PlayerController
 	},
 	{
 		&"name": &"Muffin",
-		&"unlocked": true,
+		&"unlocked": false,
 		&"scene": preload("res://Scenes/Actors/muffin_enemy.tscn"),
 		&"group": "muffin"
 	},
@@ -180,7 +180,6 @@ func disconnect_signals() -> void:
 func connect_signals() -> void:
 	"""Connect signals from the current actor."""
 	current_actor.player_took_damage.connect(took_damage)
-	current_actor.soul_obtained.connect(obtained_soul)
 
 func game_over() -> void:
 	"""Transition to the game over scene."""

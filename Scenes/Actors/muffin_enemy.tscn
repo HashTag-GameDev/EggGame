@@ -198,7 +198,9 @@ attack_cooldown = 4.0
 patrol_radius = 75.0
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
+enemy_name = &"Muffin"
 attack_type = 1
+vision_range = 150.0
 hurt_box = NodePath("HurtBox2D")
 health_bar = NodePath("Health")
 hit_particle = NodePath("HitParticle")
@@ -221,7 +223,7 @@ position_smoothing_speed = 3.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 19)
 sprite_frames = SubResource("SpriteFrames_83sv0")
-animation = &"idle_front"
+animation = &"idle_back"
 offset = Vector2(0, -29)
 
 [node name="DetectionArea" type="Area2D" parent="."]

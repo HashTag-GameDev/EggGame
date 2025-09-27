@@ -46,6 +46,7 @@ func _on_touch_player_area_entered(area: Area2D) -> void:
 		var tween = create_tween()
 		tween.tween_property(self, "modulate:a", 0.0, 0.3)
 		await tween.finished
-		if area.get_parent().has_method("obtain_soul"):
-			area.get_parent().obtain_soul(enemy_name)
+		if area.get_parent().has_method("obtained_soul"):
+			area.get_parent().obtained_soul(enemy_name)
+			print("ran")
 		queue_free()

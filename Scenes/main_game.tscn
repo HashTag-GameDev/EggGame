@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://dni63nesdnroc"]
+[gd_scene load_steps=39 format=4 uid="uid://dni63nesdnroc"]
 
 [ext_resource type="Texture2D" uid="uid://b53i7ml3wonte" path="res://Assets/Tilesets/jame_gam_iso_tiles.png" id="1_0e3vx"]
 [ext_resource type="Texture2D" uid="uid://hom4ti57yxjl" path="res://Assets/Sprites/tablecloth_corner.png" id="2_6j5ir"]
@@ -26,6 +26,8 @@
 [ext_resource type="PackedScene" uid="uid://dvbd1bhc1w5h3" path="res://Scenes/Obstacles/barrier_fork_flip.tscn" id="20_ry2jr"]
 [ext_resource type="PackedScene" uid="uid://cm17q46b7lpcc" path="res://Scenes/dead_body.tscn" id="21_qnvbm"]
 [ext_resource type="PackedScene" uid="uid://c3e32u2wtm0xl" path="res://Scenes/Actors/pea_enemy.tscn" id="23_58qbg"]
+[ext_resource type="Texture2D" uid="uid://sy2ckws5snso" path="res://Assets/Sprites/pea.tres" id="24_06qyo"]
+[ext_resource type="Texture2D" uid="uid://ccngw8y7btw4s" path="res://Assets/Sprites/muffin_dead.png" id="26_3bgrf"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_0e3vx"]
 tile_data = PackedInt32Array(196608, 65536, 0, 65537, 65536, 0, 131073, 0, 0, 196609, 65536, 0, 262145, 0, 0, 327681, 65536, 0, 2, 0, 0, 65538, 65536, 0, 131074, 0, 0, 196610, 65536, 0, 262146, 0, 0, 327682, 65536, 0, 393218, 0, 0, 131075, 0, 0, 196611, 65536, 0, 262147, 0, 0)
@@ -596,50 +598,43 @@ position = Vector2(239, 317)
 position = Vector2(257, 307)
 
 [node name="PeaEnemy" parent="YSortObjects" instance=ExtResource("23_58qbg")]
-position = Vector2(1151, 343)
-is_ai_controlled = true
+position = Vector2(1141, 390)
+should_drop_soul = true
+soul_scene = ExtResource("21_qnvbm")
+dead_sprite = ExtResource("24_06qyo")
 
 [node name="MuffinEnemy" parent="YSortObjects" instance=ExtResource("16_ry2jr")]
-position = Vector2(1341, 140)
+position = Vector2(862, 259)
 should_drop_soul = true
-is_ai_controlled = true
+soul_scene = ExtResource("21_qnvbm")
+dead_sprite = ExtResource("26_3bgrf")
 
 [node name="MuffinEnemy2" parent="YSortObjects" instance=ExtResource("16_ry2jr")]
-position = Vector2(386, 341)
-is_ai_controlled = true
+position = Vector2(412, 353)
+
+[node name="MuffinEnemy4" parent="YSortObjects" instance=ExtResource("16_ry2jr")]
+position = Vector2(537, 422)
 
 [node name="PeaEnemy2" parent="YSortObjects" instance=ExtResource("23_58qbg")]
-position = Vector2(421, 411)
-is_ai_controlled = true
+position = Vector2(1250, 100)
 
 [node name="PeaEnemy3" parent="YSortObjects" instance=ExtResource("23_58qbg")]
-position = Vector2(433, 294)
-is_ai_controlled = true
+position = Vector2(1344, 132)
 
 [node name="PeaEnemy4" parent="YSortObjects" instance=ExtResource("23_58qbg")]
-position = Vector2(325, -115)
-is_ai_controlled = true
+position = Vector2(1265, 146)
 
 [node name="MuffinEnemy3" parent="YSortObjects" instance=ExtResource("16_ry2jr")]
-position = Vector2(474, -42)
-is_ai_controlled = true
+position = Vector2(254, -94)
 
 [node name="PeaEnemy5" parent="YSortObjects" instance=ExtResource("23_58qbg")]
 position = Vector2(563, 48)
-is_ai_controlled = true
 
 [node name="PeaEnemy6" parent="YSortObjects" instance=ExtResource("23_58qbg")]
 position = Vector2(400, -169)
-is_ai_controlled = true
 
 [node name="PeaEnemy7" parent="YSortObjects" instance=ExtResource("23_58qbg")]
 position = Vector2(657, -30)
-is_ai_controlled = true
-
-[node name="Dead Body" parent="YSortObjects" instance=ExtResource("21_qnvbm")]
-position = Vector2(1023, 497)
-enemy_name = &"Pea"
-speed = 50.0
 
 [node name="BarrierFork5" parent="YSortObjects" instance=ExtResource("20_0bxlt")]
 position = Vector2(275, 297)

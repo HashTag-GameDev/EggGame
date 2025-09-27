@@ -25,6 +25,7 @@ radius = 29.017237
 script = ExtResource("1_je0bx")
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
+enemy_name = &"Egg"
 attack_type = 1
 hurt_box = NodePath("HurtBox2D")
 hit_box = NodePath("HitBox2D")
@@ -44,9 +45,8 @@ position_smoothing_speed = 3.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_77jag")
-animation = &"attack_one"
+animation = &"walking_left"
 autoplay = "idle_front"
-frame_progress = 0.55121154
 offset = Vector2(0, -29)
 
 [node name="DetectionArea" type="Area2D" parent="." groups=["player"]]
@@ -64,6 +64,7 @@ metadata/_custom_type_script = "uid://birj0rp18k4pc"
 shape = SubResource("CapsuleShape2D_6wq2t")
 
 [node name="HitBox2D" type="Area2D" parent="." node_paths=PackedStringArray("collider")]
+collision_layer = 2
 monitoring = false
 script = ExtResource("9_sqpcw")
 damage = 5.0

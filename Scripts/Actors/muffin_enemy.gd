@@ -1,9 +1,6 @@
 extends Actor2D
 class_name MuffinEnemy
 
-const DEAD_BODY = preload("uid://cm17q46b7lpcc")
-const MUFFIN_DEAD = preload("uid://ccngw8y7btw4s")
-
 @export_category("Rush Cycle")
 @export var long_idle_cooldown: float = 2.5
 @export var windup_time: float = 0.3
@@ -16,78 +13,71 @@ const MUFFIN_DEAD = preload("uid://ccngw8y7btw4s")
 @export var patrol_radius: float = 40.0
 @export var patrol_clockwise: bool = false
 @export var patrol_center_offset: Vector2 = Vector2.ZERO
-@export var should_drop_soul = false
-
-var _patrol_center: Vector2
-var _patrol_angle: float = 0.0
-var is_enemy: = true
 
 func setup() -> void:
+	"""Register attack and set a simple idle (no patrol)."""
 	attacks.append(muffin_attack)
-	idle_logic = _patrol_circle
-	_patrol_center = global_position + patrol_center_offset
-	_patrol_angle = 0.0
+	idle_logic = _idle_stand
 	disable_hitbox()
 
-func _patrol_circle() -> void:
-	# Vector from center to our current position
-	var r := global_position - _patrol_center
-	if r.length_squared() < 1e-6:
-		# If we ever spawn exactly on the center, nudge to the rim
-		r = Vector2.RIGHT * max(1.0, patrol_radius)
+func _idle_stand() -> void:
+	"""Stand still and ensure idle animation."""
+	move_actor(Vector2.ZERO) # snaps any walking_* to idle_*
 
-	var radial := r.normalized()
-
-	# Tangent direction (clockwise vs counter-clockwise)
-	var tangent := Vector2(-radial.y, radial.x)
-	if patrol_clockwise:
-		tangent = -tangent
-
-	# Constant-speed tangent motion
-	var v := tangent * movement_speed
-
-	# Gentle radial correction so we stick to the requested radius
-	var radius_error := patrol_radius - r.length()
-	# 4.0 is a light spring gain; adjust if you want tighter/looser circle
-	v += radial * (radius_error * 4.0)
-
-	move_actor(v)
-
-# --- Attack (rush/tackle) registered as index 0 ---
 func muffin_attack() -> float:
-	# Windupdd
+	"""Dash attack that uses walking anims at 10x speed instead of a bespoke attack anim."""
 	await get_tree().create_timer(windup_time).timeout
 	disable_hitbox(false)
 	play_attack_1()
-	# Lock dash direction at start
-	var dir: Vector2
-	if is_ai_controlled:
-		dir = AI.Blackboard.player_actor.hurt_box.global_position
-	else:
-		dir = get_global_mouse_position()
-	
-	var dash_dir := (dir - global_position).normalized()
 
-	# Dash for a fixed number of physics frames
-	var frames := int(ceil(dash_duration * Engine.get_physics_ticks_per_second()))
-	for _i in range(frames):
+	# Lock dash direction at start
+	var target_pos: Vector2 = AI.Blackboard.player_actor.hurt_box.global_position if is_ai_controlled else get_global_mouse_position()
+	var dash_dir: Vector2 = (target_pos - global_position).normalized()
+
+	# Drive fast walking animation during dash
+	override_attack_anim = true
+	var prev_speed: float = sprite.speed_scale
+	sprite.speed_scale = 10.0
+	_play_walk_anim_for_dir(dash_dir)
+
+	# Dash for fixed frames
+	var frames: int = int(ceil(dash_duration * Engine.get_physics_ticks_per_second()))
+	for _i: int in range(frames):
 		velocity = dash_dir * dash_speed
 		move_and_slide()
 		await get_tree().physics_frame
 
-	# Stop and recover
+	# Stop and reset visuals
 	velocity = Vector2.ZERO
 	disable_hitbox()
-	await get_tree().create_timer(recover_time).timeout
-
 	override_attack_anim = false
-	
+	sprite.speed_scale = prev_speed
+	move_actor(Vector2.ZERO) # return to idle
+
+	await get_tree().create_timer(recover_time).timeout
 	return attack_cooldown
 
+func _play_walk_anim_for_dir(dir: Vector2) -> void:
+	"""Pick a walking_* anim based on direction."""
+	if dir.is_zero_approx():
+		sprite.play(&"idle_front")
+		return
+	if absf(dir.x) > absf(dir.y):
+		if dir.x > 0.0:
+			sprite.play(&"walking_right")
+		else:
+			sprite.play(&"walking_left")
+	else:
+		if dir.y > 0.0:
+			sprite.play(&"walking_front")
+		else:
+			sprite.play(&"walking_back")
+
 func add_transitions(state_machine: AI.StateMachine) -> void:
-	var idle := AI.StateIdle.new(self)
-	var attack_player := AI.StateAttackPlayer.new(self, 0) # calls muffin_attack()
-	var cooldown := AI.StateCooldown.new(self, long_idle_cooldown)
+	"""FSM: Idle -> Attack -> Cooldown -> Attack (keeps cycling)."""
+	var idle: AI.StateIdle = AI.StateIdle.new(self)
+	var attack_player: AI.StateAttackPlayer = AI.StateAttackPlayer.new(self, 0)
+	var cooldown: AI.StateCooldown = AI.StateCooldown.new(self, long_idle_cooldown)
 
 	state_machine.transitions = {
 		idle: {
@@ -98,18 +88,8 @@ func add_transitions(state_machine: AI.StateMachine) -> void:
 		},
 		cooldown: {
 			AI.Event.PLAYER_ENTERED_ATTACK_RANGE: attack_player,
-			AI.Event.PLAYER_EXITED_VISION_RANGE: idle
-		}
+			AI.Event.PLAYER_EXITED_ATTACK_RANGE: attack_player,
+			AI.Event.PLAYER_EXITED_VISION_RANGE: idle,
+		},
 	}
-	
 	state_machine.activate(idle)
-
-func drop_soul() -> void:
-	if should_drop_soul:
-		var dead_body = DEAD_BODY.instantiate()
-		dead_body.global_position = global_position
-		dead_body.sprite = MUFFIN_DEAD
-		dead_body.sprite_2d.rotation = 90.0
-		dead_body.speed = 50.0
-		dead_body.enemy_name = &"Muffin"
-		call_deferred("add_sibling", dead_body)

@@ -6,12 +6,14 @@ class_name Actor2D
 @export var camera: Camera2D = null
 
 @export_category("Values")
+@export var enemy_name: StringName
 @export var movement_speed: float = 150.0
 @export_enum("None", "Melee", "Ranged", "Both") var attack_type
 
 @export_category("Detection")
-@export var vision_range := 50.0
-@export var attack_range := 50.0
+@export var vision_range: float = 50.0
+@export var attack_range: float = 50.0
+@export var always_see_player: bool = false ## If true, AI treats player as always visible (set by arena when fight starts).
 
 @export_category("Health")
 @export var hurt_box: HurtBox2D = null
@@ -23,9 +25,6 @@ class_name Actor2D
 @export_category("Attacking")
 @export var hit_box: HitBox2D = null
 
-var health: float
-var is_dying := false
-
 @export_category("SFX")
 @export var audio_player: AudioStreamPlayer2D
 @export var walking_audio: Array[AudioStream]
@@ -35,17 +34,21 @@ var is_dying := false
 @export var attack_audio_player_2: AudioStreamPlayer2D
 @export var attack_audio_2: AudioStream
 
+@export_category("Drop_Soul")
+@export var should_drop_soul: bool = false
+@export var soul_scene: PackedScene
+@export var dead_sprite: Texture2D
+
 var _audio_cooling_down: bool = false
 var _timer: Timer
-
 var attacks: Array[Callable] = []
-
 var idle_logic: Callable
-var override_attack_anim = false
+var override_attack_anim: bool = false
 var base_movement_speed: float
+var health: float
+var is_dying: bool = false
 
 signal player_took_damage(damage: float)
-signal soul_obtained(enemy_name: StringName)
 
 func _ready() -> void:
 	base_movement_speed = movement_speed
@@ -61,7 +64,7 @@ func _ready() -> void:
 			add_to_group("enemy")
 		if is_in_group("player"):
 			remove_from_group("player")
-		var state_machine = AI.StateMachine.new()
+		var state_machine := AI.StateMachine.new()
 		add_child(state_machine)
 		add_transitions(state_machine)
 	else:
@@ -80,56 +83,50 @@ func walking_timer_setup() -> void:
 	_timer = Timer.new()
 	_timer.one_shot = true
 	add_child(_timer)
-	_timer.timeout.connect(func(): _audio_cooling_down = false)
+	_timer.timeout.connect(func() -> void: _audio_cooling_down = false)
 
 func move_actor(v: Vector2) -> void:
+	"""Move the actor and drive 4-dir walk/idle animations."""
 	if is_dying:
 		return
+
+	# Movement
 	v = v.normalized()
 	velocity = v * movement_speed
 	move_and_slide()
-	
-	if !override_attack_anim:
-		if v.is_zero_approx():
-			play_walking_audio(false)
-			match sprite.animation:
-				"walking_front":
-					sprite.animation = "idle_front"
-				"walking_back":
-					sprite.animation = "idle_back"
-				"walking_left":
-					sprite.animation = "idle_left"
-				"walking_right":
-					sprite.animation = "idle_right"
-		elif v.y > 0:
-			sprite.play("walking_front")
-			play_walking_audio(true)
-		elif v.y < 0:
-			sprite.play("walking_back")
-			play_walking_audio(true)
-		elif v.x > 0:
-			sprite.play("walking_right")
-			play_walking_audio(true)
-		elif v.x < 0:
-			sprite.play("walking_left")
-			play_walking_audio(true)
 
-func play_walking_audio(is_walking: bool) -> void:
-	if not _timer:
+	# Animations (skip if an attack overrides them)
+	if override_attack_anim:
 		return
-	if not is_walking:
+
+	if v.is_zero_approx():
+		play_walking_audio(false)
+		# Ensure any walking anim goes to its matching idle, including left/right
+		match sprite.animation:
+			"walking_front":
+				sprite.animation = "idle_front"
+			"walking_back":
+				sprite.animation = "idle_back"
+			"walking_right":
+				sprite.animation = "idle_right"
+			"walking_left":
+				sprite.animation = "idle_left"
 		return
-	if _audio_cooling_down:
-		return
-	if walking_audio.is_empty():
-		return
-	
-	
-	audio_player.stream = walking_audio[min(0, randi_range(0, (walking_audio.size() - 1)))]
-	audio_player.pitch_scale = randf_range(0.95, 1.05)
-	audio_player.play(0.0)
-	_audio_cooling_down = true
-	_timer.start(walking_audio_cooldown)
+
+	# Choose walking anim by dominant axis
+	play_walking_audio(true)
+	if absf(v.x) > absf(v.y):
+		sprite.animation = "walking_right" if v.x > 0.0 else "walking_left"
+	else:
+		sprite.animation = "walking_front" if v.y > 0.0 else "walking_back"
+
+func play_walking_audio(should_play: bool) -> void:
+	if should_play and not _audio_cooling_down and walking_audio.size() > 0 and audio_player:
+		audio_player.pitch_scale = randf_range(0.95, 1.05)
+		audio_player.stream = walking_audio[randi() % walking_audio.size()]
+		audio_player.play()
+		_audio_cooling_down = true
+		_timer.start(walking_audio_cooldown)
 
 func play_attack_1() -> void:
 	if attack_audio_player_1 and attack_audio_1:
@@ -146,11 +143,10 @@ func attack(id: int) -> float:
 	if is_dying:
 		return 0.0
 	if id < attacks.size():
-		var attack_function: Callable = attacks[id] as Callable
-		var cooldown = await attack_function.call()
+		var attack_function: Callable = attacks[id]
+		var cooldown: float = await attack_function.call()
 		return cooldown
-	else:
-		return 0.0
+	return 0.0
 
 func activate_camera() -> void:
 	camera.enabled = true
@@ -164,16 +160,14 @@ func took_damage(colliding_hit_box: HitBox2D) -> void:
 	if hit_particle != null:
 		hit_particle.direction = colliding_hit_box.linear_velocity
 		hit_particle.emitting = true
-	var damage := colliding_hit_box.damage
+	var damage: float = colliding_hit_box.damage
 	if !is_ai_controlled:
 		player_took_damage.emit(damage)
 		return
 	
 	health -= damage - defense
 	redraw_health()
-
 	if health <= 0.0:
-		# TODO: Make die method and animation.
 		die()
 
 func disable_hitbox(enable: bool = true) -> void:
@@ -182,9 +176,9 @@ func disable_hitbox(enable: bool = true) -> void:
 
 func redraw_health() -> void:
 	if health_bar == null:
-		print("Health bar needs to be set.")
+		push_warning("Health bar needs to be set.")
 		return
-	var health_percentage = health / max_health * 100.0
+	var health_percentage: float = health / max_health * 100.0
 	health_bar.value = health_percentage
 
 func hatch() -> void:
@@ -193,22 +187,20 @@ func hatch() -> void:
 func die() -> void:
 	is_dying = true
 	drop_soul()
-	# TODO: Make better dying logic and play animation.
-	queue_free()
-
-func drop_soul() -> void:
-	pass
-
-func obtain_soul(enemy_name: StringName) -> void:
-	if is_ai_controlled:
-		return
-	soul_obtained.emit(enemy_name)
+	# TODO: sfx/vfx
 
 func set_slow(is_slow: bool) -> void:
-	if is_slow:
-		movement_speed = movement_speed * 0.66
-	else:
-		movement_speed = base_movement_speed
+	movement_speed = movement_speed * 0.66 if is_slow else base_movement_speed
 
 func get_ai_controlled() -> bool:
 	return is_ai_controlled
+
+func drop_soul() -> void:
+	if should_drop_soul:
+		var dead_body: Node2D = soul_scene.instantiate()
+		dead_body.global_position = global_position
+		dead_body.sprite = dead_sprite
+		dead_body.sprite_2d.rotation = 90.0
+		dead_body.speed = 50.0
+		dead_body.enemy_name = enemy_name
+		call_deferred("add_sibling", dead_body)
