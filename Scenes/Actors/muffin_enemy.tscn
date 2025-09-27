@@ -198,10 +198,7 @@ attack_cooldown = 4.0
 patrol_radius = 75.0
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
-movement_speed = 40.0
 attack_type = 1
-vision_range = 140.0
-attack_range = 140.0
 hurt_box = NodePath("HurtBox2D")
 health_bar = NodePath("Health")
 hit_particle = NodePath("HitParticle")
@@ -242,10 +239,11 @@ metadata/_custom_type_script = "uid://birj0rp18k4pc"
 position = Vector2(1, -12)
 shape = SubResource("CircleShape2D_5r0i6")
 
-[node name="HitBox2D" type="Area2D" parent="."]
+[node name="HitBox2D" type="Area2D" parent="." node_paths=PackedStringArray("collider")]
 collision_layer = 2
 script = ExtResource("6_su36b")
 damage = 25.0
+collider = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2D"]
 position = Vector2(1, -12)

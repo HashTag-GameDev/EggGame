@@ -52,6 +52,7 @@ var _orig_positions: Array[Vector2] = []
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var is_dying: bool = false
+var is_ai_controlled: bool = true
 
 @onready var health_bar: ProgressBar = $PlayerHealth
 

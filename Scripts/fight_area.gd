@@ -23,7 +23,6 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
 			if is_boss_battle:
 				MusicManager.fade_to(&"Music_3", 0.25)
 			else:
-				print("transition")
 				MusicManager.fade_to(&"Music_2", 0.5)
 
 func _on_body_entered(body: Node2D) -> void:

@@ -88,7 +88,6 @@ func _on_timeout() -> void:
 
 	player.stream = stream
 	player.play()
-	print("played")
 	_schedule_next()
 
 func _schedule_next() -> void:

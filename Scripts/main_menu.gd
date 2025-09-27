@@ -36,6 +36,8 @@ var _idx_sfx: int
 var _idx_ambi: int
 var _loading: bool = false
 
+var slider_counter: int = 4
+
 func _ready() -> void:
 	_idx_master = AudioServer.get_bus_index("Master")
 	_idx_music = AudioServer.get_bus_index("Music")
@@ -52,9 +54,10 @@ func _ready() -> void:
 	text += "[center][b]Sunny Side Showdown[/b]\n"
 	text += "Mini Jame Gam #47 [url=https://itch.io/jam/mini-jame-gam-47]Game Jam Itch[/url]\n\n"
 	text += "[b]Programming[/b]\n"
-	text += "HashTagDev — [url=https://hashtaggamedev.itch.io/][i]Itch[/i][/url]\n\n"
+	text += "HashTagDev — [url=https://hashtaggamedev.itch.io/][i]Itch[/i][/url] — [url=https://github.com/HashTag-GameDev/][i]GitHub[/i][/url]\n\n"
+	text += "LegendGreat — [url=https://github.com/Legendgreat/][i]GitHub[/i][/url]\n\n"
 	text += "[b]Art[/b]\n"
-	text += "fighting the foo — [url=https://fighting-the-foo.itch.io//][i]Itch[/i][/url]\n\n"
+	text += "Fight The Foo — [url=https://fighting-the-foo.itch.io//][i]Itch[/i][/url]\n\n"
 	text += "[b]Audio[/b]\n"
 	text += "Ry McArthur — [url=https://rmmusic.myportfolio.com/songwriting-instrumental/][i]Portfolio[/i][/url]\n\n"
 	text += "[b]Special Thanks[/b]\n"
@@ -66,16 +69,20 @@ func _ready() -> void:
 	r.meta_clicked.connect(_on_meta_clicked)
 
 func _on_play_button_pressed() -> void:
+	play_button_sound()
+	await $AudioStreamPlayer.finished
 	MusicManager.fade_to("Music_1", 1.0)
 	SceneSwitcher.slide_to(main_game)
 
 func _on_settings_button_pressed() -> void:
+	play_button_sound()
 	titles.visible = false
 	settings_menu.visible = true
 	button_container.visible = false
 	credit_control.visible = false
 
 func _on_credit_button_pressed() -> void:
+	play_button_sound()
 	titles.visible = false
 	settings_menu.visible = false
 	button_container.visible = false
@@ -100,28 +107,34 @@ func _on_credit_button_button_down() -> void:
 	credit_control.visible = false
 
 func _on_back_button_pressed() -> void:
+	play_button_sound()
 	titles.visible = true
 	settings_menu.visible = false
 	button_container.visible = true
 	credit_control.visible = false
 
 func _on_master_slider_value_changed(value: float) -> void:
+	play_slider_sound()
 	_set_bus_db(_idx_master, _db_from_slider(value))
 	_save_settings()
 
 func _on_music_slider_value_changed(value: float) -> void:
+	play_slider_sound()
 	_set_bus_db(_idx_music, _db_from_slider(value))
 	_save_settings()
 
 func _on_sfx_slider_value_changed(value: float) -> void:
+	play_slider_sound()
 	_set_bus_db(_idx_sfx, _db_from_slider(value))
 	_save_settings()
 
 func _on_ambiance_slider_value_changed(value: float) -> void:
+	play_slider_sound()
 	_set_bus_db(_idx_ambi, _db_from_slider(value))
 	_save_settings()
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
+	play_button_sound()
 	if _idx_master != -1:
 		AudioServer.set_bus_mute(_idx_master, toggled_on)
 	_save_settings()
@@ -192,3 +205,14 @@ func _set_bus_db(idx: int, db: float) -> void:
 func _on_meta_clicked(meta: Variant) -> void:
 	var url := str(meta)
 	OS.shell_open(url)
+
+func play_button_sound():
+	$AudioStreamPlayer.stream = preload("res://Assets/Audio/SFX/UI/UI Tea Stir.mp3")
+	$AudioStreamPlayer.play(0.0)
+
+func play_slider_sound():
+	if slider_counter <= 0:
+		$AudioStreamPlayer.stream = preload("res://Assets/Audio/SFX/UI/UI Toast.mp3")
+		$AudioStreamPlayer.play(0.0)
+	else:
+		slider_counter -= 1

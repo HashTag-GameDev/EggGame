@@ -2,7 +2,7 @@ extends Node2D
 
 @export var enemy_name: StringName
 @export var sprite: Texture2D
-@export var sprite_transform: Transform2D
+@export var sprite_2d: Sprite2D
 @export var base_y: float = 1.0
 @export var base_scale: float = 1.0
 @export var amplitude_y: float = 0.15
@@ -24,8 +24,6 @@ func _ready() -> void:
 	var dead_enemy: Sprite2D = $"Dead Enemy"
 	if sprite != null:
 		dead_enemy.texture = sprite
-	if sprite_transform != null:
-		dead_enemy.transform = sprite_transform
 
 func _physics_process(delta: float) -> void:
 	if !target_area:

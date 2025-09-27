@@ -49,6 +49,7 @@ func _build_players() -> void:
 		p.stream = s
 		p.volume_db = mute_db
 		p.autoplay = false
+		p.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(p)
 		_players.append(p)
 

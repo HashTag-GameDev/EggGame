@@ -20,15 +20,14 @@ const MUFFIN_DEAD = preload("uid://ccngw8y7btw4s")
 
 var _patrol_center: Vector2
 var _patrol_angle: float = 0.0
+var is_enemy: = true
 
 func setup() -> void:
-	if !is_ai_controlled and hit_box:
-		hit_box.as_player()
 	attacks.append(muffin_attack)
 	idle_logic = _patrol_circle
 	_patrol_center = global_position + patrol_center_offset
 	_patrol_angle = 0.0
-	enable_hitbox(false)
+	disable_hitbox()
 
 func _patrol_circle() -> void:
 	# Vector from center to our current position
@@ -58,7 +57,7 @@ func _patrol_circle() -> void:
 func muffin_attack() -> float:
 	# Windupdd
 	await get_tree().create_timer(windup_time).timeout
-	enable_hitbox()
+	disable_hitbox(false)
 	play_attack_1()
 	# Lock dash direction at start
 	var dir: Vector2
@@ -78,7 +77,7 @@ func muffin_attack() -> float:
 
 	# Stop and recover
 	velocity = Vector2.ZERO
-	enable_hitbox(false)
+	disable_hitbox()
 	await get_tree().create_timer(recover_time).timeout
 
 	override_attack_anim = false
@@ -110,7 +109,7 @@ func drop_soul() -> void:
 		var dead_body = DEAD_BODY.instantiate()
 		dead_body.global_position = global_position
 		dead_body.sprite = MUFFIN_DEAD
-		dead_body.sprite_transform.rotated(0.25)
+		dead_body.sprite_2d.rotation = 90.0
 		dead_body.speed = 50.0
 		dead_body.enemy_name = &"Muffin"
-		add_sibling(dead_body)
+		call_deferred("add_sibling", dead_body)

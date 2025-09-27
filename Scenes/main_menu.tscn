@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=4 uid="uid://udfh2tbngavk"]
+[gd_scene load_steps=28 format=4 uid="uid://udfh2tbngavk"]
 
 [ext_resource type="Script" uid="uid://ck15x4hd3h3wp" path="res://Scripts/main_menu.gd" id="1_1ehe0"]
 [ext_resource type="Texture2D" uid="uid://b53i7ml3wonte" path="res://Assets/Tilesets/jame_gam_iso_tiles.png" id="1_28flt"]
 [ext_resource type="Texture2D" uid="uid://rtoe8vgghpfn" path="res://Assets/Spritesheets/ui_sheet.png" id="2_48xlc"]
 [ext_resource type="Script" uid="uid://b2goblnjri5dx" path="res://Scripts/titles.gd" id="3_16hvj"]
+[ext_resource type="Texture2D" uid="uid://cwx1lrsi420ye" path="res://Assets/Sprites/SUNNY_SIDE_SHOWDOWN2.png" id="4_5egv6"]
 [ext_resource type="Texture2D" uid="uid://jd2ang12ne03" path="res://Assets/Spritesheets/check_box.png" id="4_n45e2"]
 [ext_resource type="Theme" uid="uid://c6khkl77s08pi" path="res://Misc/setting_menu_labels.tres" id="4_opfnp"]
 [ext_resource type="Texture2D" uid="uid://cns6dnms3tcev" path="res://Assets/Sprites/Egg.png" id="4_t1dhk"]
@@ -881,21 +882,36 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_16hvj")
-base_scale = 1.2
-speed = 0.6
 
-[node name="TitleBG" type="Sprite2D" parent="Titles"]
+[node name="TitleBG2" type="Sprite2D" parent="Titles"]
+position = Vector2(326, 77)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_5egv6")
+region_enabled = true
+region_rect = Rect2(24, 8, 1097, 306)
+
+[node name="SubTitle2" type="Sprite2D" parent="Titles"]
+position = Vector2(428, 148)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("4_5egv6")
+region_enabled = true
+region_rect = Rect2(1, 784, 909, 387)
+
+[node name="TitleBG1" type="Sprite2D" parent="Titles"]
+visible = false
 position = Vector2(323, 88)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("4_t1dhk")
 
-[node name="SubTitle" type="Sprite2D" parent="Titles"]
+[node name="SubTitle1" type="Sprite2D" parent="Titles"]
+visible = false
 position = Vector2(317, 97)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("4_vr1f0")
 region_rect = Rect2(1, 784, 909, 387)
 
-[node name="Title" type="Sprite2D" parent="Titles"]
+[node name="Title1" type="Sprite2D" parent="Titles"]
+visible = false
 position = Vector2(319, 96)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("5_t1dhk")
@@ -1139,6 +1155,9 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_48xlc")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_48xlc")
 theme_override_styles/focus = SubResource("StyleBoxFlat_48xlc")
 text = "Back"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 
 [connection signal="button_down" from="ButtonContainer/PlayButton" to="." method="_on_play_button_button_down"]
 [connection signal="button_up" from="ButtonContainer/PlayButton" to="." method="_on_play_button_button_up"]

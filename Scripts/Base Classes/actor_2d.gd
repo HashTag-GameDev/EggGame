@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Actor2D
 
-@export var is_ai_controlled: bool = false
+@export var is_ai_controlled: bool = true
 @export var sprite: AnimatedSprite2D = null
 @export var camera: Camera2D = null
 
@@ -61,7 +61,6 @@ func _ready() -> void:
 			add_to_group("enemy")
 		if is_in_group("player"):
 			remove_from_group("player")
-		print("Is AI controlled: ", is_ai_controlled)
 		var state_machine = AI.StateMachine.new()
 		add_child(state_machine)
 		add_transitions(state_machine)
@@ -70,7 +69,6 @@ func _ready() -> void:
 			remove_from_group("enemy")
 		if !is_in_group("player"):
 			add_to_group("player")
-		hurt_box.as_player_hurtbox()
 		if health_bar == null:
 			return
 		health_bar.hide()
@@ -80,7 +78,6 @@ func setup() -> void:
 
 func walking_timer_setup() -> void:
 	_timer = Timer.new()
-	print(_timer)
 	_timer.one_shot = true
 	add_child(_timer)
 	_timer.timeout.connect(func(): _audio_cooling_down = false)
@@ -113,11 +110,9 @@ func move_actor(v: Vector2) -> void:
 		elif v.x > 0:
 			sprite.play("walking_right")
 			play_walking_audio(true)
-			sprite.flip_h = false
 		elif v.x < 0:
 			sprite.play("walking_left")
 			play_walking_audio(true)
-			sprite.flip_h = true
 
 func play_walking_audio(is_walking: bool) -> void:
 	if not _timer:
@@ -138,6 +133,7 @@ func play_walking_audio(is_walking: bool) -> void:
 
 func play_attack_1() -> void:
 	if attack_audio_player_1 and attack_audio_1:
+		attack_audio_player_1.pitch_scale = randf_range(0.95, 1.05)
 		attack_audio_player_1.stream = attack_audio_1
 		attack_audio_player_1.play()
 
@@ -180,10 +176,9 @@ func took_damage(colliding_hit_box: HitBox2D) -> void:
 		# TODO: Make die method and animation.
 		die()
 
-func enable_hitbox(enable: bool = true) -> void:
-	if hit_box != null:
-		hit_box.monitorable = enable
-		hit_box.monitoring = enable
+func disable_hitbox(enable: bool = true) -> void:
+	if (hit_box != null) and (hit_box.collider != null):
+		hit_box.collider.disabled = enable
 
 func redraw_health() -> void:
 	if health_bar == null:
@@ -199,9 +194,6 @@ func die() -> void:
 	is_dying = true
 	drop_soul()
 	# TODO: Make better dying logic and play animation.
-	if hit_particle != null:
-		if hit_particle.emitting:
-			await hit_particle.finished
 	queue_free()
 
 func drop_soul() -> void:
@@ -217,3 +209,6 @@ func set_slow(is_slow: bool) -> void:
 		movement_speed = movement_speed * 0.66
 	else:
 		movement_speed = base_movement_speed
+
+func get_ai_controlled() -> bool:
+	return is_ai_controlled

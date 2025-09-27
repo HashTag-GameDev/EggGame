@@ -52,7 +52,6 @@ class StateMachine extends Node:
 		)
 		current_state.finished.connect(_on_state_finished.bind(current_state))
 		current_state.enter()
-		print("State machine activated, entering state: ", current_state.name)
 		set_physics_process(true)
 	
 	func _physics_process(delta: float) -> void:
@@ -77,7 +76,6 @@ class StateMachine extends Node:
 	func _transition(new_state: State) -> void:
 		current_state.exit()
 		current_state.finished.disconnect(_on_state_finished)
-		print("Transitioning from state: ", current_state.name, " to: ", new_state.name)
 		current_state = new_state
 		current_state.finished.connect(_on_state_finished.bind(current_state))
 		current_state.enter()

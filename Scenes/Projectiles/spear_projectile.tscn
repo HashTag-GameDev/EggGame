@@ -16,11 +16,11 @@ texture = ExtResource("1_kfyij")
 region_enabled = true
 region_rect = Rect2(79, 37, 3, 20)
 
-[node name="HitBox2D" type="Area2D" parent="."]
+[node name="HitBox2D" type="Area2D" parent="." node_paths=PackedStringArray("collider")]
 position = Vector2(0, -8)
-collision_layer = 2
 script = ExtResource("2_ugmnd")
 damage = 15.0
+collider = NodePath("CollisionPolygon2D")
 metadata/_custom_type_script = "uid://bjthx5ggn7l20"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox2D"]

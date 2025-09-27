@@ -919,12 +919,13 @@ corner_detail = 16
 
 [node name="PlayerController" type="Node" node_paths=PackedStringArray("player_ui", "health_bar")]
 script = ExtResource("1_gy20a")
-max_health = 100.0
 player_defense = 10.0
+attack_cooldown_sec = 0.33
 player_ui = NodePath("UILayer")
 health_bar = NodePath("UILayer/UI/PlayerHealth")
 
 [node name="UILayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("hint_ui", "hatch_ui", "hatch_enemy_1", "hatch_enemy_2", "hatch_enemy_3", "hatch_enemy_4", "hatch_cancel")]
+process_mode = 3
 script = ExtResource("3_gy20a")
 hint_ui = NodePath("UI/HintUI")
 hatch_ui = NodePath("UI/HatchUI")
@@ -1147,6 +1148,7 @@ sprite_frames = SubResource("SpriteFrames_5esp7")
 speed_scale = 0.25
 
 [node name="Bottom Right Quad" type="Panel" parent="UILayer/UI/HatchUI/TextureRect/Quads"]
+visible = false
 modulate = Color(1, 1, 1, 0.52156866)
 custom_minimum_size = Vector2(98, 98)
 layout_mode = 2

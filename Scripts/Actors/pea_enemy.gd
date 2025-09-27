@@ -18,8 +18,7 @@ func spear_attack() -> float:
 	else:
 		spear_direction = get_global_mouse_position() - AI.Blackboard.player_actor.global_position
 	var spear_instance := spear_scene.instantiate() as RigidBody2D
-	if !is_ai_controlled and spear_instance.has_method("as_player"):
-		spear_instance.as_player()
+	spear_instance.is_ai_controlled = is_ai_controlled
 	spear_instance.global_position = global_position
 	spear_instance.linear_velocity = spear_direction.normalized() * spear_speed
 	spear_instance.rotate(spear_direction.angle() + PI * 0.5)
