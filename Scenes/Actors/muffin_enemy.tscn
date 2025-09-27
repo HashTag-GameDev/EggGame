@@ -191,16 +191,13 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "hit_box", "audio_player", "attack_audio_player_1")]
+[node name="MuffinEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "hurt_box", "health_bar", "hit_particle", "hit_box", "audio_player", "attack_audio_player_1") groups=["muffin"]]
 script = ExtResource("1_be5vf")
-dash_duration = 0.4
-attack_cooldown = 4.0
-patrol_radius = 75.0
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
-enemy_name = &"Muffin"
 attack_type = 1
-vision_range = 150.0
+vision_range = 185.0
+attack_range = 75.0
 hurt_box = NodePath("HurtBox2D")
 health_bar = NodePath("Health")
 hit_particle = NodePath("HitParticle")
@@ -235,6 +232,7 @@ shape = SubResource("RectangleShape2D_j2i6s")
 [node name="HurtBox2D" type="Area2D" parent="."]
 collision_layer = 2
 script = ExtResource("3_fajeb")
+owner_type = null
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox2D"]
@@ -246,6 +244,7 @@ collision_layer = 2
 script = ExtResource("6_su36b")
 damage = 25.0
 collider = NodePath("CollisionShape2D")
+owner_type = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2D"]
 position = Vector2(1, -12)

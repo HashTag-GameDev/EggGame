@@ -25,7 +25,6 @@ radius = 29.017237
 script = ExtResource("1_je0bx")
 sprite = NodePath("AnimatedSprite2D")
 camera = NodePath("Camera2D")
-enemy_name = &"Egg"
 attack_type = 1
 hurt_box = NodePath("HurtBox2D")
 hit_box = NodePath("HitBox2D")
@@ -58,6 +57,7 @@ shape = SubResource("RectangleShape2D_j2i6s")
 position = Vector2(0, -41)
 collision_layer = 2
 script = ExtResource("3_dpku4")
+owner_type = null
 metadata/_custom_type_script = "uid://birj0rp18k4pc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox2D"]

@@ -3,6 +3,7 @@ class_name AI
 
 class Blackboard extends RefCounted:
 	static var player_actor: Actor2D = null
+	static var player_controller: Node = null
 
 enum Event {
 	NONE,

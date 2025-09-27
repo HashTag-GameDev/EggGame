@@ -6,6 +6,8 @@ class_name PeaEnemy
 @export var spear_speed: float = 200.0
 
 func setup() -> void:
+	"""Register attack(s) and unlock metadata."""
+	unlock_name = &"Pea" # must match PlayerController.possible_actors[].name
 	attacks.append(spear_attack)
 	set_meta(&"name", &"Pea")
 

@@ -9,13 +9,9 @@ class_name MuffinEnemy
 @export var attack_cooldown: float = 3.0
 @export var recover_time: float = 0.45
 
-@export_category("Patrol (circle when no player in vision)")
-@export var patrol_radius: float = 40.0
-@export var patrol_clockwise: bool = false
-@export var patrol_center_offset: Vector2 = Vector2.ZERO
-
 func setup() -> void:
 	"""Register attack and set a simple idle (no patrol)."""
+	unlock_name = &"Muffin" # must match PlayerController.possible_actors[].name
 	attacks.append(muffin_attack)
 	idle_logic = _idle_stand
 	disable_hitbox()
